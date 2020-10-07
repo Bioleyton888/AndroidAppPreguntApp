@@ -28,6 +28,8 @@
     <string name="txtTituloEncuesta">Titulo Encuesta</string>
     <string name="buttonSubirEncuesta">Subir encuesta</string>
     <string name="crearCuestionario_buttonSubirFecha">Agregar Fecha</string>
+    <string name="crearCuestionario_editTextFechatermino">Fecha Termino</string>
+
 
     <string name="crearPreguntas_buttonAgregarOpciones">Agregar Opciones</string>
     <string name="crearPreguntas_cantidadDeOpciones">N° Opciones</string>

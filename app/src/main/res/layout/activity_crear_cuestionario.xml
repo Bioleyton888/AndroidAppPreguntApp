@@ -61,7 +61,7 @@
         android:layout_marginTop="6dp"
         android:ems="10"
 
-        android:hint="fecha" />
+        android:hint="@string/crearCuestionario_editTextFechatermino" />
 
     <EditText
         android:id="@+id/editTextTitulo"
