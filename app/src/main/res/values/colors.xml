@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#EA7600</color>
+    <color name="colorPrimaryDark">#002F6C</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="botonesAdmin">#009688</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

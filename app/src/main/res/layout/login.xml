@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#002F6C"
+    tools:context=".Login">
+
+    <ImageView
+        android:id="@+id/imageViewUsach"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:contentDescription="@string/descripcion"
+        app:srcCompat="@drawable/logousach" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@id/checkBoxAdministrador"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+
+        android:background="#EA7600"
+        android:text="@string/boton"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <EditText
+        android:id="@+id/editTextEmailAddress"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="144dp"
+        android:autofillHints=""
+        android:background="#B1B1B1"
+        android:ems="10"
+        android:hint="@string/txtMail"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/background_dark"
+        android:textColorHint="@android:color/background_dark"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="91dp" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/editTextEmailAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:autofillHints=""
+        android:background="#B1B1B1"
+        android:ems="10"
+        android:hint="@string/txtPasword"
+        android:inputType="textPassword"
+        android:textColor="@android:color/background_dark"
+        android:textColorHint="@android:color/black"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="179dp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxAdministrador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPassword"
+        android:layout_centerHorizontal="true"
+        android:text="@string/checboxaministrador"
+        android:textColor="@color/mr_cast_meta_default_text_color"
+        android:textSize="18sp" />
+
+
+
+</RelativeLayout>

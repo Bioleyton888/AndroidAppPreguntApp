@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+
+    tools:context=".CrearCuestionario">
+
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="63dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/editTextCantidadDePreguntas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cantidaddepreguntas"
+                android:inputType="number"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/buttonAgregarPregunta"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonAgregarPregunta" />
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/buttonSubirEncuesta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ScrollView"
+        android:text="@string/buttonSubirEncuesta" />
+
+    <Button
+        android:id="@+id/buttonAgregarFecha"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonSubirEncuesta"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/editTextDate"
+        android:text="@string/crearCuestionario_buttonSubirFecha" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonSubirEncuesta"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+
+        android:hint="fecha" />
+
+    <EditText
+        android:id="@+id/editTextTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tableLayout"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/txtTituloEncuesta"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="378dp"
+        android:layout_below="@id/editTextTitulo"
+        android:layout_marginTop="1dp">
+
+        <LinearLayout
+            android:id="@+id/contenedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <GridLayout
+                android:id="@+id/myLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:padding="10dp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#b1b1b1"
+    tools:context=".MenuPrincipalAdministrador">
+
+    <Button
+        android:id="@+id/botonVolver"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_primary"
+        android:text="@string/botonCerrarSesion"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/botonirAAdministrarEncuestas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonIrAGraficos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:background="@drawable/round_primary"
+        android:text="@string/botonIrAAdministrarEncuestas"
+        android:textAlignment="center" />
+
+    <Button
+        android:background="@drawable/round_primary"
+        android:id="@+id/buttonIrAGraficos"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@id/textoBienvenida"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="20dp"
+
+        android:text="@string/botonirAGraficos"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <TextView
+        android:id="@+id/textoBienvenida"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:background="#002F6C"
+        android:text="@string/descripcion"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+</RelativeLayout>

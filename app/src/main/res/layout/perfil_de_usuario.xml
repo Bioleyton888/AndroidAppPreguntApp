@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#b1b1b1"
+    tools:context=".PerfilDeUsuario">
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/botonVolverAlmenu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewAnongreso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewHijos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewSemestre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewSexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewCarrera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewFacultad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewEstadoCivil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textViewComuna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descripcion"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/botonVolverAlmenu"
+        android:layout_width="73dp"
+        android:layout_height="29dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/round_orange"
+        android:drawableBottom="@drawable/ic_volver"
+        android:textAlignment="center" />
+
+</RelativeLayout>

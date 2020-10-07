@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">PreguntApp</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="txtPasword">*******</string>
+    <string name="txtMail">nombre.apellido@usach.cl</string>
+    <string name="checboxaministrador">Entrar como administrador</string>
+    <string name="boton">Ingresar</string>
+
+
+    <string name="botonPerfil">Perfil</string>
+    <string name="botonVolver">Volver</string>
+    <string name="botonirAGraficos">Graficos</string>
+    <string name="botonCerrarSesion">cerrar sesion</string>
+
+    <string name="botonencuestasPendientes">Encuestas Pendientes</string>
+    <string name="botonIrAAdministrarEncuestas">Administrar encuestas</string>
+
+
+    <string name="botonCrearCuestionario">Crear Cuestionario</string>
+    <string name="botonBuscarCuestionario">Buscar Cuestionario</string>
+    <string name="botonModificarCuestionario">Modificar Cuestionario</string>
+    <string name="terminarCuestionario">Terminar Cuestionario</string>
+    <string name="nombreEncuesta">Nombre Encuesta</string>
+
+
+    <string name="buttonAgregarPregunta">Agregar Preguntas</string>
+    <string name="cantidaddepreguntas">N° Preguntas</string>
+    <string name="txtTituloEncuesta">Titulo Encuesta</string>
+    <string name="buttonSubirEncuesta">Subir encuesta</string>
+    <string name="crearCuestionario_buttonSubirFecha">Agregar Fecha</string>
+
+    <string name="crearPreguntas_buttonAgregarOpciones">Agregar Opciones</string>
+    <string name="crearPreguntas_cantidadDeOpciones">N° Opciones</string>
+    <string name="crearPreguntas_txtTituloPregunta">Contenido pregunta</string>
+    <string name="crearPreguntas_buttonSubirPregunta">Terminar pregunta</string>
+
+
+
+</resources>
