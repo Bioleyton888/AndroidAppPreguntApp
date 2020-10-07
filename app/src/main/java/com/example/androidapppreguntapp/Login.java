@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
-                        Toast.makeText(getApplicationContext(), "bienvenido", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Te odio mamama", Toast.LENGTH_SHORT).show();
 
 
                         //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
