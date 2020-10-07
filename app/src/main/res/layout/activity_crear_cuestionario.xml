@@ -43,6 +43,13 @@
         android:layout_below="@id/ScrollView"
         android:text="@string/buttonSubirEncuesta" />
 
+    <TextView
+        android:id="@+id/textViewIDEncuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextDate"
+        android:text="ID encuesta" />
+
     <Button
         android:id="@+id/buttonAgregarFecha"
         android:layout_width="182dp"

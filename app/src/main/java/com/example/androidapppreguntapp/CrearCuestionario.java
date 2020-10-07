@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,6 +47,7 @@ public class CrearCuestionario extends AppCompatActivity {
     private int mYearIni, mMonthIni, mDayIni, sYearIni, sMonthIni, sDayIni;
     Button addItem, addFecha,buttonsubirEncuesta;
     EditText etCantidadDePreguntas, etFechaTermino,etTituloEncuesta;
+    TextView tvID;
     Calendar calendar= Calendar.getInstance();
     static final int DATE_ID = 0;
 
@@ -60,6 +62,7 @@ public class CrearCuestionario extends AppCompatActivity {
         sDayIni = calendar.get(Calendar.DAY_OF_MONTH);
         sYearIni= calendar.get(Calendar.YEAR);
 
+        tvID =(TextView)findViewById(R.id.textViewIDEncuesta);
         etTituloEncuesta = (EditText)findViewById(R.id.editTextTitulo);
         etCantidadDePreguntas = (EditText)findViewById(R.id.editTextCantidadDePreguntas);
         mlayout = (GridLayout)findViewById(R.id.myLayout);
@@ -89,6 +92,13 @@ public class CrearCuestionario extends AppCompatActivity {
                     //mlayout.addView(dnv.priceOfItem(getApplicationContext(),"35"),5);
 
                 }
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/conseguir_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+etTituloEncuesta.getText()+"&fecha_creacion="+c+"");
+
             }
         });
 
@@ -99,14 +109,7 @@ public class CrearCuestionario extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT).show();
                 //Toast.makeText(getApplicationContext(), b, Toast.LENGTH_SHORT).show();
 
-                try {
-                    Thread.sleep(1000);
-                    buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/conseguir_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+etTituloEncuesta.getText()+"&fecha_creacion="+c+"");
 
-
-                }catch (InterruptedException e){
-                    System.err.println(e.getMessage());
-                }
 
 
                 //Toast.makeText(getApplicationContext(), c[0], Toast.LENGTH_LONG).show();
@@ -117,7 +120,6 @@ public class CrearCuestionario extends AppCompatActivity {
     }
 
     private void buscarIdEncuestaCreada(String rutaWebServices){
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -126,16 +128,15 @@ public class CrearCuestionario extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         lastID = jsonObject.getString("enc_id");
-                        Toast.makeText(getApplicationContext(), "datos ingresados " + lastID, Toast.LENGTH_SHORT).show();
-
+                        tvID.setText(lastID);
 
                         //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
-
                 }
+
             }
 
         }, new Response.ErrorListener() {
@@ -147,6 +148,7 @@ public class CrearCuestionario extends AppCompatActivity {
         );
         requestQueue=Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+
 
     }
 
@@ -189,6 +191,7 @@ public class CrearCuestionario extends AppCompatActivity {
         };
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
+        Toast.makeText(getApplicationContext(), "datos ingresados ", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -234,18 +237,13 @@ public class CrearCuestionario extends AppCompatActivity {
     private void irACrearPreguntas(Context context, String id){
 
         Intent intent = new Intent(context, CrearPreguntas.class); //Esto te manda a la otra ventana
-        buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/conseguir_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+etTituloEncuesta.getText()+"&fecha_creacion="+c+"");
 
-        try {
-            Thread.sleep(1000);
-            Toast.makeText(getApplicationContext(),"Llamada de auxilio"+lastID,Toast.LENGTH_SHORT).show();
-            intent.putExtra("IdEncuesta",lastID);
-            intent.putExtra("id",id);
-            //startActivity(intent);
-            // finish();
-        }catch (InterruptedException e){
-            System.err.println(e.getMessage());
-        }
+        Toast.makeText(getApplicationContext(),"Llamada de auxilio"+tvID.getText(),Toast.LENGTH_SHORT).show();
+        intent.putExtra("IdEncuesta",lastID);
+        intent.putExtra("id",id);
+        //startActivity(intent);
+        // finish();
+
     }
 
     private void colocar_fecha() {
