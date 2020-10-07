@@ -88,9 +88,6 @@ public class CrearCuestionario extends AppCompatActivity {
                     mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
                     mlayout.addView(tituloPregunta(getApplicationContext()),1);
                     mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
-                    //mlayout.addView(dnv.recievedQuamtityEditText(getApplicationContext()),4);
-                    //mlayout.addView(dnv.priceOfItem(getApplicationContext(),"35"),5);
-
                 }
                 try {
                     TimeUnit.SECONDS.sleep(1);
@@ -106,14 +103,6 @@ public class CrearCuestionario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 subirEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
-                //Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(), b, Toast.LENGTH_SHORT).show();
-
-
-
-
-                //Toast.makeText(getApplicationContext(), c[0], Toast.LENGTH_LONG).show();
-
 
             }
         });
@@ -239,10 +228,10 @@ public class CrearCuestionario extends AppCompatActivity {
         Intent intent = new Intent(context, CrearPreguntas.class); //Esto te manda a la otra ventana
 
         Toast.makeText(getApplicationContext(),"Llamada de auxilio"+tvID.getText(),Toast.LENGTH_SHORT).show();
-        intent.putExtra("IdEncuesta",lastID);
-        intent.putExtra("id",id);
-        //startActivity(intent);
-        // finish();
+        intent.putExtra("idEncuesta",tvID.getText());
+        intent.putExtra("idPregunta",id);
+        startActivity(intent);
+        finish();
 
     }
 
