@@ -212,7 +212,7 @@ public class CrearCuestionario extends AppCompatActivity {
 
         boton.setId(id);
         boton.setMinEms(2);
-        //om,ae
+        //om,aesssssss
         //boton.setTextColor(Color.rgb(0,0,0));
         boton.setText("" +text+ "");
         boton.setOnClickListener(new View.OnClickListener() {
