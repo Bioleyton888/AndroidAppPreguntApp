@@ -163,15 +163,15 @@ public class CrearCuestionario extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
                 a =getIntent().getStringExtra("correo");
-                parametros.put("Correo",getIntent().getStringExtra("correo"));
+                parametros.put("correo",getIntent().getStringExtra("correo"));
                 b =etTituloEncuesta.getText().toString();
-                parametros.put("TituloEncuesta",etTituloEncuesta.getText().toString());
+                parametros.put("tituloEncuesta",etTituloEncuesta.getText().toString());
                 c =formatter.format(currentDate);
-                parametros.put("fechaCreacion",c);
+                parametros.put("FechaCreacion",c);
                 d ="1";
                 parametros.put("disponibilidad","1");
                 e =etCantidadDePreguntas.getText().toString();
-                parametros.put("cantidadPreguntas",etCantidadDePreguntas.getText().toString());
+                parametros.put("CantidadPreguntas",etCantidadDePreguntas.getText().toString());
                 f =etFechaTermino.getText().toString();
                 parametros.put("fechaTermino",etFechaTermino.getText().toString());
 

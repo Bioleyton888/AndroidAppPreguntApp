@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrearPreguntas extends AppCompatActivity implements View.OnClickListener {
-
+    String idEncuesta;
     LinearLayout layoutList;
     Button buttonAdd;
     Button buttonSubmitList;
@@ -29,6 +29,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_preguntas);
 
+        idEncuesta = getIntent().getStringExtra("idEncuesta");
         layoutList = findViewById(R.id.contenedor);
         buttonAdd = findViewById(R.id.button_add);
         buttonSubmitList = findViewById(R.id.button_submit_list);
@@ -55,9 +56,13 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                     Intent intent = new Intent(CrearPreguntas.this,ActivityCricketers.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
+
+
+
+                            /*
                     intent.putExtras(bundle);
                     startActivity(intent);
-
+*/
                 }
 
                 break;
@@ -87,7 +92,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
             }
 
 
-
+            System.out.println(cricketer.cricketerName);
             cricketersList.add(cricketer); //aqui ocurre la magia
 
         }
