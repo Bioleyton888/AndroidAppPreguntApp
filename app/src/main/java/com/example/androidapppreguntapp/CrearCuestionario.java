@@ -167,11 +167,11 @@ public class CrearCuestionario extends AppCompatActivity {
                 b =etTituloEncuesta.getText().toString();
                 parametros.put("tituloEncuesta",etTituloEncuesta.getText().toString());
                 c =formatter.format(currentDate);
-                parametros.put("FechaCreacion",c);
+                parametros.put("fechaCreacion",c);
                 d ="1";
                 parametros.put("disponibilidad","1");
                 e =etCantidadDePreguntas.getText().toString();
-                parametros.put("CantidadPreguntas",etCantidadDePreguntas.getText().toString());
+                parametros.put("cantidadPreguntas",etCantidadDePreguntas.getText().toString());
                 f =etFechaTermino.getText().toString();
                 parametros.put("fechaTermino",etFechaTermino.getText().toString());
 
@@ -212,7 +212,6 @@ public class CrearCuestionario extends AppCompatActivity {
 
         boton.setId(id);
         boton.setMinEms(2);
-        //om,aesssssss
         //boton.setTextColor(Color.rgb(0,0,0));
         boton.setText("" +text+ "");
         boton.setOnClickListener(new View.OnClickListener() {
