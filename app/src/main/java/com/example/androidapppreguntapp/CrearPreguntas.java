@@ -52,6 +52,8 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         etCantidadDeOpciones = (EditText)findViewById(R.id.editTextCantidadDeOpciones);
         buttonAdd.setOnClickListener(this);
         buttonSubmitList.setOnClickListener(this);
+        subirPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+
 //Integer.parseInt(CantidadDeOpciones.getText().toString())
     }
 
@@ -107,7 +109,6 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 break;
             }
 
-
             System.out.println("---> "+cricketer.cricketerName);
             subirPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
             cricketersList.add(cricketer); //aqui ocurre la magia
@@ -152,6 +153,35 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     }
 
     private void subirPregunta(final String rutaWebServices){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+                parametros.put("tipoPregunta","1");
+                parametros.put("tituloPregunta","creandopregunta");
+
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
+        requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
+    }
+    private void modificarPregunta(final String rutaWebServices){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
 
