@@ -65,6 +65,14 @@
         app:layout_constraintTop_toBottomOf="@+id/ScrollView"
         tools:layout_editor_absoluteX="-1dp" ></Button>
 
+    <TextView
+        android:id="@+id/textViewIdpregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_submit_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_submit_list" />
+
     <EditText
         android:id="@+id/editTextTituloOpcion"
         android:layout_width="match_parent"

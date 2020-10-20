@@ -34,7 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -71,6 +70,7 @@ public class CrearCuestionario extends AppCompatActivity {
         addFecha= (Button)findViewById(R.id.buttonAgregarFecha);
         etFechaTermino = (EditText)findViewById(R.id.editTextDate);
 
+        CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
         addFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,18 +83,13 @@ public class CrearCuestionario extends AppCompatActivity {
             public void onClick(View view) {
                 int cantidad = Integer.parseInt(etCantidadDePreguntas.getText().toString());
 
-                subirEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
                 for (int id=1; id <= cantidad; id++){
                     mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
                     mlayout.addView(tituloPregunta(getApplicationContext()),1);
                     mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
                 }
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/conseguir_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+etTituloEncuesta.getText()+"&fecha_creacion="+c+"");
+
+                buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
 
             }
         });
@@ -102,7 +97,7 @@ public class CrearCuestionario extends AppCompatActivity {
         buttonsubirEncuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                subirEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
+                editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
 
             }
         });
@@ -137,11 +132,9 @@ public class CrearCuestionario extends AppCompatActivity {
         );
         requestQueue=Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
-
-
     }
 
-    private void subirEncuesta(final String rutaWebServices){
+    private void editarEncuesta(final String rutaWebServices){
 
         final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         final Date currentDate = new Date();
@@ -163,10 +156,10 @@ public class CrearCuestionario extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
                 a =getIntent().getStringExtra("correo");
+                parametros.put("idEncuesta", (String) tvID.getText());
                 parametros.put("correo",getIntent().getStringExtra("correo"));
                 b =etTituloEncuesta.getText().toString();
                 parametros.put("tituloEncuesta",etTituloEncuesta.getText().toString());
-                c =formatter.format(currentDate);
                 parametros.put("fechaCreacion",c);
                 d ="1";
                 parametros.put("disponibilidad","1");
@@ -181,6 +174,42 @@ public class CrearCuestionario extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
         Toast.makeText(getApplicationContext(), "datos ingresados ", Toast.LENGTH_SHORT).show();
+    }
+
+    private void CrearEncuestaEnBlanco(final String rutaWebServices){
+
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final Date currentDate = new Date();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("correo",getIntent().getStringExtra("correo"));
+                parametros.put("tituloEncuesta","Encuesta en proceso");
+                c =formatter.format(currentDate);
+                parametros.put("fechaCreacion",c);
+                parametros.put("disponibilidad","0");
+                parametros.put("cantidadPreguntas","0");
+                parametros.put("fechaTermino","000-00-00 00:00:00");
+
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
+        requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
 
@@ -262,8 +291,6 @@ public class CrearCuestionario extends AppCompatActivity {
 
 
         }
-
-
         return null;
     }
 

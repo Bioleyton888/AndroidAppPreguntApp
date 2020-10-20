@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -17,20 +18,24 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.text.SimpleDateFormat;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CrearPreguntas extends AppCompatActivity implements View.OnClickListener {
-    String idEncuesta;
+    String idEncuesta, lastIDPregunta;
     funciones_varias xamp = new funciones_varias();
     LinearLayout layoutList;
+    TextView tvID;
     Button buttonAdd;
     Button buttonSubmitList;
     EditText etCantidadDeOpciones, etPeguntaEnCuestion;
@@ -43,7 +48,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_preguntas);
 
-
+        tvID =(TextView)findViewById(R.id.textViewIdpregunta);
         idEncuesta = getIntent().getStringExtra("idEncuesta");
         etPeguntaEnCuestion=findViewById(R.id.editTextTituloOpcion);
         layoutList = findViewById(R.id.contenedor);
@@ -52,7 +57,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         etCantidadDeOpciones = (EditText)findViewById(R.id.editTextCantidadDeOpciones);
         buttonAdd.setOnClickListener(this);
         buttonSubmitList.setOnClickListener(this);
-        subirPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+        crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
 
 //Integer.parseInt(CantidadDeOpciones.getText().toString())
     }
@@ -64,7 +69,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
             case R.id.button_add:
                 addView(Integer.parseInt(etCantidadDeOpciones.getText().toString()));
-                subirPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+                crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                 break;
 
             case R.id.button_submit_list: 
@@ -110,7 +115,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
             }
 
             System.out.println("---> "+cricketer.cricketerName);
-            subirPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+           // crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
             cricketersList.add(cricketer); //aqui ocurre la magia
 
         }
@@ -152,7 +157,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void subirPregunta(final String rutaWebServices){
+    private void crearPreguntaEnBlanco(final String rutaWebServices){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
 
@@ -181,6 +186,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
+
     private void modificarPregunta(final String rutaWebServices){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
@@ -210,6 +216,38 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
+
+    private void buscarIdEncuestaCreada(String rutaWebServices){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        lastIDPregunta = jsonObject.getString("enc_id");
+                        tvID.setText(lastIDPregunta);
+
+                        //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue=Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+    }
+
 }
 
 
