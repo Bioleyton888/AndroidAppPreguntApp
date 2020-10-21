@@ -57,6 +57,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         etCantidadDeOpciones = (EditText)findViewById(R.id.editTextCantidadDeOpciones);
         buttonAdd.setOnClickListener(this);
         buttonSubmitList.setOnClickListener(this);
+
         crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
 
 //Integer.parseInt(CantidadDeOpciones.getText().toString())
@@ -69,7 +70,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
             case R.id.button_add:
                 addView(Integer.parseInt(etCantidadDeOpciones.getText().toString()));
-                //crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                 break;
 
             case R.id.button_submit_list: 
@@ -179,7 +180,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
                 parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
                 parametros.put("tipoPregunta","1");
-                parametros.put("tituloPregunta","creandopregunta");
+                parametros.put("tituloPregunta","creando pregunta");
 
                 return parametros;
             }
