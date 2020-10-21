@@ -69,7 +69,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
             case R.id.button_add:
                 addView(Integer.parseInt(etCantidadDeOpciones.getText().toString()));
-                crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                //crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                 break;
 
             case R.id.button_submit_list: 
@@ -176,6 +176,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
                 parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
                 parametros.put("tipoPregunta","1");
                 parametros.put("tituloPregunta","creandopregunta");
