@@ -70,23 +70,19 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
             case R.id.button_add:
                 addView(Integer.parseInt(etCantidadDeOpciones.getText().toString()));
-                crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                 break;
 
             case R.id.button_submit_list: 
 
                 if(checkIfValidAndRead()){
 
-                    Intent intent = new Intent(CrearPreguntas.this,ActivityCricketers.class);
+                    Intent intent = new Intent(CrearPreguntas.this,CrearCuestionario.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
 
-
-
-                            /*
                     intent.putExtras(bundle);
                     startActivity(intent);
-*/
                 }
 
                 break;
@@ -115,8 +111,9 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 break;
             }
 
-            System.out.println("---> "+cricketer.cricketerName);
-           // crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+
+            crearRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName);
+
             cricketersList.add(cricketer); //aqui ocurre la magia
 
         }
@@ -208,6 +205,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
                 parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
                 parametros.put("tipoPregunta","1");
                 parametros.put("tituloPregunta",etPeguntaEnCuestion.getText().toString());
@@ -218,37 +216,37 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
+    private void crearRespuesta(final String rutaWebServices, final String contenidoRespuesta){
 
-    private void buscarIdEncuestaCreada(String rutaWebServices){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
+
             @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        lastIDPregunta = jsonObject.getString("enc_id");
-                        tvID.setText(lastIDPregunta);
+            public void onResponse(String response) {
 
-                        //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-                }
 
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
             }
-        }
-        );
-        requestQueue=Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
+                parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+                parametros.put("contenidoRespuesta",contenidoRespuesta);
+
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
+        requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
+
+
 
 }
 
