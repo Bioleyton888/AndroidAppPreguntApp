@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
         botonIngresar = (Button)findViewById(R.id.buttonLogin);
         checkBoxAdmin =(CheckBox)findViewById(R.id.checkBoxAdministrador);
 
-    //hola
+
         botonIngresar.setOnClickListener(new View.OnClickListener() {
 
             @Override
