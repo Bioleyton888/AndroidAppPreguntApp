@@ -4,7 +4,7 @@ import android.net.wifi.WifiManager;
 
 public class funciones_varias {
     public String ipv4(){
-        return "192.168.1.84";
+        return "192.168.1.94";
     }
     public String port(){
         return "80";
