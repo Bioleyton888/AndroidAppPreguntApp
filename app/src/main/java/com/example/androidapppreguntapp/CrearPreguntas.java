@@ -81,6 +81,16 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
 
+
+
+                    intent.putExtra("esCuestionarioNuevo",false);
+                    intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
+                    intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+                    intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+                    intent.putExtra("correo",getIntent().getStringExtra("correo"));
+                    intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
+                    intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
+
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }

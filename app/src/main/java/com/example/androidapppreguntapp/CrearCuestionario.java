@@ -70,14 +70,29 @@ public class CrearCuestionario extends AppCompatActivity {
         addFecha= (Button)findViewById(R.id.buttonAgregarFecha);
         etFechaTermino = (EditText)findViewById(R.id.editTextDate);
 
-        CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
+
+
+        if (getIntent().getBooleanExtra("esCuestionarioNuevo",false)){
+            CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
+
+        }else{
+            agregarPreguntas(Integer.parseInt(getIntent().getStringExtra("cantidadDePreguntas")));
+            tvID.setText(getIntent().getStringExtra("idEncuesta"));
+            etFechaTermino.setText(getIntent().getStringExtra("fecha"));
+            etTituloEncuesta.setText(getIntent().getStringExtra("tituloEncuesta"));
+            etCantidadDePreguntas.setText(getIntent().getStringExtra("cantidadDePreguntas"));
+            etCantidadDePreguntas.setText(getIntent().getStringExtra("cantidadDePreguntas"));
+            c=getIntent().getStringExtra("fechaCreacion");
+            //getIntent().getStringExtra("cantidadDePreguntas")
+        }
+
+
         addFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog(DATE_ID);
             }
         });
-
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +104,12 @@ public class CrearCuestionario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
+
+                Intent intent = new Intent(CrearCuestionario.this,AdministrarCuestionario.class);
+                Bundle bundle = new Bundle();
+
+                intent.putExtras(bundle);
+                startActivity(intent);
 
             }
         });
@@ -250,10 +271,18 @@ public class CrearCuestionario extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"Llamada de auxilio"+tvID.getText(),Toast.LENGTH_SHORT).show();
         intent.putExtra("idEncuesta",tvID.getText());
         intent.putExtra("idPregunta",id);
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("cantidadDePreguntas",etCantidadDePreguntas.getText().toString());
+        intent.putExtra("fecha",etFechaTermino.getText().toString());
+        intent.putExtra("fechaCreacion",c);
+        intent.putExtra("tituloEncuesta",etTituloEncuesta.getText().toString());
+
+
         startActivity(intent);
         finish();
 
     }
+
 
     private void colocar_fecha() {
         etFechaTermino.setText(mYearIni+ "-" +(mMonthIni + 1) + "-" + mDayIni +" ");
