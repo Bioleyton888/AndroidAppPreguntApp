@@ -34,7 +34,8 @@
     <string name="crearPreguntas_buttonAgregarOpciones">Agregar Opciones</string>
     <string name="crearPreguntas_cantidadDeOpciones">N° Opciones</string>
     <string name="crearPreguntas_txtTituloPregunta">Contenido pregunta</string>
-    <string name="crearPreguntas_buttonSubirPregunta">Terminar pregunta</string>
+
+    <string name="rowPreguntasPendientes_buttonResponder">Responder</string>
 
 
 

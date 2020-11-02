@@ -70,11 +70,8 @@ public class CrearCuestionario extends AppCompatActivity {
         addFecha= (Button)findViewById(R.id.buttonAgregarFecha);
         etFechaTermino = (EditText)findViewById(R.id.editTextDate);
 
-
-
         if (getIntent().getBooleanExtra("esCuestionarioNuevo",false)){
             CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
-
         }else{
             agregarPreguntas(Integer.parseInt(getIntent().getStringExtra("cantidadDePreguntas")));
             tvID.setText(getIntent().getStringExtra("idEncuesta"));
@@ -85,7 +82,6 @@ public class CrearCuestionario extends AppCompatActivity {
             c=getIntent().getStringExtra("fechaCreacion");
             //getIntent().getStringExtra("cantidadDePreguntas")
         }
-
 
         addFecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +103,6 @@ public class CrearCuestionario extends AppCompatActivity {
 
                 Intent intent = new Intent(CrearCuestionario.this,AdministrarCuestionario.class);
                 Bundle bundle = new Bundle();
-
                 intent.putExtras(bundle);
                 startActivity(intent);
 
@@ -276,8 +271,6 @@ public class CrearCuestionario extends AppCompatActivity {
         intent.putExtra("fecha",etFechaTermino.getText().toString());
         intent.putExtra("fechaCreacion",c);
         intent.putExtra("tituloEncuesta",etTituloEncuesta.getText().toString());
-
-
         startActivity(intent);
         finish();
 
@@ -288,8 +281,6 @@ public class CrearCuestionario extends AppCompatActivity {
         etFechaTermino.setText(mYearIni+ "-" +(mMonthIni + 1) + "-" + mDayIni +" ");
     }
 
-
-
     private DatePickerDialog.OnDateSetListener mDateSetListener =
             new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -297,11 +288,8 @@ public class CrearCuestionario extends AppCompatActivity {
                     mMonthIni = monthOfYear;
                     mDayIni = dayOfMonth;
                     colocar_fecha();
-
                 }
-
             };
-
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -315,7 +303,6 @@ public class CrearCuestionario extends AppCompatActivity {
     }
 
     private void agregarPreguntas(int cantidad){
-
 
         for (int id=1; id <= cantidad; id++){
             mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
