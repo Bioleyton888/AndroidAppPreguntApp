@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ScrollView"
-        android:text="@string/crearPreguntas_buttonSubirPregunta"
+
         app:layout_constraintTop_toBottomOf="@+id/ScrollView"
         tools:layout_editor_absoluteX="-1dp" ></Button>
 

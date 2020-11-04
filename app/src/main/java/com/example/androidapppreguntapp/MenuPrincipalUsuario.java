@@ -20,6 +20,7 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
         tvBienvenida =(TextView)findViewById(R.id.textoBienvenida);
         botonPerfil = (Button)findViewById(R.id.buttonIrAPerfil);
         botonCerrarSesion= (Button)findViewById(R.id.botonVolver);
+        BotonEncuestas=(Button)findViewById(R.id.botonirAEncuestasPendienes);
 
         nombre = getIntent().getStringExtra("Nombre").toLowerCase();
         apellido = getIntent().getStringExtra("Apellido").toLowerCase();
@@ -29,6 +30,15 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
         tvBienvenida.setText("¡Hola "+nombre.substring(0,1).toUpperCase()+nombre.substring(1) +" "+apellido.substring(0,1).toUpperCase()+apellido.substring(1)+"!");
 
 
+        BotonEncuestas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irAErncuestasPendientes(correo);
+
+            }
+        });
+
+
         botonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +46,7 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
 
             }
         });
+
         botonCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +63,12 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
         Intent intent = new Intent(this, PerfilDeUsuario.class); //Esto te manda a la otra ventana
         intent.putExtra("Nombre",nombre);
         intent.putExtra("Apellido",apellido);
+        intent.putExtra("correo",correo);
+        startActivity(intent);
+        finish();
+    }
+    private void irAErncuestasPendientes(String correo){
+        Intent intent = new Intent(this, EncuestasPendientes.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",correo);
         startActivity(intent);
         finish();

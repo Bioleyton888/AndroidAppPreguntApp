@@ -43,6 +43,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
     List<String> teamList = new ArrayList<>();
     ArrayList<Cricketer> cricketersList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -226,6 +227,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
+
     private void crearRespuesta(final String rutaWebServices, final String contenidoRespuesta){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
@@ -255,8 +257,6 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
-
-
 
 }
 
