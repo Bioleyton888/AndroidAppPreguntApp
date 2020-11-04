@@ -36,7 +36,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
 
         buttonVolver = findViewById(R.id.encuestasPendientesBotonVolver);
 
-        //buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
+        buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
 
 
 
@@ -50,14 +50,12 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
-                        Toast.makeText(getApplicationContext(), i, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), jsonObject.getString("enc_id")+ " " + jsonObject.getString("enc_titulo") , Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
-
 
         }, new Response.ErrorListener() {
             @Override
@@ -68,7 +66,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         );
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
-
     }
 
     private void removeView(View view){
