@@ -219,6 +219,18 @@ public class CrearCuestionario extends AppCompatActivity {
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
+    private void agregarPreguntas(int cantidad){
+
+        for (int id=1; id <= cantidad; id++){
+            mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
+            mlayout.addView(tituloPregunta(getApplicationContext()),1);
+            mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
+        }
+
+        buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
+
+
+    }
 
     public TextView descriptionTextView(Context context, String text) {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -276,13 +288,11 @@ public class CrearCuestionario extends AppCompatActivity {
 
     }
 
-
     private void colocar_fecha() {
         etFechaTermino.setText(mYearIni+ "-" +(mMonthIni + 1) + "-" + mDayIni +" ");
     }
 
-    private DatePickerDialog.OnDateSetListener mDateSetListener =
-            new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     mYearIni = year;
                     mMonthIni = monthOfYear;
@@ -300,19 +310,6 @@ public class CrearCuestionario extends AppCompatActivity {
 
         }
         return null;
-    }
-
-    private void agregarPreguntas(int cantidad){
-
-        for (int id=1; id <= cantidad; id++){
-            mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
-            mlayout.addView(tituloPregunta(getApplicationContext()),1);
-            mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
-        }
-
-        buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
-
-
     }
 
 

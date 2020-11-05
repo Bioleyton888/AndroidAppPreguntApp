@@ -22,7 +22,15 @@
             android:id="@+id/LinearLayoutEncuestasPendientes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/babaooey"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.gridlayout.widget.GridLayout>
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>
