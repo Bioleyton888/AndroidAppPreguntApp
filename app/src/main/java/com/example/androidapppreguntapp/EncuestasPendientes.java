@@ -46,6 +46,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         mlayout = (GridLayout)findViewById(R.id.babaooey);
         layoutList = findViewById(R.id.LinearLayoutEncuestasPendientes);
 
+
         buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
     }
 
@@ -98,26 +99,29 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
             responderPreguntas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    irAResponderEncuesta(enc_id);
+                    irAResponderEncuestas(enc_id);
                 }
             });
             layoutList.addView(preguntaPendiente);
         }
     }
 
-    private void irAResponderEncuesta(String idEncuestaPendiente){
-        Intent intent = new Intent(this, ResponderEncuestas.class); //Esto te manda a la otra ventana
-        intent.putExtra("idEncuestaPendiente",idEncuestaPendiente);
+    private void irAResponderEncuestas(String idEncuestasPendientes){
+        Intent intent = new Intent(this, ResponderEncuestas.class);
+        intent.putExtra("idEncuestaPendiente",idEncuestasPendientes);
         startActivity(intent);
         finish();
+
     }
+
+
     
     @Override
     public void onClick(View view){
         switch (view.getId()){
 
             case R.id.encuestasPendientesBotonVolver:
-
+                irAResponderEncuestas("dssds");
                 break;
 
             case R.id.button_submit_list:
