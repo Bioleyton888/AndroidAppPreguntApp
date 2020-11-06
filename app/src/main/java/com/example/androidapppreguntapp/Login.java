@@ -26,9 +26,8 @@ public class Login extends AppCompatActivity {
     EditText eTMail, eTPassword;
     Button botonIngresar;
     CheckBox checkBoxAdmin;
-
-
     RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +53,6 @@ public class Login extends AppCompatActivity {
         });
 
     }
-
-
 
     private void loginUsuario(String rutaWebServices){
 
@@ -149,6 +146,5 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 
 }

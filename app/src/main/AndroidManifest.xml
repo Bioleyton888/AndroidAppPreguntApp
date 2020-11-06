@@ -17,6 +17,7 @@
         <activity android:name=".EncuestasPendientes" />
         <activity android:name=".PerfilDeUsuario" />
         <activity android:name=".MenuPrincipalUsuario" />
+        <activity android:name=".ResponderEncuestas" />
         <activity
             android:name=".Login"
             android:configChanges="orientation|screenSize">

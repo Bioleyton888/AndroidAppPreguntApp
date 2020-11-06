@@ -1,6 +1,7 @@
 package com.example.androidapppreguntapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -10,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.gridlayout.widget.GridLayout;
-import android.widget.ImageView;
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,14 +47,71 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         layoutList = findViewById(R.id.LinearLayoutEncuestasPendientes);
 
         buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
-        //addView(1);
-
     }
 
 
 
 
 
+    private void buscarEncuestasPendientes(String rutaWebServices) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+                        mostrarPreguntas(1,jsonObject.getString("enc_id"),jsonObject.getString("enc_titulo"),jsonObject.getString("enc_cantidadpreguntas"));
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void mostrarPreguntas(int cantidad, final String enc_id, String enc_titulo, String enc_cantidadpreguntas) {
+        for (int id=1; id <= cantidad; id++) {
+            final View preguntaPendiente = getLayoutInflater().inflate(R.layout.row_preguntas_pendientes, null, false);
+
+            TextView tituloEncuesta = (TextView)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_textViewTituloEncuesta);
+            TextView cantidadPreguntas = (TextView)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_textViewNumeroPreguntas);
+            Button responderPreguntas = (Button)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_buttonResponder);
+
+            tituloEncuesta.setText(enc_titulo);
+            cantidadPreguntas.setText(enc_cantidadpreguntas);
+            responderPreguntas.setText("Pendiente");
+
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+
+            responderPreguntas.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    irAResponderEncuesta(enc_id);
+                }
+            });
+            layoutList.addView(preguntaPendiente);
+        }
+    }
+
+    private void irAResponderEncuesta(String idEncuestaPendiente){
+        Intent intent = new Intent(this, ResponderEncuestas.class); //Esto te manda a la otra ventana
+        intent.putExtra("idEncuestaPendiente",idEncuestaPendiente);
+        startActivity(intent);
+        finish();
+    }
+    
     @Override
     public void onClick(View view){
         switch (view.getId()){
@@ -74,68 +132,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
     private void removeView(View view){
 
         layoutList.removeView(view);
-
-    }
-
-    private void addView(int cantidad) {
-        //addView(Integer.parseInt(etCantidadDeOpciones.getText().toString()));
-        for (int id=1; id <= cantidad; id++) {
-            final View cricketerView = getLayoutInflater().inflate(R.layout.row_add_cricketer, null, false);
-
-            EditText editText = (EditText) cricketerView.findViewById(R.id.edit_cricketer_name);
-            ImageView imageClose = (ImageView) cricketerView.findViewById(R.id.image_remove);
-
-            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
-
-            imageClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    removeView(cricketerView);
-                }
-            });
-            layoutList.addView(cricketerView);
-        }
-    }
-
-    private void buscarEncuestasPendientes(String rutaWebServices) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-
-                        addView(1);
-
-                        Toast.makeText(getApplicationContext(), jsonObject.getString("enc_id")+ " " + jsonObject.getString("enc_titulo") , Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
-        requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
-    }
-
-    private void agregarPreguntas(int cantidad){
-
-        for (int id=1; id <= cantidad; id++){
-            addView(1);
-            //mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
-            //mlayout.addView(tituloPregunta(getApplicationContext()),1);
-            //mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
-        }
-
-
 
     }
 
