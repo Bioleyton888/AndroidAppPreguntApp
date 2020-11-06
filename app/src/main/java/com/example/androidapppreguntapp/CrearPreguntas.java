@@ -74,15 +74,11 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                 break;
 
-            case R.id.button_submit_list: 
-
+            case R.id.button_submit_list:
                 if(checkIfValidAndRead()){
-
                     Intent intent = new Intent(CrearPreguntas.this,CrearCuestionario.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
-
-
 
                     intent.putExtra("esCuestionarioNuevo",false);
                     intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
@@ -95,12 +91,8 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
-
                 break;
-
         }
-
-
     }
 
     private boolean checkIfValidAndRead() {
@@ -155,7 +147,6 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                     removeView(cricketerView);
                 }
             });
-
             layoutList.addView(cricketerView);
         }
     }

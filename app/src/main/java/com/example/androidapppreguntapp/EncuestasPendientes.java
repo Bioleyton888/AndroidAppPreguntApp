@@ -41,23 +41,21 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encuestas_pendientes);
 
-        buttonVolver = findViewById(R.id.encuestasPendientesBotonVolver);
+        buttonVolver = (Button)findViewById(R.id.encuestasPendientesBotonVolver);
         mlayout = (GridLayout)findViewById(R.id.babaooey);
+        layoutList = findViewById(R.id.LinearLayoutEncuestasPendientes);
 
         buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
-
-
-
-    }
-
-    private void removeView(View view){
-
-        layoutList.removeView(view);
+        //addView(1);
 
     }
+
+
+
+
 
     @Override
-    public void onClick(View view)   {
+    public void onClick(View view){
         switch (view.getId()){
 
             case R.id.encuestasPendientesBotonVolver:
@@ -70,6 +68,12 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
 
         }
 
+
+    }
+
+    private void removeView(View view){
+
+        layoutList.removeView(view);
 
     }
 
@@ -89,7 +93,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                     removeView(cricketerView);
                 }
             });
-
             layoutList.addView(cricketerView);
         }
     }
@@ -103,7 +106,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        agregarPreguntas(3);
+                        addView(1);
 
                         Toast.makeText(getApplicationContext(), jsonObject.getString("enc_id")+ " " + jsonObject.getString("enc_titulo") , Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
@@ -126,9 +129,10 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
     private void agregarPreguntas(int cantidad){
 
         for (int id=1; id <= cantidad; id++){
-            mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
-            mlayout.addView(tituloPregunta(getApplicationContext()),1);
-            mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
+            addView(1);
+            //mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
+            //mlayout.addView(tituloPregunta(getApplicationContext()),1);
+            //mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
         }
 
 
