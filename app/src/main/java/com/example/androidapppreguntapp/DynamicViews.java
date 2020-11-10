@@ -19,7 +19,6 @@ public class DynamicViews {
         this.ctx = ctx;
     }
 
-
     public EditText tituloPregunta(Context context){
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final EditText editText = new EditText(context);
@@ -47,8 +46,6 @@ public class DynamicViews {
         });
         return boton;
     }
-
-
 
     public TextView descriptionTextView(Context context, String text) {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

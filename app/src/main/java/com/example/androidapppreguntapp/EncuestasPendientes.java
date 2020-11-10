@@ -50,10 +50,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
     }
 
-
-
-
-
     private void buscarEncuestasPendientes(String rutaWebServices) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
@@ -113,8 +109,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         finish();
 
     }
-
-
     
     @Override
     public void onClick(View view){

@@ -12,6 +12,7 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
     TextView tvBienvenida;
     Button botonPerfil,botonCerrarSesion,BotonEncuestas;
     String nombre, apellido,correo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,6 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
 
         //esto es para hacer la primera letra mayuscula
         tvBienvenida.setText("¡Hola "+nombre.substring(0,1).toUpperCase()+nombre.substring(1) +" "+apellido.substring(0,1).toUpperCase()+apellido.substring(1)+"!");
-
 
         BotonEncuestas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +67,7 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
     private void irAErncuestasPendientes(String correo){
         Intent intent = new Intent(this, EncuestasPendientes.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",correo);
@@ -79,6 +80,5 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 
 }

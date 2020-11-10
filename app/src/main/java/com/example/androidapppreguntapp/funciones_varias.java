@@ -6,6 +6,7 @@ public class funciones_varias {
     public String ipv4(){
         return "192.168.1.94";
     }
+
     public String port(){
         return "80";
     }

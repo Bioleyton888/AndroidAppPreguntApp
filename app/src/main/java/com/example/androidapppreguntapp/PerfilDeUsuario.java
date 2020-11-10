@@ -25,6 +25,7 @@ public class PerfilDeUsuario extends AppCompatActivity {
     String correo,nombre,apellido;
     RequestQueue requestQueue;
     funciones_varias xamp = new funciones_varias();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,6 @@ public class PerfilDeUsuario extends AppCompatActivity {
 
 
     }
-
 
     private void perfilDeUsuario(String rutaWebServices){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {

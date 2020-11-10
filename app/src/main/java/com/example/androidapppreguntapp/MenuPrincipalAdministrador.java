@@ -67,6 +67,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
     private void buscarNombreyApellido(String rutaWebServices){
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
