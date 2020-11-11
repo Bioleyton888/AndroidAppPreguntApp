@@ -25,6 +25,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
     Button botonPerfil,botonCerrarSesion,BotonAdministrarEncuestas;
     String nombre, apellido;
     RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

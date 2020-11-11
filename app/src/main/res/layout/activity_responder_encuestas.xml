@@ -4,4 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tituloEncuesta"
+        android:layout_width="95dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="172dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

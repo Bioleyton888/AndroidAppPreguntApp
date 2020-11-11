@@ -31,9 +31,9 @@ import org.json.JSONObject;
 public class EncuestasPendientes extends AppCompatActivity implements View.OnClickListener {
     LinearLayout layoutList;
     funciones_varias xamp = new funciones_varias();
+    RequestQueue requestQueue;
     String correo;
     Button buttonVolver;
-    RequestQueue requestQueue;
     private GridLayout mlayout;
 
 
