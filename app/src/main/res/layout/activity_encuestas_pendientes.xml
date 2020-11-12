@@ -25,7 +25,7 @@
             android:orientation="vertical" >
 
             <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/babaooey"
+                android:id="@+id/layoutEncuestasPendientes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

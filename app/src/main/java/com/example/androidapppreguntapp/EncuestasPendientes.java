@@ -43,10 +43,8 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_encuestas_pendientes);
 
         buttonVolver = (Button)findViewById(R.id.encuestasPendientesBotonVolver);
-        mlayout = (GridLayout)findViewById(R.id.babaooey);
+        mlayout = (GridLayout)findViewById(R.id.layoutEncuestasPendientes);
         layoutList = findViewById(R.id.LinearLayoutEncuestasPendientes);
-
-
         buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
     }
 
@@ -102,37 +100,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void irAResponderEncuestas(String idEncuestasPendientes){
-        Intent intent = new Intent(this, ResponderEncuestas.class);
-        intent.putExtra("idEncuestaPendiente",idEncuestasPendientes);
-        startActivity(intent);
-        finish();
-
-    }
-    
-    @Override
-    public void onClick(View view){
-        switch (view.getId()){
-
-            case R.id.encuestasPendientesBotonVolver:
-                irAResponderEncuestas("dssds");
-                break;
-
-            case R.id.button_submit_list:
-
-                break;
-
-        }
-
-
-    }
-
-    private void removeView(View view){
-
-        layoutList.removeView(view);
-
-    }
-
     public TextView descriptionTextView(Context context, String text) {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final TextView textView = new TextView(context);
@@ -170,6 +137,37 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
             }
         });
         return boton;
+    }
+
+    private void irAResponderEncuestas(String idEncuestasPendientes){
+        Intent intent = new Intent(this, ResponderEncuestas.class);
+        intent.putExtra("idEncuestaPendiente",idEncuestasPendientes);
+        startActivity(intent);
+        finish();
+
+    }
+
+    @Override
+    public void onClick(View view){
+        switch (view.getId()){
+
+            case R.id.encuestasPendientesBotonVolver:
+                irAResponderEncuestas("dssds");
+                break;
+
+            case R.id.button_submit_list:
+
+                break;
+
+        }
+
+
+    }
+
+    private void removeView(View view){
+
+        layoutList.removeView(view);
+
     }
 
 }
