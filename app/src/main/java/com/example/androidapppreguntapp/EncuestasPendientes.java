@@ -36,7 +36,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
     Button buttonVolver;
     private GridLayout mlayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -125,7 +124,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
     public Button botonAgregarPreguntas(final Context context, String text, final int id){
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Button boton = new Button(context);
-
         boton.setId(id);
         boton.setMinEms(2);
         //boton.setTextColor(Color.rgb(0,0,0));

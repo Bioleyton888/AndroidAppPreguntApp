@@ -8,41 +8,54 @@
 
     <TextView
         android:id="@+id/tituloEncuesta"
-        android:layout_width="95dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
+        android:layout_width="410dp"
+        android:layout_height="47dp"
+        android:autoSizeTextType="uniform"
+        android:text="@string/descripcion"
+        android:textAlignment="center"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="408dp"
-        android:layout_height="583dp"
-        android:layout_below="@id/tituloEncuesta"
+    <TextView
+        android:id="@+id/tvCantidadPreguntas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/tituloEncuesta"
-        tools:layout_editor_absoluteX="1dp">
+
+        android:text="@string/descripcion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloEncuesta" />
+
+    <TextView
+        android:id="@+id/tvpregunta"
+        android:layout_width="395dp"
+        android:layout_height="37dp"
+        android:layout_below="@id/tituloEncuesta"
+        android:layout_marginTop="3dp"
+        android:autoSizeTextType="uniform"
+        android:text="@string/descripcion"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCantidadPreguntas" />
+
+    <ScrollView
+        android:layout_width="406dp"
+        android:layout_height="430dp"
+        android:layout_below="@id/tituloEncuesta"
+        android:layout_marginTop="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvpregunta">
 
         <LinearLayout
             android:id="@+id/LinearLayoutPreguntas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/LinearLayoutRespuestas"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <androidx.gridlayout.widget.GridLayout
-                    android:id="@+id/gridlayoutpreguntas"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </androidx.gridlayout.widget.GridLayout>
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
