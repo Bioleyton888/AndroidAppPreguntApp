@@ -42,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvCantidadPreguntas" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="406dp"
         android:layout_height="430dp"
         android:layout_below="@id/tituloEncuesta"
@@ -59,6 +60,16 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/buttonSiguientePregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="@string/descripcion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

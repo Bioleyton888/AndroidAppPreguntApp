@@ -47,6 +47,21 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
     }
 
+    @Override
+    public void onClick(View view){
+        switch (view.getId()){
+
+            case R.id.encuestasPendientesBotonVolver:
+                irAResponderEncuestas("dssds", "enc_cantidadpreguntas");
+                break;
+
+            case R.id.button_submit_list:
+
+                break;
+
+        }
+    }
+
     private void buscarEncuestasPendientes(String rutaWebServices) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
@@ -75,7 +90,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void mostrarPreguntas(int cantidad, final String enc_id, String enc_titulo, String enc_cantidadpreguntas) {
+    private void mostrarPreguntas(int cantidad, final String enc_id, String enc_titulo, final String enc_cantidadpreguntas) {
         for (int id=1; id <= cantidad; id++) {
             final View preguntaPendiente = getLayoutInflater().inflate(R.layout.row_preguntas_pendientes, null, false);
 
@@ -92,11 +107,21 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
             responderPreguntas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    irAResponderEncuestas(enc_id);
+                    irAResponderEncuestas(enc_id, enc_cantidadpreguntas);
                 }
             });
             layoutList.addView(preguntaPendiente);
         }
+    }
+
+    private void irAResponderEncuestas(String idEncuestasPendientes, String enc_cantidadpreguntas){
+        Intent intent = new Intent(this, ResponderEncuestas.class);
+        intent.putExtra("idEncuestaPendiente",idEncuestasPendientes);
+        intent.putExtra("preguntaNumero",1);
+        intent.putExtra("cantidadPreguntas",Integer.parseInt(enc_cantidadpreguntas));
+        startActivity(intent);
+        finish();
+
     }
 
     public TextView descriptionTextView(Context context, String text) {
@@ -135,31 +160,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
             }
         });
         return boton;
-    }
-
-    private void irAResponderEncuestas(String idEncuestasPendientes){
-        Intent intent = new Intent(this, ResponderEncuestas.class);
-        intent.putExtra("idEncuestaPendiente",idEncuestasPendientes);
-        startActivity(intent);
-        finish();
-
-    }
-
-    @Override
-    public void onClick(View view){
-        switch (view.getId()){
-
-            case R.id.encuestasPendientesBotonVolver:
-                irAResponderEncuestas("dssds");
-                break;
-
-            case R.id.button_submit_list:
-
-                break;
-
-        }
-
-
     }
 
     private void removeView(View view){
