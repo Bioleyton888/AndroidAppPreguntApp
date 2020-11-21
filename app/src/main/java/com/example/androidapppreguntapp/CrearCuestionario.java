@@ -100,7 +100,6 @@ public class CrearCuestionario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
-
                 Intent intent = new Intent(CrearCuestionario.this,AdministrarCuestionario.class);
                 Bundle bundle = new Bundle();
                 intent.putExtras(bundle);
@@ -220,16 +219,12 @@ public class CrearCuestionario extends AppCompatActivity {
     }
 
     private void agregarPreguntas(int cantidad){
-
         for (int id=1; id <= cantidad; id++){
             mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
             mlayout.addView(tituloPregunta(getApplicationContext()),1);
             mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
         }
-
         buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
-
-
     }
 
     public TextView descriptionTextView(Context context, String text) {
@@ -311,19 +306,5 @@ public class CrearCuestionario extends AppCompatActivity {
         }
         return null;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -40,7 +40,6 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     Button buttonSubmitList;
     EditText etCantidadDeOpciones, etPeguntaEnCuestion;
     RequestQueue requestQueue;
-
     List<String> teamList = new ArrayList<>();
     ArrayList<Cricketer> cricketersList = new ArrayList<>();
 
@@ -114,9 +113,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 break;
             }
 
-
             crearRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName);
-
             cricketersList.add(cricketer); //aqui ocurre la magia
 
         }
@@ -127,7 +124,6 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         }else if(!result){
             Toast.makeText(this, "No olvides llenar todas las opciones!", Toast.LENGTH_SHORT).show();
         }
-
 
         return result;
     }
@@ -164,7 +160,6 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onResponse(String response) {
 
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -194,7 +189,6 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onResponse(String response) {
-
 
             }
         }, new Response.ErrorListener() {
@@ -250,9 +244,3 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     }
 
 }
-
-
-
-
-
-

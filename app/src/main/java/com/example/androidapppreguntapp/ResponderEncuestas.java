@@ -9,25 +9,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ResponderEncuestas extends AppCompatActivity implements View.OnClickListener {
     ImageView trumo;
@@ -37,7 +44,11 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
     RequestQueue requestQueue;
     LinearLayout layoutListPregunta,layoutListRespuesta;
     Button SiguientePregunta;
-    //lolcete = (GridLayout)findViewById(R.id.gridlayoutpreguntas);
+    RadioGroup RadioGroupPreguntas;
+    String Lamo;
+
+
+            //lolcete = (GridLayout)findViewById(R.id.gridlayoutpreguntas);
 
 
     @Override
@@ -50,8 +61,9 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         tvTituloPregunta=(TextView)findViewById(R.id.tvpregunta);
         layoutListPregunta = findViewById(R.id.LinearLayoutPreguntas);
         SiguientePregunta = (Button)findViewById(R.id.buttonSiguientePregunta);
+        RadioGroupPreguntas= (RadioGroup)findViewById(R.id.RadioGroupPreguntas);
         SiguientePregunta.setOnClickListener(this);
-
+        String lamo = new String();
 
         mostrarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuesta.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"");
 
@@ -73,6 +85,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                     Toast.makeText(this,"FELICIDADES",Toast.LENGTH_SHORT).show();
 
                 }else{
+
                     irASiguientePregunta();
                 }
                 break;
@@ -91,13 +104,9 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                 JSONObject jsonObject = null;
                     try {
 
-
-                            jsonObject = response.getJSONObject(0);
-
-
+                        jsonObject = response.getJSONObject(0);
                         tvTituloEncuesta.setText(jsonObject.getString("enc_titulo"));
                         mostrarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_pregunta.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"",jsonObject.getString("enc_cantidadpreguntas"));
-
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -125,7 +134,6 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                 try {
 
                     jsonObject = response.getJSONObject(getIntent().getIntExtra("preguntaNumero",1)-1);
-
                     tvCantidadPregunta.setText(getIntent().getIntExtra("preguntaNumero",1)+"/"+CantidadPreguntas);
                     tvTituloPregunta.setText("Pregunta"+getIntent().getIntExtra("preguntaNumero",1)+": "+jsonObject.getString("preg_titulo"));
                     mostrarRespuestaPosibles("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_respuestas.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"&preg_id="+getIntent().getIntExtra("preguntaNumero",1)+"");
@@ -157,9 +165,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        mostrarPreguntas(1,jsonObject.getString( "res_respuesta"));
-
-
+                        mostrarRespuestas(i,jsonObject.getString( "res_respuesta"),jsonObject.getString( "res_id"));
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -179,36 +185,63 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
 
     }
 
-    private void mostrarPreguntas(int cantidad, String res_respuesta) {
-        for (int id=1; id <= cantidad; id++) {
-            //final View preguntaPendiente = getLayoutInflater().inflate(R.layout.row_respuesta_test, null, false);
+    private void mostrarRespuestas(int id, String res_respuesta, final String res_id) {
 
-            CheckBox ch1 = new CheckBox(getApplicationContext());
-            //CheckBox respuesta = (CheckBox)preguntaPendiente.findViewById(R.id.rowResponderpreguntaChecbox);
-            //TextView cantidadPreguntas = (TextView)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_textViewNumeroPreguntas);
-            //Button responderPreguntas = (Button)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_buttonResponder);
+            final RadioButton radioButton = new RadioButton(getApplicationContext());
+            radioButton.setId(id);
 
-            ch1.setText(res_respuesta);
-            //cantidadPreguntas.setText(enc_cantidadpreguntas);
-            //responderPreguntas.setText("Pendiente");
+            radioButton.setText(res_respuesta);
 
-            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
-            //mostrarRespuestas(cantidad,enc_id,enc_titulo,enc_cantidadpreguntas);
 
-            /*responderPreguntas.setOnClickListener(new View.OnClickListener() {
+            radioButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //irAResponderEncuestas(enc_id);
+                    if (radioButton.isChecked() == true){
+
+                        subirLaRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/subir_respuesta.php",res_id);
+                        Lamo= (String) res_id;
+
+                    }
                 }
-            });*/
-            layoutListPregunta.addView(ch1);
-        }
+            });
+        RadioGroupPreguntas.addView(radioButton);
+
+
+    }
+
+    private void subirLaRespuesta(final String rutaWebServices, final String res_id){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("idCorreo","nicolas.leyton.q@usach.cl");
+                parametros.put("idRespuesta",res_id);
+
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
+        requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
     private void irASiguientePregunta(){
         Intent intent = new Intent(this, ResponderEncuestas.class);
-        Toast.makeText(this,String.valueOf(getIntent().getIntExtra("preguntaNumero",1)+1),Toast.LENGTH_SHORT).show();
 
+
+        Toast.makeText(getApplicationContext(),"Lamao: "+Lamo,Toast.LENGTH_SHORT).show();
         intent.putExtra("idEncuestaPendiente",getIntent().getStringExtra("idEncuestaPendiente"));
         intent.putExtra("preguntaNumero",getIntent().getIntExtra("preguntaNumero",1)+1);
         intent.putExtra("cantidadPreguntas",getIntent().getIntExtra("cantidadPreguntas",1));
