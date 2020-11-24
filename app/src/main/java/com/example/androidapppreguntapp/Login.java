@@ -140,8 +140,7 @@ public class Login extends AppCompatActivity {
 
     private void irAMenuPrincipalAdministrador(String nombre, String apellido, String correo){
         Intent intent = new Intent(this, MenuPrincipalAdministrador.class); //Esto te manda a la otra ventana
-        intent.putExtra("Nombre",nombre);
-        intent.putExtra("Apellido",apellido);
+
         intent.putExtra("correo",correo);
         startActivity(intent);
         finish();

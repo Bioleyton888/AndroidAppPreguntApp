@@ -23,7 +23,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
     funciones_varias xamp = new funciones_varias();
     TextView tvBienvenida;
     Button botonPerfil,botonCerrarSesion,BotonAdministrarEncuestas;
-    String nombre, apellido;
+    String nombre, apellido,correo;
     RequestQueue requestQueue;
 
     @Override
@@ -34,10 +34,9 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         tvBienvenida =(TextView)findViewById(R.id.textoBienvenida);
         botonCerrarSesion = (Button)findViewById(R.id.botonVolver);
         BotonAdministrarEncuestas= (Button)findViewById(R.id.botonirAAdministrarEncuestas);
-
-        buscarNombreyApellido("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_NombreYApellidos.php?per_correo="+getIntent().getStringExtra("correo")+"");
-
-
+        correo=getIntent().getStringExtra("correo");
+        tvBienvenida.setText(correo);
+        buscarNombreyApellido("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_nombre_y_apellidos.php?per_correo="+correo+"");
 
         botonCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +54,6 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         });
     }
 
-
     private void irAlLogin(){
         Intent intent = new Intent(this, Login.class); //Esto te manda a la otra ventana
         startActivity(intent);
@@ -70,7 +68,6 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
     }
 
     private void buscarNombreyApellido(String rutaWebServices){
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -78,13 +75,10 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
+
                         nombre= jsonObject.getString("per_nombre");
-                        apellido= jsonObject.getString("per_apellidos");
+                        apellido=jsonObject.getString("per_apellidos");
                         tvBienvenida.setText("¡Hola "+nombre.substring(0,1).toUpperCase()+nombre.substring(1) +" "+apellido.substring(0,1).toUpperCase()+apellido.substring(1)+"!");
-
-
-
-        //irAMenuPrincipalAdministrador(jsonObject.getString("per_nombre"), jsonObject.getString("per_apellidos"), jsonObject.getString("per_correo"));
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -102,6 +96,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         );
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+
     }
 
 }

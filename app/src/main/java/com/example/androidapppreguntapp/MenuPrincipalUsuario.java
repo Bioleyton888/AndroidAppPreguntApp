@@ -38,7 +38,6 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
             }
         });
 
-
         botonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,8 +54,6 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     private void irAPerfilDeUsuario(String correo){
@@ -71,6 +68,8 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
     private void irAErncuestasPendientes(String correo){
         Intent intent = new Intent(this, EncuestasPendientes.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",correo);
+        intent.putExtra("Nombre",nombre);
+        intent.putExtra("Apellido",apellido);
         startActivity(intent);
         finish();
     }

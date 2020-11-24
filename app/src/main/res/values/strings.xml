@@ -36,7 +36,7 @@
     <string name="crearPreguntas_txtTituloPregunta">Contenido pregunta</string>
 
     <string name="rowPreguntasPendientes_buttonResponder">Responder</string>
-
+    <string name="buscar_encuestas">Buscar Encuestas</string>
 
 
 </resources>

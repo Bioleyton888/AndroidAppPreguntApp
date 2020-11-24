@@ -13,16 +13,30 @@
         android:drawableBottom="@drawable/ic_volver"
         android:textAlignment="center" />
 
+    <Button
+        android:id="@+id/encuestasPendientesBotonComenzar"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@id/encuestasPendientesBotonVolver"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_orange"
+        android:text="@string/buscar_encuestas"
+        android:textAlignment="center" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/encuestasPendientesBotonVolver">
+        android:layout_height="518dp"
+        android:layout_below="@id/encuestasPendientesBotonComenzar"
+        android:layout_marginTop="1dp">
 
         <LinearLayout
             android:id="@+id/LinearLayoutEncuestasPendientes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/layoutEncuestasPendientes"

@@ -45,7 +45,7 @@ public class AdministrarCuestionario extends AppCompatActivity {
 
     private void IrAMenuPrincipalAdministrador(){
         Intent intent = new Intent(this, MenuPrincipalAdministrador.class); //Esto te manda a la otra ventana
-
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
         startActivity(intent);
         finish();
     }

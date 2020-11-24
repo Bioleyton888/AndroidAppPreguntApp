@@ -270,7 +270,6 @@ public class CrearCuestionario extends AppCompatActivity {
 
         Intent intent = new Intent(context, CrearPreguntas.class); //Esto te manda a la otra ventana
 
-        Toast.makeText(getApplicationContext(),"Llamada de auxilio"+tvID.getText(),Toast.LENGTH_SHORT).show();
         intent.putExtra("idEncuesta",tvID.getText());
         intent.putExtra("idPregunta",id);
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
@@ -278,6 +277,8 @@ public class CrearCuestionario extends AppCompatActivity {
         intent.putExtra("fecha",etFechaTermino.getText().toString());
         intent.putExtra("fechaCreacion",c);
         intent.putExtra("tituloEncuesta",etTituloEncuesta.getText().toString());
+        intent.putExtra("esCuestionarioNuevo",getIntent().getStringExtra("esCuestionarioNuevo"));
+
         startActivity(intent);
         finish();
 

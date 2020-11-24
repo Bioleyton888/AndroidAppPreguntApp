@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
@@ -28,41 +29,93 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class EncuestasPendientes extends AppCompatActivity implements View.OnClickListener {
     LinearLayout layoutList;
     funciones_varias xamp = new funciones_varias();
     RequestQueue requestQueue;
-    String correo;
-    Button buttonVolver;
+    static ArrayList<String> listaDeEncuestasGlobal = new ArrayList<String>();
+    Button buttonVolver, comenzarBusqueda;
     private GridLayout mlayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
+        final ArrayList<String> listaDeEncuestas;
+        listaDeEncuestas = new ArrayList<String>();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encuestas_pendientes);
 
-        buttonVolver = (Button)findViewById(R.id.encuestasPendientesBotonVolver);
-        mlayout = (GridLayout)findViewById(R.id.layoutEncuestasPendientes);
+        comenzarBusqueda = (Button)findViewById(R.id.encuestasPendientesBotonComenzar);
+        buttonVolver = (Button) findViewById(R.id.encuestasPendientesBotonVolver);
+        mlayout = (GridLayout) findViewById(R.id.layoutEncuestasPendientes);
         layoutList = findViewById(R.id.LinearLayoutEncuestasPendientes);
-        buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php");
-    }
 
-    @Override
-    public void onClick(View view){
-        switch (view.getId()){
 
-            case R.id.encuestasPendientesBotonVolver:
-                irAResponderEncuestas("dssds", "enc_cantidadpreguntas");
-                break;
+        ///////////////////////////////////////////
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_respondidas.php?per_correo="+getIntent().getStringExtra("correo")+"", new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
 
-            case R.id.button_submit_list:
+                        listaDeEncuestas.add(jsonObject.getString("enc_id"));
 
-                break;
 
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+
+        }, new ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
         }
+        );
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+/////////////////////////////////////////////////////////////////////// esta seria la funcion buscarEncuestasRespondidas() pero por alguna razon no funciona si es funcion
+
+
+
+        comenzarBusqueda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                layoutList.removeAllViewsInLayout();
+                buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php",listaDeEncuestas);
+            }
+        });
+
+
+
+       //buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php",listaDeEncuestas);
+
+
+        buttonVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irAMenuPrincipalUsuario(getIntent().getStringExtra("correo"));
+            }
+        });
+
     }
 
-    private void buscarEncuestasPendientes(String rutaWebServices) {
+
+
+
+    private void buscarEncuestasRespondidas(String rutaWebServices) {
+        final ArrayList<String> listaDeEncuestas = new ArrayList<String>();
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -71,15 +124,52 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        mostrarPreguntas(1,jsonObject.getString("enc_id"),jsonObject.getString("enc_titulo"),jsonObject.getString("enc_cantidadpreguntas"));
+                        listaDeEncuestas.add(jsonObject.getString("enc_id"));
 
+
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+
+            }
+
+        }, new ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+
+
+    }
+
+    private void buscarEncuestasPendientes(String rutaWebServices, final ArrayList<String> listaDeEncuestas) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+
+                        if (!seRespondioEstaEncuesta(jsonObject.getString("enc_id"),listaDeEncuestas)) {
+                            mostrarEncuestas(1, jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"));
+                        }
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
-        }, new Response.ErrorListener() {
+        }, new ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
@@ -90,7 +180,19 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void mostrarPreguntas(int cantidad, final String enc_id, String enc_titulo, final String enc_cantidadpreguntas) {
+    private boolean seRespondioEstaEncuesta(String enc_id, ArrayList<String> listaDeEncuestas) {
+
+        for (int i = 0; i<listaDeEncuestas.size();i++){
+
+            System.out.println("--->"+listaDeEncuestas.get(i)+" = "+enc_id+(listaDeEncuestas.get(i)==enc_id));
+            if (listaDeEncuestas.get(i).equals(enc_id)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void mostrarEncuestas(int cantidad, final String enc_id, String enc_titulo, final String enc_cantidadpreguntas) {
         for (int id=1; id <= cantidad; id++) {
             final View preguntaPendiente = getLayoutInflater().inflate(R.layout.row_preguntas_pendientes, null, false);
 
@@ -119,6 +221,10 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         intent.putExtra("idEncuestaPendiente",idEncuestasPendientes);
         intent.putExtra("preguntaNumero",1);
         intent.putExtra("cantidadPreguntas",Integer.parseInt(enc_cantidadpreguntas));
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("Nombre",getIntent().getStringExtra("Nombre"));
+        intent.putExtra("Apellido",getIntent().getStringExtra("Apellido"));
+
         startActivity(intent);
         finish();
 
@@ -168,4 +274,31 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
 
     }
 
+    private void irAMenuPrincipalUsuario(String correo){
+        Intent intent = new Intent(this, MenuPrincipalUsuario.class); //Esto te manda a la otra ventana
+        intent.putExtra("Nombre",getIntent().getStringExtra("Nombre"));
+        intent.putExtra("Apellido",getIntent().getStringExtra("Apellido"));
+        intent.putExtra("correo",correo);
+
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    private void funcionlamao(ArrayList<String> listaDeEncuestas){
+
+        for (int i = 0; i<listaDeEncuestas.size();i++){
+
+            listaDeEncuestasGlobal.add(listaDeEncuestas.get(i));
+            System.out.println("--->"+listaDeEncuestas.get(i));
+
+        }
+        System.out.println("---->"+listaDeEncuestasGlobal);
+
+
+    }
 }

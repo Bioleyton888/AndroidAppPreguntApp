@@ -83,6 +83,8 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
 
                 if (getIntent().getIntExtra("preguntaNumero", 1) == (getIntent().getIntExtra("cantidadPreguntas", 1))) {
                     Toast.makeText(this,"FELICIDADES",Toast.LENGTH_SHORT).show();
+                    constanciaDeRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/insertar_encuesta_respondida.php");
+                    irAErncuestasPendientes();
 
                 }else{
 
@@ -227,7 +229,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("idCorreo","nicolas.leyton.q@usach.cl");
+                parametros.put("idCorreo",getIntent().getStringExtra("correo"));
                 parametros.put("idRespuesta",res_id);
 
                 return parametros;
@@ -245,6 +247,9 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         intent.putExtra("idEncuestaPendiente",getIntent().getStringExtra("idEncuestaPendiente"));
         intent.putExtra("preguntaNumero",getIntent().getIntExtra("preguntaNumero",1)+1);
         intent.putExtra("cantidadPreguntas",getIntent().getIntExtra("cantidadPreguntas",1));
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("Nombre",getIntent().getStringExtra("Nombre"));
+        intent.putExtra("Apellido",getIntent().getStringExtra("Apellido"));
         startActivity(intent);
         finish();
     }
@@ -286,6 +291,42 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
             }
         });
         return boton;
+    }
+
+    private void irAErncuestasPendientes(){
+        Intent intent = new Intent(this, EncuestasPendientes.class); //Esto te manda a la otra ventana
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("Nombre",getIntent().getStringExtra("Nombre"));
+        intent.putExtra("Apellido",getIntent().getStringExtra("Apellido"));
+        startActivity(intent);
+        finish();
+    }
+
+    private void constanciaDeRespuesta(final String rutaWebServices){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("idEncuesta",getIntent().getStringExtra("idEncuestaPendiente"));
+                parametros.put("idUsuario",getIntent().getStringExtra("correo"));
+
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
+        requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
 }
