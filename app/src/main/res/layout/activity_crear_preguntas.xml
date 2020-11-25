@@ -57,13 +57,13 @@
 
     <Button
         android:id="@+id/button_submit_list"
-        android:background="@drawable/round_orange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ScrollView"
-
+        android:background="@drawable/round_orange"
         app:layout_constraintTop_toBottomOf="@+id/ScrollView"
-        tools:layout_editor_absoluteX="-1dp" ></Button>
+        tools:layout_editor_absoluteX="-1dp"
+        tools:text="Siguiente Pregunta"></Button>
 
     <TextView
         android:id="@+id/textViewIdpregunta"

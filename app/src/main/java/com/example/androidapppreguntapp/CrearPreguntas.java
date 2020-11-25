@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 public class CrearPreguntas extends AppCompatActivity implements View.OnClickListener {
     String idEncuesta, lastIDPregunta;
     funciones_varias xamp = new funciones_varias();
@@ -69,28 +71,24 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()){
 
             case R.id.button_add:
-                addView(Integer.parseInt(etCantidadDeOpciones.getText().toString()));
+                addView(parseInt(etCantidadDeOpciones.getText().toString()));
                 modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                 break;
 
             case R.id.button_submit_list:
                 if(checkIfValidAndRead()){
-                    Intent intent = new Intent(CrearPreguntas.this,CrearCuestionario.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
 
+                    //System.out.println("--->"+getIntent().getStringExtra("idPregunta")+" "+getIntent().getStringExtra("cantidadDePreguntas")+"= "+getIntent().getStringExtra("idPregunta").equals(getIntent().getStringExtra("cantidadDePreguntas")));
+                    if (getIntent().getStringExtra("idPregunta").equals(getIntent().getStringExtra("cantidadDePreguntas"))){
+                        irACrearCuestionario();
 
-                    intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
-                    intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
-                    intent.putExtra("correo",getIntent().getStringExtra("correo"));
-                    intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
-                    intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
-                    intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
-                    intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
-                    intent.putExtra("esCuestionarioNuevo",false);
+                    }else{
+                        irACrearPregunta();
 
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                    }
+
                 }
                 break;
         }
@@ -99,6 +97,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     private boolean checkIfValidAndRead() {
         cricketersList.clear();
         boolean result = true;
+
 
         for(int i=0;i<layoutList.getChildCount();i++){
 
@@ -115,7 +114,8 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 break;
             }
 
-            crearRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName);
+            crearRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName,i);
+
             cricketersList.add(cricketer); //aqui ocurre la magia
 
         }
@@ -178,6 +178,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 parametros.put("tipoPregunta","1");
                 parametros.put("tituloPregunta","creando pregunta");
 
+
                 return parametros;
             }
         };
@@ -215,7 +216,8 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
-    private void crearRespuesta(final String rutaWebServices, final String contenidoRespuesta){
+    private void crearRespuesta(final String rutaWebServices, final String contenidoRespuesta, final int i){
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
 
@@ -237,12 +239,55 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
                 parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
                 parametros.put("contenidoRespuesta",contenidoRespuesta);
+                parametros.put("res_orden",Integer.toString(i));
+
 
                 return parametros;
             }
         };
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
+    }
+
+    private void irACrearPregunta(){
+        int idPregunta= parseInt(getIntent().getStringExtra("idPregunta"));
+
+        System.out.println("--->"+idPregunta);
+        System.out.println("--->"+idPregunta++);
+        System.out.println("--->"+Integer.toString(idPregunta));
+
+        Intent intent = new Intent(CrearPreguntas.this,CrearPreguntas.class);
+
+
+        intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+        intent.putExtra("idPregunta",Integer.toString(idPregunta));
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
+        intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+        intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
+        intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
+        intent.putExtra("esCuestionarioNuevo",false);
+
+
+        startActivity(intent);
+
+    }
+    private void irACrearCuestionario(){
+        Intent intent = new Intent(CrearPreguntas.this,CrearCuestionario.class);
+
+
+        intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+        intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
+        intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+        intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
+        intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
+        intent.putExtra("esCuestionarioNuevo",false);
+
+
+        startActivity(intent);
+
     }
 
 }

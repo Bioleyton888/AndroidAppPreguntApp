@@ -73,7 +73,7 @@ public class CrearCuestionario extends AppCompatActivity {
         if (getIntent().getBooleanExtra("esCuestionarioNuevo",false)){
             CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
         }else{
-            agregarPreguntas(Integer.parseInt(getIntent().getStringExtra("cantidadDePreguntas")));
+            agregarPreguntas(Integer.parseInt(getIntent().getStringExtra("cantidadDePreguntas")),true);
             tvID.setText(getIntent().getStringExtra("idEncuesta"));
             etFechaTermino.setText(getIntent().getStringExtra("fecha"));
             etTituloEncuesta.setText(getIntent().getStringExtra("tituloEncuesta"));
@@ -92,7 +92,7 @@ public class CrearCuestionario extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                agregarPreguntas(Integer.parseInt(etCantidadDePreguntas.getText().toString()));
+                agregarPreguntas(Integer.parseInt(etCantidadDePreguntas.getText().toString()), false);
             }
         });
 
@@ -218,11 +218,12 @@ public class CrearCuestionario extends AppCompatActivity {
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
-    private void agregarPreguntas(int cantidad){
+    private void agregarPreguntas(int cantidad, boolean b){
+
         for (int id=1; id <= cantidad; id++){
-            mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
-            mlayout.addView(tituloPregunta(getApplicationContext()),1);
-            mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1)),2);
+            mlayout.addView(descriptionTextView(getApplicationContext(),"Pregunta No "+(cantidad-id+1)),0);
+            //mlayout.addView(tituloPregunta(getApplicationContext()),1);
+            mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1),b),1);
         }
         buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
     }
@@ -249,12 +250,17 @@ public class CrearCuestionario extends AppCompatActivity {
         return editText;
     }
 
-    public Button botonAgregarPreguntas(final Context context, String text, final int id){
+    public Button botonAgregarPreguntas(final Context context, String text, final int id, boolean b){
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Button boton = new Button(context);
 
         boton.setId(id);
         boton.setMinEms(2);
+        if (b) {
+            text="Editar pregunta";
+            boton.setBackgroundColor(Color.rgb(50, 205, 50));
+            boton.setText("" +text+ "");
+        }
         //boton.setTextColor(Color.rgb(0,0,0));
         boton.setText("" +text+ "");
         boton.setOnClickListener(new View.OnClickListener() {

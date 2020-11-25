@@ -46,9 +46,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
     Button SiguientePregunta;
     RadioGroup RadioGroupPreguntas;
     String Lamo;
-
-
-            //lolcete = (GridLayout)findViewById(R.id.gridlayoutpreguntas);
+    //lolcete = (GridLayout)findViewById(R.id.gridlayoutpreguntas);
 
 
     @Override
@@ -63,7 +61,6 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         SiguientePregunta = (Button)findViewById(R.id.buttonSiguientePregunta);
         RadioGroupPreguntas= (RadioGroup)findViewById(R.id.RadioGroupPreguntas);
         SiguientePregunta.setOnClickListener(this);
-        String lamo = new String();
 
         mostrarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuesta.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"");
 

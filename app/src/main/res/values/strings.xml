@@ -37,6 +37,7 @@
 
     <string name="rowPreguntasPendientes_buttonResponder">Responder</string>
     <string name="buscar_encuestas">Buscar Encuestas</string>
+    <string name="Responder_encuestas_button_continuar">Continuar</string>
 
 
 </resources>
