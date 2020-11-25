@@ -221,9 +221,9 @@ public class CrearCuestionario extends AppCompatActivity {
     private void agregarPreguntas(int cantidad, boolean b){
 
         for (int id=1; id <= cantidad; id++){
-            mlayout.addView(descriptionTextView(getApplicationContext(),"Pregunta No "+(cantidad-id+1)),0);
-            //mlayout.addView(tituloPregunta(getApplicationContext()),1);
-            mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1),b),1);
+            mlayout.addView(descriptionTextView(getApplicationContext(),"Titulo pregunta No "+(cantidad-id+1)),0);
+            mlayout.addView(tituloPregunta(getApplicationContext()),1);
+            mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1),b),2);
         }
         buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
     }
