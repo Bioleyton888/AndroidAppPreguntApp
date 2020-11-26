@@ -16,7 +16,7 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_principal_usuario);
+        setContentView(R.layout.activity_menu_principal_usuario);
 
         tvBienvenida =(TextView)findViewById(R.id.textoBienvenida);
         botonPerfil = (Button)findViewById(R.id.buttonIrAPerfil);

@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 
         eTMail = (EditText)findViewById(R.id.editTextEmailAddress);
         eTPassword = (EditText)findViewById(R.id.editTextPassword);

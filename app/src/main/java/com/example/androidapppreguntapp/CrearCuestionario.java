@@ -100,8 +100,12 @@ public class CrearCuestionario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
-                Intent intent = new Intent(CrearCuestionario.this,AdministrarCuestionario.class);
+                Intent intent = new Intent(CrearCuestionario.this,FiltroCuestionario.class);
                 Bundle bundle = new Bundle();
+
+
+                intent.putExtra("correo",getIntent().getStringExtra("correo"));
+
                 intent.putExtras(bundle);
                 startActivity(intent);
 
@@ -295,7 +299,8 @@ public class CrearCuestionario extends AppCompatActivity {
     }
 
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     mYearIni = year;
                     mMonthIni = monthOfYear;
                     mDayIni = dayOfMonth;

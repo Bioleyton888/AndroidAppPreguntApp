@@ -29,7 +29,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_principal_administrador);
+        setContentView(R.layout.activity_menu_principal_administrador);
 
         tvBienvenida =(TextView)findViewById(R.id.textoBienvenida);
         botonCerrarSesion = (Button)findViewById(R.id.botonVolver);

@@ -252,9 +252,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     private void irACrearPregunta(){
         int idPregunta= parseInt(getIntent().getStringExtra("idPregunta"));
 
-        System.out.println("--->"+idPregunta);
-        System.out.println("--->"+idPregunta++);
-        System.out.println("--->"+Integer.toString(idPregunta));
+
 
         Intent intent = new Intent(CrearPreguntas.this,CrearPreguntas.class);
 

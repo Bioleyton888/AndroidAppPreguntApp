@@ -20,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PerfilDeUsuario extends AppCompatActivity {
-    TextView tvAnoIngreso, tvHijos, tvSemestre, tvSexo,tvCarrera,tvFacultad,tvEstadoCivil,tvComuna;
+    TextView tvAnoIngreso, tvHijos, tvSemestre, tvSexo,tvCarrera,tvFacultad,tvEstadoCivil,tvComuna,tvGenero;
     Button botonVolver;
     String correo,nombre,apellido;
     RequestQueue requestQueue;
@@ -29,7 +29,7 @@ public class PerfilDeUsuario extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.perfil_de_usuario);
+        setContentView(R.layout.activity_perfil_de_usuario);
 
         nombre = getIntent().getStringExtra("Nombre").toLowerCase();
         apellido = getIntent().getStringExtra("Apellido").toLowerCase();
@@ -44,6 +44,7 @@ public class PerfilDeUsuario extends AppCompatActivity {
         tvFacultad = (TextView)findViewById(R.id.textViewFacultad);
         tvEstadoCivil = (TextView)findViewById(R.id.textViewEstadoCivil);
         tvComuna = (TextView)findViewById(R.id.textViewComuna);
+        tvGenero = (TextView) findViewById(R.id.textViewGenero);
 
         correo = getIntent().getStringExtra("correo");
 
@@ -73,11 +74,12 @@ public class PerfilDeUsuario extends AppCompatActivity {
                         tvAnoIngreso.setText("Año de ingreso: "+jsonObject.getString("usu_anoingreso"));
                         tvHijos.setText("Hijos: "+jsonObject.getString("usu_hijos"));
                         tvSemestre.setText("Semestre: "+jsonObject.getString("usu_semestre"));
-                        tvSexo.setText("Sexo: "+jsonObject.getString("sex_nombre"));
+                        tvSexo.setText("Orientacion Sexual: "+jsonObject.getString("sex_nombre"));
                         tvCarrera.setText("Carrera: "+jsonObject.getString("car_nombre"));
                         tvFacultad.setText("Facultad: "+jsonObject.getString("fac_nombre"));
                         tvComuna.setText("Comuna: "+jsonObject.getString("com_nombre"));
                         tvEstadoCivil.setText("Estado civil: "+jsonObject.getString("eciv_nombre"));
+                        tvGenero.setText("Genero: "+jsonObject.getString("gen_nombre"));
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
