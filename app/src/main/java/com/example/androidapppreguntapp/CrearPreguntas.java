@@ -80,7 +80,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
 
-                    //System.out.println("--->"+getIntent().getStringExtra("idPregunta")+" "+getIntent().getStringExtra("cantidadDePreguntas")+"= "+getIntent().getStringExtra("idPregunta").equals(getIntent().getStringExtra("cantidadDePreguntas")));
+
                     if (getIntent().getStringExtra("idPregunta").equals(getIntent().getStringExtra("cantidadDePreguntas"))){
                         irACrearCuestionario();
 
@@ -252,6 +252,8 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     private void irACrearPregunta(){
         int idPregunta= parseInt(getIntent().getStringExtra("idPregunta"));
 
+        idPregunta++;
+
 
 
         Intent intent = new Intent(CrearPreguntas.this,CrearPreguntas.class);
@@ -270,6 +272,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
 
     }
+
     private void irACrearCuestionario(){
         Intent intent = new Intent(CrearPreguntas.this,CrearCuestionario.class);
 

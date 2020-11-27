@@ -18,12 +18,27 @@
             android:layout_height="match_parent"
             android:background="#b1b1b1">
 
+            <TextView
+                android:id="@+id/textViewOrientacion_Sexual"
+                android:layout_width="0dp"
+                android:autoSizeTextType="uniform"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Orientacion_sexual" />
+
             <Spinner
                 android:id="@+id/spinner_Orientacion_Sexual"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
                 android:background="#b1b1b1" />
+
+            <TextView
+                android:id="@+id/textView_Genero"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Genero" />
 
             <Spinner
                 android:id="@+id/spinner_Genero"
@@ -38,6 +53,13 @@
             android:layout_height="match_parent"
             android:background="#b1b1b1">
 
+            <TextView
+                android:id="@+id/textView_Facultad"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Facultad" />
+
             <Spinner
                 android:id="@+id/spinner_Facultad"
                 android:layout_width="0dp"
@@ -45,6 +67,13 @@
                 android:layout_span="0"
                 android:layout_weight="1"
                 android:background="#b1b1b1" />
+
+            <TextView
+                android:id="@+id/textView_Carrera"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Carrera" />
 
             <Spinner
                 android:id="@+id/spinner_Carrera"
@@ -60,6 +89,13 @@
             android:layout_height="36dp"
             android:background="#b1b1b1">
 
+            <TextView
+                android:id="@+id/textView_Comuna"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Comuna" />
+
             <Spinner
                 android:id="@+id/spinner_Comuna"
                 android:layout_width="0dp"
@@ -67,12 +103,20 @@
                 android:layout_weight="1"
                 android:background="#b1b1b1" />
 
+            <TextView
+                android:id="@+id/textView_Estado_civil"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_estado_civil" />
+
             <Spinner
                 android:id="@+id/spinner_Estado_Civil"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:background="#b1b1b1" />
+                android:background="#b1b1b1"
+                android:text="@string/Flitro_Cuestionario_subir_encuesta"/>
 
         </TableRow>
 
@@ -82,19 +126,34 @@
             android:orientation="vertical"
             android:background="#b1b1b1">
 
-            <Button
-                android:id="@+id/button"
+            <TextView
+                android:id="@+id/textView_ano_ingreso"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40sp"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_siguiente_filtro" />
+                android:text="@string/Filtro_Cuestionario_TextView_ano_ingreso" />
 
-            <Button
-                android:id="@+id/button2"
+            <EditText
+                android:id="@+id/editTextAnoingreso"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40sp"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_volver" />
+                android:ems="10"
+                android:inputType="number"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/textView_semestre"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_semestre" />
+
+            <Spinner
+                android:id="@+id/spinner_semestre"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1" />
         </TableRow>
 
         <TableRow
@@ -102,7 +161,26 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/buttonSiguiente_filtro"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_siguiente_filtro" />
+
+            <Button
+                android:id="@+id/button_volver"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_volver" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/button_Terminar_Filtros"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

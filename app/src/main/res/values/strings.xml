@@ -41,6 +41,15 @@
     <string name="Filtro_Cuestionario_siguiente_filtro">Siguiente Filtro</string>
     <string name="Filtro_Cuestionario_volver">Volver</string>
     <string name="Flitro_Cuestionario_subir_encuesta">Subir Encuesta</string>
+    <string name="Filtro_Cuestionario_TextView_Orientacion_sexual">Orientacion Sexual</string>
+    <string name="Filtro_Cuestionario_TextView_Orientacion_sexual_Genero">Genero</string>
+    <string name="Filtro_Cuestionario_TextView_Genero">Genero</string>
+    <string name="Filtro_Cuestionario_TextView_Facultad">Facultad</string>
+    <string name="Filtro_Cuestionario_TextView_Carrera">Carrera</string>
+    <string name="Filtro_Cuestionario_TextView_Comuna">Comuna</string>
+    <string name="Filtro_Cuestionario_TextView_estado_civil">Estado Civil</string>
+    <string name="Filtro_Cuestionario_TextView_ano_ingreso">Año Ingreso</string>
+    <string name="Filtro_Cuestionario_TextView_semestre">Semestre</string>
 
 
 </resources>
