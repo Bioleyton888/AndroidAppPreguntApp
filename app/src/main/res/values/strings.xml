@@ -50,6 +50,7 @@
     <string name="Filtro_Cuestionario_TextView_estado_civil">Estado Civil</string>
     <string name="Filtro_Cuestionario_TextView_ano_ingreso">Año Ingreso</string>
     <string name="Filtro_Cuestionario_TextView_semestre">Semestre</string>
+    <string name="Filtro_Cuestionario_Titulo">Filtros</string>
 
 
 </resources>

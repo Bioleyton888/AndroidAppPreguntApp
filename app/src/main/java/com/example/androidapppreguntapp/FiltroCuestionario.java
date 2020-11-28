@@ -36,7 +36,7 @@ import static java.lang.Integer.parseInt;
 public class FiltroCuestionario extends AppCompatActivity implements View.OnClickListener{
 
     private Spinner spinnerOrientacionSexual, spinnerFacultad,spinnerCarrera,spinnerComuna,spinnerEstadoCivil,spinnerGenero,spinnerSemestre;
-    Button botonTerminarEncuesta,botonSiguenteFiltro,botonVolver;
+    Button botonTerminarEncuesta,botonVolver;
     funciones_varias xamp = new funciones_varias();
     RequestQueue requestQueue;
     EditText EtAnoIngreso;
@@ -55,9 +55,8 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
         spinnerSemestre= (Spinner)findViewById(R.id.spinner_semestre);
         botonTerminarEncuesta= (Button)findViewById(R.id.button_Terminar_Filtros);
         botonVolver= (Button)findViewById(R.id.button_volver);
-        botonSiguenteFiltro= (Button)findViewById(R.id.buttonSiguiente_filtro);
+
         botonVolver.setOnClickListener(this);
-        botonSiguenteFiltro.setOnClickListener(this);
         botonTerminarEncuesta.setOnClickListener(this);
         EtAnoIngreso=(EditText)findViewById(R.id.editTextAnoingreso) ;
 
@@ -80,11 +79,6 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
 
-            case R.id.buttonSiguiente_filtro:
-                IngresarFiltro("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_filtros.php");
-                Toast.makeText(this,"Filtro anterioir Ingresado, ahora Ingrese el siguiente filtro",Toast.LENGTH_SHORT).show();
-
-                break;
 
             case R.id.botonVolver:
                 irACrearCuestionario();
@@ -119,6 +113,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
                 Editable anio=EtAnoIngreso.getText();
+                System.out.println("-->"+getIntent().getStringExtra("idEncuesta"));
                 parametros.put("car_nombre", (String) spinnerCarrera.getSelectedItem());
                 parametros.put("com_nombre",(String) spinnerComuna.getSelectedItem());
                 parametros.put("eciv_nombre",(String) spinnerEstadoCivil.getSelectedItem());
@@ -128,7 +123,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
                 parametros.put("enc_id",(getIntent().getStringExtra("idEncuesta")));
                 parametros.put("ano_ingreso", String.valueOf(anio));
                 if (spinnerSemestre.getSelectedItem().equals("no aplica")){
-                    parametros.put("semestre", "0");
+                    parametros.put("semestre", "1");
                 }else {
                     parametros.put("semestre", (String) spinnerSemestre.getSelectedItem());
                 }

@@ -6,12 +6,25 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <TextView
+        android:id="@+id/textViewTituloFiltros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/Filtro_Cuestionario_Titulo"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="408dp"
+        android:layout_height="523dp"
+        android:layout_marginTop="36dp"
         android:animateLayoutChanges="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textViewTituloFiltros">
 
         <TableRow
             android:layout_width="match_parent"
@@ -21,9 +34,9 @@
             <TextView
                 android:id="@+id/textViewOrientacion_Sexual"
                 android:layout_width="0dp"
-                android:autoSizeTextType="uniform"
                 android:layout_height="40sp"
                 android:layout_weight="1"
+                android:autoSizeTextType="uniform"
                 android:text="@string/Filtro_Cuestionario_TextView_Orientacion_sexual" />
 
             <Spinner
@@ -116,15 +129,15 @@
                 android:layout_height="40sp"
                 android:layout_weight="1"
                 android:background="#b1b1b1"
-                android:text="@string/Flitro_Cuestionario_subir_encuesta"/>
+                android:text="@string/Flitro_Cuestionario_subir_encuesta" />
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#b1b1b1">
+            android:background="#b1b1b1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView_ano_ingreso"
@@ -161,13 +174,6 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/buttonSiguiente_filtro"
-                android:layout_width="0dp"
-                android:layout_height="40sp"
-                android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_siguiente_filtro" />
-
-            <Button
                 android:id="@+id/button_volver"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
@@ -177,7 +183,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/button_Terminar_Filtros"

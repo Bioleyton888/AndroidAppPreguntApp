@@ -104,7 +104,8 @@ public class CrearCuestionario extends AppCompatActivity {
                 Bundle bundle = new Bundle();
 
 
-                intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+
+                intent.putExtra("idEncuesta",(String) tvID.getText());
                 intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
                 intent.putExtra("correo",getIntent().getStringExtra("correo"));
                 intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
@@ -221,6 +222,7 @@ public class CrearCuestionario extends AppCompatActivity {
                 parametros.put("disponibilidad","0");
                 parametros.put("cantidadPreguntas","0");
                 parametros.put("fechaTermino","000-00-00 00:00:00");
+                parametros.put("filt_id","1");
 
                 return parametros;
             }

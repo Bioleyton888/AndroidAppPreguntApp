@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.gridlayout.widget.GridLayout;
 
 import android.widget.LinearLayout;
@@ -44,18 +45,21 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         final ArrayList<String> listaDeEncuestas;
         listaDeEncuestas = new ArrayList<String>();
 
+        final ArrayList<String> listaDeDatosUsuario;
+        listaDeDatosUsuario = new ArrayList<String>();
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encuestas_pendientes);
 
-        comenzarBusqueda = (Button)findViewById(R.id.encuestasPendientesBotonComenzar);
+        comenzarBusqueda = (Button) findViewById(R.id.encuestasPendientesBotonComenzar);
         buttonVolver = (Button) findViewById(R.id.encuestasPendientesBotonVolver);
         mlayout = (GridLayout) findViewById(R.id.layoutEncuestasPendientes);
         layoutList = findViewById(R.id.LinearLayoutEncuestasPendientes);
 
 
-        ///////////////////////////////////////////
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_respondidas.php?per_correo="+getIntent().getStringExtra("correo")+"", new Response.Listener<JSONArray>() {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_encuestas_respondidas.php?per_correo=" + getIntent().getStringExtra("correo") + "", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
@@ -64,7 +68,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                         jsonObject = response.getJSONObject(i);
 
                         listaDeEncuestas.add(jsonObject.getString("enc_id"));
-
 
 
                     } catch (JSONException e) {
@@ -77,14 +80,50 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         }, new ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         }
         );
-        requestQueue= Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
-/////////////////////////////////////////////////////////////////////// esta seria la funcion buscarEncuestasRespondidas() pero por alguna razon no funciona si es funcion
 
+
+        JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_datos_usuario.php?per_correo=" + getIntent().getStringExtra("correo") + "", new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject2 = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject2 = response.getJSONObject(i);
+                        listaDeDatosUsuario.add(jsonObject2.getString("sex_id"));
+                        listaDeDatosUsuario.add(jsonObject2.getString("fac_id"));
+                        listaDeDatosUsuario.add(jsonObject2.getString("car_id"));
+                        listaDeDatosUsuario.add(jsonObject2.getString("com_id"));
+                        listaDeDatosUsuario.add(jsonObject2.getString("eciv_id"));
+                        listaDeDatosUsuario.add(jsonObject2.getString("gen_id"));
+
+                        listaDeDatosUsuario.add(jsonObject2.getString("usu_anoingreso"));
+                        listaDeDatosUsuario.add(jsonObject2.getString("usu_semestre"));
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest2);
+
+
+/////////////////////////////////////////////////////////////////////// esta seria la funcion buscarEncuestasRespondidas() pero por alguna razon no funciona si es funcion
 
 
         comenzarBusqueda.setOnClickListener(new View.OnClickListener() {
@@ -92,13 +131,12 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
 
                 layoutList.removeAllViewsInLayout();
-                buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php",listaDeEncuestas);
+                buscarEncuestasPendientes("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_encuestas_Pendientes.php", listaDeEncuestas, listaDeDatosUsuario);
             }
         });
 
 
-
-       //buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php",listaDeEncuestas);
+        //buscarEncuestasPendientes("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuestas_Pendientes.php",listaDeEncuestas);
 
 
         buttonVolver.setOnClickListener(new View.OnClickListener() {
@@ -109,8 +147,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         });
 
     }
-
-
 
 
     private void buscarEncuestasRespondidas(String rutaWebServices) {
@@ -127,12 +163,10 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                         listaDeEncuestas.add(jsonObject.getString("enc_id"));
 
 
-
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
 
 
             }
@@ -140,17 +174,17 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         }, new ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         }
         );
-        requestQueue= Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
 
 
     }
 
-    private void buscarEncuestasPendientes(String rutaWebServices, final ArrayList<String> listaDeEncuestas) {
+    private void buscarEncuestasPendientes(String rutaWebServices, final ArrayList<String> listaDeEncuestas, final ArrayList<String> listaDeDatosUsuario) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -160,8 +194,13 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                         jsonObject = response.getJSONObject(i);
 
 
-                        if (!seRespondioEstaEncuesta(jsonObject.getString("enc_id"),listaDeEncuestas)) {
-                            mostrarEncuestas(1, jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"));
+                        if (!seRespondioEstaEncuesta(jsonObject.getString("enc_id"), listaDeEncuestas)) {
+
+
+                            ObtenerIdfiltro("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_filtro_id.php?enc_id=" + jsonObject.getString("enc_id") + "", jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"), listaDeDatosUsuario);
+
+                            //filtros("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_filtros_encuesta.php?enc_id="+jsonObject.getString("enc_id")+"",jsonObject.getString("enc_id"),jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"));
+                            //mostrarEncuestas(1, jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"));
                         }
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -172,20 +211,20 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         }, new ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         }
         );
-        requestQueue= Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
 
     private boolean seRespondioEstaEncuesta(String enc_id, ArrayList<String> listaDeEncuestas) {
 
-        for (int i = 0; i<listaDeEncuestas.size();i++){
+        for (int i = 0; i < listaDeEncuestas.size(); i++) {
 
-            System.out.println("--->"+listaDeEncuestas.get(i)+" = "+enc_id+(listaDeEncuestas.get(i)==enc_id));
-            if (listaDeEncuestas.get(i).equals(enc_id)){
+
+            if (listaDeEncuestas.get(i).equals(enc_id)) {
                 return true;
             }
         }
@@ -193,12 +232,12 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
     }
 
     private void mostrarEncuestas(int cantidad, final String enc_id, String enc_titulo, final String enc_cantidadpreguntas) {
-        for (int id=1; id <= cantidad; id++) {
+        for (int id = 1; id <= cantidad; id++) {
             final View preguntaPendiente = getLayoutInflater().inflate(R.layout.row_preguntas_pendientes, null, false);
 
-            TextView tituloEncuesta = (TextView)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_textViewTituloEncuesta);
-            TextView cantidadPreguntas = (TextView)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_textViewNumeroPreguntas);
-            Button responderPreguntas = (Button)preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_buttonResponder);
+            TextView tituloEncuesta = (TextView) preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_textViewTituloEncuesta);
+            TextView cantidadPreguntas = (TextView) preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_textViewNumeroPreguntas);
+            Button responderPreguntas = (Button) preguntaPendiente.findViewById(R.id.rowPreguntasPendientes_buttonResponder);
 
             tituloEncuesta.setText(enc_titulo);
             cantidadPreguntas.setText(enc_cantidadpreguntas);
@@ -216,14 +255,14 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void irAResponderEncuestas(String idEncuestasPendientes, String enc_cantidadpreguntas){
+    private void irAResponderEncuestas(String idEncuestasPendientes, String enc_cantidadpreguntas) {
         Intent intent = new Intent(this, ResponderEncuestas.class);
-        intent.putExtra("idEncuestaPendiente",idEncuestasPendientes);
-        intent.putExtra("preguntaNumero",1);
-        intent.putExtra("cantidadPreguntas",Integer.parseInt(enc_cantidadpreguntas));
-        intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("Nombre",getIntent().getStringExtra("Nombre"));
-        intent.putExtra("Apellido",getIntent().getStringExtra("Apellido"));
+        intent.putExtra("idEncuestaPendiente", idEncuestasPendientes);
+        intent.putExtra("preguntaNumero", 1);
+        intent.putExtra("cantidadPreguntas", Integer.parseInt(enc_cantidadpreguntas));
+        intent.putExtra("correo", getIntent().getStringExtra("correo"));
+        intent.putExtra("Nombre", getIntent().getStringExtra("Nombre"));
+        intent.putExtra("Apellido", getIntent().getStringExtra("Apellido"));
 
         startActivity(intent);
         finish();
@@ -235,30 +274,30 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         final TextView textView = new TextView(context);
         textView.setLayoutParams(lparams);
         textView.setTextSize(10);
-        textView.setTextColor(Color.rgb(0,0,0));
-        textView.setText("" +text+ "");
+        textView.setTextColor(Color.rgb(0, 0, 0));
+        textView.setText("" + text + "");
         textView.setMaxEms(8);
         return textView;
     }
 
-    public EditText tituloPregunta(Context context){
+    public EditText tituloPregunta(Context context) {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final EditText editText = new EditText(context);
-        int id= 0;
+        int id = 0;
         editText.setId(id);
         editText.setMinEms(2);
-        editText.setTextColor(Color.rgb(0,0,0));
+        editText.setTextColor(Color.rgb(0, 0, 0));
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         return editText;
     }
 
-    public Button botonAgregarPreguntas(final Context context, String text, final int id){
+    public Button botonAgregarPreguntas(final Context context, String text, final int id) {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         Button boton = new Button(context);
         boton.setId(id);
         boton.setMinEms(2);
         //boton.setTextColor(Color.rgb(0,0,0));
-        boton.setText("" +text+ "");
+        boton.setText("" + text + "");
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -268,17 +307,17 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         return boton;
     }
 
-    private void removeView(View view){
+    private void removeView(View view) {
 
         layoutList.removeView(view);
 
     }
 
-    private void irAMenuPrincipalUsuario(String correo){
+    private void irAMenuPrincipalUsuario(String correo) {
         Intent intent = new Intent(this, MenuPrincipalUsuario.class); //Esto te manda a la otra ventana
-        intent.putExtra("Nombre",getIntent().getStringExtra("Nombre"));
-        intent.putExtra("Apellido",getIntent().getStringExtra("Apellido"));
-        intent.putExtra("correo",correo);
+        intent.putExtra("Nombre", getIntent().getStringExtra("Nombre"));
+        intent.putExtra("Apellido", getIntent().getStringExtra("Apellido"));
+        intent.putExtra("correo", correo);
 
         startActivity(intent);
         finish();
@@ -289,16 +328,108 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void funcionlamao(ArrayList<String> listaDeEncuestas){
+    private void ObtenerIdfiltro(String rutaWebServices, final String enc_id, final String enc_titulo, final String enc_cantidadpreguntas, final ArrayList<String> listaDeDatosUsuario) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
 
-        for (int i = 0; i<listaDeEncuestas.size();i++){
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
 
-            listaDeEncuestasGlobal.add(listaDeEncuestas.get(i));
-            System.out.println("--->"+listaDeEncuestas.get(i));
 
+                        filtros("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_filtros_encuesta.php?filt_id=" + jsonObject.getString("filt_id") + "", enc_id, enc_titulo, enc_cantidadpreguntas, listaDeDatosUsuario);
+
+                        //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
         }
-        System.out.println("---->"+listaDeEncuestasGlobal);
+        );
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void filtros(String rutaWebServices, final String enc_id, final String enc_titulo, final String enc_cantidadpreguntas, final ArrayList<String> listaDeDatosUsuario) {
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+                        if ((jsonObject.getString("sex_id").equals(listaDeDatosUsuario.get(0))) || (jsonObject.getString("sex_id").equals("1"))) {
+
+                            if ((jsonObject.getString("fac_id").equals(listaDeDatosUsuario.get(1))) || (jsonObject.getString("fac_id").equals("1"))) {
+
+                                if ((jsonObject.getString("car_id").equals(listaDeDatosUsuario.get(2))) || (jsonObject.getString("car_id").equals("1"))) {
+
+                                    if ((jsonObject.getString("com_id").equals(listaDeDatosUsuario.get(3))) || (jsonObject.getString("com_id").equals("1"))) {
+
+                                        if ((jsonObject.getString("eciv_id").equals(listaDeDatosUsuario.get(4))) || (jsonObject.getString("eciv_id").equals("1"))) {
+
+                                            if ((jsonObject.getString("gen_id").equals(listaDeDatosUsuario.get(5))) || (jsonObject.getString("gen_id").equals("1"))) {
+
+                                                if ((jsonObject.getString("filt_anoingreso").equals(listaDeDatosUsuario.get(6))) || (jsonObject.getString("filt_anoingreso").equals("1"))) {
+
+                                                    if ((jsonObject.getString("filt_semestre").equals(listaDeDatosUsuario.get(7))) || (jsonObject.getString("filt_semestre").equals("1"))) {
+                                                        mostrarEncuestas(1, enc_id, enc_titulo, enc_cantidadpreguntas);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                        //System.out.println("--<"+jsonObject.getString("fac_id"));
+                        //System.out.println("--<"+jsonObject.getString("car_id"));
+                        // System.out.println("--<"+jsonObject.getString("com_id"));
+                        //System.out.println("--<"+jsonObject.getString("eciv_id"));
+                        //System.out.println("--<"+jsonObject.getString("gen_id"));
+                        //System.out.println("--<"+jsonObject.getString("filt_anoingreso"));
+                        //System.out.println("--<"+jsonObject.getString("filt_semestre"));
+                        //mostrarEncuestas(1,enc_id , enc_titulo,enc_cantidadpreguntas);
+
+                        //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void perfilDeUsuario(String rutaWebServices) {
 
 
     }
+
 }
