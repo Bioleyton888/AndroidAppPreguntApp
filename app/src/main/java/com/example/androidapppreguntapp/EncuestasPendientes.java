@@ -384,7 +384,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
 
                                             if ((jsonObject.getString("gen_id").equals(listaDeDatosUsuario.get(5))) || (jsonObject.getString("gen_id").equals("1"))) {
 
-                                                if ((jsonObject.getString("filt_anoingreso").equals(listaDeDatosUsuario.get(6))) || (jsonObject.getString("filt_anoingreso").equals("1"))) {
+                                                if ((jsonObject.getString("filt_anoingreso").equals(listaDeDatosUsuario.get(6))) || (Integer.parseInt(jsonObject.getString("filt_anoingreso"))<1980 )) {
 
                                                     if ((jsonObject.getString("filt_semestre").equals(listaDeDatosUsuario.get(7))) || (jsonObject.getString("filt_semestre").equals("1"))) {
                                                         mostrarEncuestas(1, enc_id, enc_titulo, enc_cantidadpreguntas);

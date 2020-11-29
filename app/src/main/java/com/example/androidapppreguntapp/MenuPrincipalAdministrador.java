@@ -22,7 +22,7 @@ import org.json.JSONObject;
 public class MenuPrincipalAdministrador extends AppCompatActivity {
     funciones_varias xamp = new funciones_varias();
     TextView tvBienvenida;
-    Button botonPerfil,botonCerrarSesion,BotonAdministrarEncuestas;
+    Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas;
     String nombre, apellido,correo;
     RequestQueue requestQueue;
 
@@ -32,11 +32,21 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         setContentView(R.layout.activity_menu_principal_administrador);
 
         tvBienvenida =(TextView)findViewById(R.id.textoBienvenida);
+        botonAdministrarGraficos =(Button)findViewById(R.id.buttonIrAGraficos);
         botonCerrarSesion = (Button)findViewById(R.id.botonVolver);
         BotonAdministrarEncuestas= (Button)findViewById(R.id.botonirAAdministrarEncuestas);
         correo=getIntent().getStringExtra("correo");
         tvBienvenida.setText(correo);
         buscarNombreyApellido("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_nombre_y_apellidos.php?per_correo="+correo+"");
+
+
+        botonAdministrarGraficos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irAAdministraGraficos();
+            }
+        });
+
 
         botonCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +62,13 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void irAAdministraGraficos() {
+        Intent intent = new Intent(this, AdministrarGraficos.class); //Esto te manda a la otra ventana
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        startActivity(intent);
+        finish();
     }
 
     private void irAlLogin(){

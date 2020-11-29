@@ -38,6 +38,7 @@
     <string name="rowPreguntasPendientes_buttonResponder">Responder</string>
     <string name="buscar_encuestas">Buscar Encuestas</string>
     <string name="Responder_encuestas_button_continuar">Continuar</string>
+
     <string name="Filtro_Cuestionario_siguiente_filtro">Siguiente Filtro</string>
     <string name="Filtro_Cuestionario_volver">Volver</string>
     <string name="Flitro_Cuestionario_subir_encuesta">Subir Encuesta</string>
@@ -51,6 +52,10 @@
     <string name="Filtro_Cuestionario_TextView_ano_ingreso">Año Ingreso</string>
     <string name="Filtro_Cuestionario_TextView_semestre">Semestre</string>
     <string name="Filtro_Cuestionario_Titulo">Filtros</string>
+
+    <string name="generacion_graficos_generar_pdf">Generar PDF</string>
+    <string name="generacion_graficos_agregar_graficos">Agregar Graficos</string>
+    <string name="generacion_graficos_Total_respuestas">Gente que ha respondido la encuesta: 0</string>
 
 
 </resources>

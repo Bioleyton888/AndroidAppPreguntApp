@@ -15,6 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".CrearPreguntas"></activity>
         <activity android:name=".CrearCuestionario" />
+        <activity android:name=".AdministrarGraficos" />
         <activity android:name=".AdministrarCuestionario" />
         <activity android:name=".MenuPrincipalAdministrador" />
         <activity android:name=".EncuestasPendientes" />
