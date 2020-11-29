@@ -27,7 +27,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
     funciones_varias xamp = new funciones_varias();
     private Spinner spinnerEncuesta, spinnerPregunta, spinnerTipoGrafico;
     RequestQueue requestQueue;
-    TextView tvIdEncuesta, tvIDPregunta;
+    TextView tvIdEncuesta, tvIDPregunta,tvCantidadDeRespuestaEncuestas;
     Button botonAnadirGrafico, botonGenerarPDF, botonVolver;
 
     @Override
@@ -44,7 +44,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         spinnerEncuesta = (Spinner) findViewById(R.id.spinnerEncuesta);
         spinnerPregunta = (Spinner) findViewById(R.id.spinnerPregunta);
         spinnerTipoGrafico = (Spinner) findViewById(R.id.spinnerDiagrama);
-
+        tvCantidadDeRespuestaEncuestas= (TextView)findViewById(R.id.textViewCantidadDeRespuestas);
         botonAnadirGrafico = (Button) findViewById(R.id.buttonAnadirGrafico);
         botonGenerarPDF = (Button) findViewById(R.id.buttonGenerarPDF);
         botonVolver = (Button) findViewById(R.id.buttonSalir);
@@ -87,6 +87,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
                         listaDeEncuestas.add(jsonObject.getString("enc_titulo"));
                         listaDeIDEncuestas.add(jsonObject.getString("enc_id"));
 
+
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -107,6 +108,24 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
 
         /////////////////////////////////////////////////////////
+
+        spinnerEncuesta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!adapterView.getItemAtPosition(i).equals("Seleccione una Encuesta")) {
+                    Toast.makeText(adapterView.getContext(), "Seleccionado: " + adapterView.getItemAtPosition(i).toString() + " id: " + listaDeIDEncuestas.get(i), Toast.LENGTH_SHORT).show();
+                    tvIdEncuesta.setText(listaDeIDEncuestas.get(i));
+                    GentequerespondioLaEncuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_encuesta_veces_respondidas.php?enc_id="+tvIdEncuesta.getText()+"");
+                    mostrarPreguntas("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_pregunta.php?enc_id=" + tvIdEncuesta.getText() + "");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         spinnerPregunta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -124,23 +143,6 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
             }
         });
-
-        spinnerEncuesta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!adapterView.getItemAtPosition(i).equals("Seleccione una Encuesta")) {
-                    Toast.makeText(adapterView.getContext(), "Seleccionado: " + adapterView.getItemAtPosition(i).toString() + " id: " + listaDeIDEncuestas.get(i), Toast.LENGTH_SHORT).show();
-                    tvIdEncuesta.setText(listaDeIDEncuestas.get(i));
-                    mostrarPreguntas("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_pregunta.php?enc_id=" + tvIdEncuesta.getText() + "");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
 
         //if (((spinnerPregunta.getSelectedItem() != "Seleccione una Pregunta") || (adapterView.getItemAtPosition(i) != "Seleccionar Encuesta Primero"))) {
 
@@ -170,6 +172,41 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, listaDePreguntas);
+                spinnerPregunta.setAdapter(adapter);
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void GentequerespondioLaEncuesta(String rutaWebServices) {
+        final ArrayList<String> listaDePreguntas;
+        listaDePreguntas = new ArrayList<String>();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                listaDePreguntas.add("Seleccione una Pregunta");
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+                        tvCantidadDeRespuestaEncuestas.setText("Gente que ha respondido la encuesta: "+jsonObject.getString("VecesRespondidas"));
+                        listaDePreguntas.add(jsonObject.getString("preg_titulo"));
+
+
+                    } catch (JSONException e) {
+                        //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, listaDePreguntas);
