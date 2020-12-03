@@ -236,7 +236,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
 
 
-                funcionlamao(listaDeEncuestasParaElGrafico,listaDeIDEncuestasParaElGrafico,listaDePreguntasParaElGrafico2,listaDeIDPreguntasParaElGrafico,listaDeRespuestasParaLosGraficos,listaDeIDRespuestasParaElGrafico,listaDeGraficosParaElGrafico,listaDeCantidadDeRespuestasPorPreguntaParaLosGraficos,listaDeCuantosRespondieronTalRespuestaParaLosGraficos);
+                funcionGraficar(listaDeEncuestasParaElGrafico,listaDeIDEncuestasParaElGrafico,listaDePreguntasParaElGrafico2,listaDeIDPreguntasParaElGrafico,listaDeRespuestasParaLosGraficos,listaDeIDRespuestasParaElGrafico,listaDeGraficosParaElGrafico,listaDeCantidadDeRespuestasPorPreguntaParaLosGraficos,listaDeCuantosRespondieronTalRespuestaParaLosGraficos);
 
 
 
@@ -248,7 +248,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void funcionlamao(ArrayList<String> Encuesta, ArrayList<String> idEncuesta, ArrayList<String> preguntas, ArrayList<String> idPreguntas, ArrayList<String> respuesta, ArrayList<String> idRespuestas, ArrayList<String> grafico, ArrayList<Integer> cantidadDeRespuestasPorPregunta, ArrayList<String> cuantosSeleccionaronEsaRespuesta) {
+    private void funcionGraficar(ArrayList<String> Encuesta, ArrayList<String> idEncuesta, ArrayList<String> preguntas, ArrayList<String> idPreguntas, ArrayList<String> respuesta, ArrayList<String> idRespuestas, ArrayList<String> grafico, ArrayList<Integer> cantidadDeRespuestasPorPregunta, ArrayList<String> cuantosSeleccionaronEsaRespuesta) {
 
 
         System.out.println("--< string tituloencuesta"+Encuesta.get(0));
