@@ -70,18 +70,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="12dp"
         android:text="@string/generacion_graficos_agregar_graficos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDiagrama" />
 
     <Button
-        android:id="@+id/buttonGenerarPDF"
+        android:id="@+id/buttonGenerarTerminarSeleccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
+        android:text="@string/terminar_seleccion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAnadirGrafico" />
+
+    <Button
+        android:id="@+id/buttonGenerarPDF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="184dp"
         android:text="@string/generacion_graficos_generar_pdf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
