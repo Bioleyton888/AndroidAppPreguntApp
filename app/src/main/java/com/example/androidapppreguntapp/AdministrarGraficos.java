@@ -276,14 +276,6 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
             }
             System.out.println(" ");
         }
-
-
-
-
-
-
-
-
     }
 
     @Override
