@@ -22,7 +22,7 @@ import org.json.JSONObject;
 public class MenuPrincipalAdministrador extends AppCompatActivity {
     funciones_varias xamp = new funciones_varias();
     TextView tvBienvenida;
-    Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas;
+    Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas,botonCrearCuestionario;
     String nombre, apellido,correo;
     RequestQueue requestQueue;
 
@@ -33,12 +33,20 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
 
         tvBienvenida =(TextView)findViewById(R.id.textoBienvenida);
         botonAdministrarGraficos =(Button)findViewById(R.id.buttonIrAGraficos);
+        botonCrearCuestionario =(Button)findViewById(R.id.buttonIrACrearCuestionario);
         botonCerrarSesion = (Button)findViewById(R.id.botonVolver);
         BotonAdministrarEncuestas= (Button)findViewById(R.id.botonirAAdministrarEncuestas);
         correo=getIntent().getStringExtra("correo");
         tvBienvenida.setText(correo);
         buscarNombreyApellido("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_nombre_y_apellidos.php?per_correo="+correo+"");
 
+
+        botonCrearCuestionario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IrACrearCuestionario();
+            }
+        });
 
         botonAdministrarGraficos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +87,17 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
 
     private void irAAdministrarCuestionario(){
         Intent intent = new Intent(this, AdministrarCuestionario.class); //Esto te manda a la otra ventana
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        startActivity(intent);
+        finish();
+    }
+
+    private void IrACrearCuestionario(){
+        Intent intent = new Intent(this, CrearCuestionario.class); //Esto te manda a la otra ventana
+        intent.putExtra("esCuestionarioNuevo",true);
+        intent.putExtra("cantidadDePreguntas","0");
+        intent.putExtra("fecha","000-00-00");
+        intent.putExtra("fechaCreacion","000-00-00 00:00:00");
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
         startActivity(intent);
         finish();

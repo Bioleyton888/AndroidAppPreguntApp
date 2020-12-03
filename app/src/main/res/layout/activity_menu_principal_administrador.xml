@@ -8,6 +8,22 @@
     tools:context=".MenuPrincipalAdministrador">
 
     <Button
+        android:id="@+id/buttonIrACrearCuestionario"
+        android:layout_width="105dp"
+
+        android:layout_height="35dp"
+        android:layout_below="@id/textoBienvenida"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_primary"
+        android:text="@string/botonCrearCuestionario"
+        android:textAlignment="center"
+        android:textSize="12sp"
+
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <Button
         android:id="@+id/botonVolver"
         android:layout_width="93dp"
         android:layout_height="wrap_content"
@@ -19,9 +35,9 @@
         android:id="@+id/botonirAAdministrarEncuestas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonIrAGraficos"
+        android:layout_below="@+id/buttonIrACrearCuestionario"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/round_primary"
         android:text="@string/botonIrAAdministrarEncuestas"
         android:textAlignment="center" />
@@ -31,10 +47,10 @@
         android:id="@+id/buttonIrAGraficos"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
-        android:layout_below="@id/textoBienvenida"
+        android:layout_below="@id/botonirAAdministrarEncuestas"
         android:layout_centerHorizontal="true"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
 
         android:text="@string/botonirAGraficos"
         android:textAlignment="center"
@@ -45,8 +61,8 @@
         android:id="@+id/textoBienvenida"
         android:layout_width="316dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="66dp"
         android:background="#002F6C"
         android:text="@string/descripcion"

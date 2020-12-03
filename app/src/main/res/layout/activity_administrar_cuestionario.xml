@@ -16,28 +16,15 @@
         android:drawableBottom="@drawable/ic_volver"
         android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/buttonIrACrearCuestionario"
-        android:layout_width="105dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/botonVolver"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round_orange"
-        android:text="@string/botonCrearCuestionario"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="305dp" />
-
     <TextView
         android:id="@+id/textViewNombreEncuestaSeleccionada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/botonVolver"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="148dp"
         android:text="@string/nombreEncuesta"
         android:textAlignment="center" />
 
@@ -45,9 +32,10 @@
         android:id="@+id/botonirABuscarCuestionario"
         android:layout_width="105dp"
         android:layout_height="35dp"
-        android:layout_below="@id/botonVolver"
-        android:layout_marginTop="11dp"
+        android:layout_below="@id/textViewNombreEncuestaSeleccionada"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/round_orange"
+        android:layout_marginTop="25dp"
         android:text="@string/botonBuscarCuestionario"
         android:textAlignment="center"
         android:textSize="12sp" />
@@ -57,22 +45,21 @@
         android:layout_width="105dp"
         android:layout_height="35dp"
         android:layout_below="@id/botonirABuscarCuestionario"
-        android:layout_centerHorizontal="false"
-        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:background="@drawable/round_orange"
         android:text="@string/botonModificarCuestionario"
         android:textAlignment="center"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="305dp" />
+             />
 
     <Button
         android:id="@+id/buttonTerminarCuestionario"
         android:layout_width="105dp"
         android:layout_height="35dp"
-        android:layout_below="@id/buttonIrACrearCuestionario"
+        android:layout_below="@id/buttonIrAModificarCuestionario"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/round_orange"
         android:text="@string/terminarCuestionario"
         android:textAlignment="center"
