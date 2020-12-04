@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 
 public class Login extends AppCompatActivity {
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     EditText eTMail, eTPassword;
     Button botonIngresar;
     CheckBox checkBoxAdmin;
@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
-                        if (funciones_varias.convertToBoolean(jsonObject.getString("per_esadmin")) == true){
+                        if (FuncionesVarias.convertToBoolean(jsonObject.getString("per_esadmin")) == true){
                             Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
                             //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
                             irAMenuPrincipalAdministrador(jsonObject.getString("per_nombre"), jsonObject.getString("per_apellidos"), jsonObject.getString("per_correo"));

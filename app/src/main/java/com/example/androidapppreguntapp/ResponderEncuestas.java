@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -40,7 +39,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
     ImageView trumo;
     TextView tvTituloEncuesta, tvCantidadPregunta,tvTituloPregunta;
     GridLayout lolcete;
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     RequestQueue requestQueue;
     LinearLayout layoutListPregunta,layoutListRespuesta;
     Button SiguientePregunta;

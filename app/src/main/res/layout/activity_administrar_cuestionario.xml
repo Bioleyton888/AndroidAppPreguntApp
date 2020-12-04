@@ -21,10 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/botonVolver"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="148dp"
+        android:layout_centerHorizontal="true"
         android:text="@string/nombreEncuesta"
         android:textAlignment="center" />
 

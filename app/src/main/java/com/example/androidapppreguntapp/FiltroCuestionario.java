@@ -25,9 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +35,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
 
     private Spinner spinnerOrientacionSexual, spinnerFacultad,spinnerCarrera,spinnerComuna,spinnerEstadoCivil,spinnerGenero,spinnerSemestre;
     Button botonTerminarEncuesta,botonVolver;
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     RequestQueue requestQueue;
     EditText EtAnoIngreso;
 
@@ -92,7 +90,6 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
-
 
     private void IngresarFiltro(final String rutaWebServices){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {

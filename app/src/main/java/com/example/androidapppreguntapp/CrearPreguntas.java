@@ -18,13 +18,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +30,7 @@ import static java.lang.Integer.parseInt;
 
 public class CrearPreguntas extends AppCompatActivity implements View.OnClickListener {
     String idEncuesta, lastIDPregunta;
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     LinearLayout layoutList;
     TextView tvID;
     Button buttonAdd;

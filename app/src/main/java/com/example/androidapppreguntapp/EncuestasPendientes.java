@@ -34,9 +34,8 @@ import java.util.ArrayList;
 
 public class EncuestasPendientes extends AppCompatActivity implements View.OnClickListener {
     LinearLayout layoutList;
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     RequestQueue requestQueue;
-    static ArrayList<String> listaDeEncuestasGlobal = new ArrayList<String>();
     Button buttonVolver, comenzarBusqueda;
     private GridLayout mlayout;
 
@@ -147,7 +146,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         });
 
     }
-
 
     private void buscarEncuestasRespondidas(String rutaWebServices) {
         final ArrayList<String> listaDeEncuestas = new ArrayList<String>();

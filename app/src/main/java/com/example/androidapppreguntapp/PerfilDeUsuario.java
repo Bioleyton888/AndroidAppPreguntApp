@@ -24,7 +24,7 @@ public class PerfilDeUsuario extends AppCompatActivity {
     Button botonVolver;
     String correo,nombre,apellido;
     RequestQueue requestQueue;
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

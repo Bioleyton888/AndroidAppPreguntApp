@@ -10,7 +10,6 @@
     <Button
         android:id="@+id/buttonIrACrearCuestionario"
         android:layout_width="105dp"
-
         android:layout_height="35dp"
         android:layout_below="@id/textoBienvenida"
         android:layout_centerHorizontal="true"
@@ -34,23 +33,24 @@
     <Button
         android:id="@+id/botonirAAdministrarEncuestas"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_below="@+id/buttonIrACrearCuestionario"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:background="@drawable/round_primary"
         android:text="@string/botonIrAAdministrarEncuestas"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="12sp" />
 
     <Button
-        android:background="@drawable/round_primary"
         android:id="@+id/buttonIrAGraficos"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="35dp"
         android:layout_below="@id/botonirAAdministrarEncuestas"
         android:layout_centerHorizontal="true"
-
         android:layout_marginTop="15dp"
+
+        android:background="@drawable/round_primary"
 
         android:text="@string/botonirAGraficos"
         android:textAlignment="center"

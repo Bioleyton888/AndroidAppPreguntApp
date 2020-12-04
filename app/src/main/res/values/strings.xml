@@ -59,6 +59,8 @@
     <string name="terminar_seleccion">Terminar seleccion</string>
     <string name="trabajar_datos">Trabajar Datos</string>
     <string name="obtener_respuestas_de_preguntas">Obtener Respuestas de Preguntas</string>
+    <string name="crear_preguntas_tipo_de_respuesta">Tipo de respuesta</string>
+    <string name="terminar_encuesta_bajar_encuesta">Bajar Encuesta</string>
 
 
 </resources>

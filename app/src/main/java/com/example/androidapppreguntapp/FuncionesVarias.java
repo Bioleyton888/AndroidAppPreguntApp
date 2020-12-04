@@ -2,7 +2,7 @@ package com.example.androidapppreguntapp;
 
 import android.net.wifi.WifiManager;
 
-public class funciones_varias {
+public class FuncionesVarias {
     public String ipv4(){
         return "192.168.1.94";
     }

@@ -1,6 +1,6 @@
 package com.example.androidapppreguntapp;
 
-public class encuesta {
+public class Encuesta {
 
     public static String correoCreador;
     public static String tituloEncuesta;
@@ -9,9 +9,9 @@ public class encuesta {
     public static String cantidadPreguntas;
     public static String fechaTermino;
 
-    encuesta(){}
+    Encuesta(){}
 
-    encuesta(String newCorreoCreador,String newTituloEncuesta,String newFechaCreacion,String newDisponibilidadEncuesta,String newCantidadPreguntas,String newFechaTermino){
+    Encuesta(String newCorreoCreador, String newTituloEncuesta, String newFechaCreacion, String newDisponibilidadEncuesta, String newCantidadPreguntas, String newFechaTermino){
         correoCreador = newCorreoCreador;
         tituloEncuesta = newTituloEncuesta;
         fechaCreacion= newFechaCreacion;

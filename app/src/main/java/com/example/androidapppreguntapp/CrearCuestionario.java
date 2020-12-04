@@ -41,7 +41,7 @@ public class CrearCuestionario extends AppCompatActivity {
     String a,b,c,d,e,f;
     String lastID = new String();
     RequestQueue requestQueue;
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     private GridLayout mlayout;
     private int mYearIni, mMonthIni, mDayIni, sYearIni, sMonthIni, sDayIni;
     Button addItem, addFecha,buttonsubirEncuesta;
@@ -89,6 +89,7 @@ public class CrearCuestionario extends AppCompatActivity {
                 showDialog(DATE_ID);
             }
         });
+
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +114,9 @@ public class CrearCuestionario extends AppCompatActivity {
                 intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
                 intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
                 intent.putExtra("esCuestionarioNuevo",false);
+
+
+
 
                 intent.putExtras(bundle);
                 startActivity(intent);

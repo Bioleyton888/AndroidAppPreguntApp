@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
 
         android:usesCleartextTraffic="true">
-        <activity android:name=".CrearPreguntas"></activity>
+        <activity android:name=".CrearPreguntas" />
         <activity android:name=".CrearCuestionario" />
         <activity android:name=".AdministrarGraficos" />
         <activity android:name=".AdministrarCuestionario" />
@@ -33,7 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityCricketers"></activity>
+        <activity android:name=".ActivityCricketers" />
+        <activity android:name=".BuscarEncuestas" />
+        <activity android:name=".TerminarEncuesta" />
     </application>
 
 

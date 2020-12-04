@@ -48,6 +48,7 @@
             <Spinner
                 android:id="@+id/spinnerTipoDeOpcion"
                 android:layout_width="match_parent"
+                android:text="@string/crear_preguntas_tipo_de_respuesta"
                 android:layout_height="45dp"
                 android:layout_weight="2" />
 
@@ -63,7 +64,7 @@
         android:background="@drawable/round_orange"
         app:layout_constraintTop_toBottomOf="@+id/ScrollView"
         tools:layout_editor_absoluteX="-1dp"
-        tools:text="Siguiente Pregunta"></Button>
+        tools:text="Siguiente Pregunta" />
 
     <TextView
         android:id="@+id/textViewIdpregunta"

@@ -1,5 +1,6 @@
 package com.example.androidapppreguntapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,11 +25,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class AdministrarGraficos extends AppCompatActivity implements View.OnClickListener {
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     private Spinner spinnerEncuesta, spinnerPregunta, spinnerTipoGrafico;
     RequestQueue requestQueue;
     TextView tvIdEncuesta, tvIDPregunta, tvCantidadDeRespuestaEncuestas;
-    Button botonAnadirGrafico, botonGenerarPDF, botonVolver,buttonGenerarTerminarSeleccion;
+    Button botonAnadirGrafico, botonGenerarPDF, AdministrarGraficosbotonVolver,buttonGenerarTerminarSeleccion;
     private RequestQueue mQueue;
 
     @Override
@@ -57,14 +58,14 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         spinnerPregunta = (Spinner) findViewById(R.id.spinnerPregunta);
         spinnerTipoGrafico = (Spinner) findViewById(R.id.spinnerDiagrama);
         tvCantidadDeRespuestaEncuestas = (TextView) findViewById(R.id.textViewCantidadDeRespuestas);
-        botonVolver = (Button) findViewById(R.id.buttonSalir);
+        AdministrarGraficosbotonVolver = (Button) findViewById(R.id.buttonSalir);
         botonAnadirGrafico = (Button) findViewById(R.id.buttonAnadirGrafico);
         buttonGenerarTerminarSeleccion = (Button) findViewById(R.id.buttonGenerarTerminarSeleccion);
 
         botonGenerarPDF = (Button) findViewById(R.id.buttonGenerarPDF);
         tvIdEncuesta = (TextView) findViewById(R.id.textViewEncuestaId);
         tvIDPregunta = (TextView) findViewById(R.id.textViewPreguntaId);
-        botonVolver.setOnClickListener(this);
+        AdministrarGraficosbotonVolver.setOnClickListener(this);
         botonGenerarPDF.setOnClickListener(this);
         botonAnadirGrafico.setOnClickListener(this);
         ArrayAdapter<String> adapterPregunta = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Pregunta);
@@ -280,9 +281,23 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
 
+            case R.id.buttonSalir:
+                irAMenuPrincipalAdministrador();
+                break;
+
+        }
     }
 
+    private void irAMenuPrincipalAdministrador() {
+
+            Intent intent = new Intent(this, MenuPrincipalAdministrador.class); //Esto te manda a la otra ventana
+            intent.putExtra("correo",getIntent().getStringExtra("correo"));
+            startActivity(intent);
+            finish();
+
+    }
 
     private void mostrarPreguntas(String rutaWebServices) {
         final ArrayList<String> listaDePreguntas;

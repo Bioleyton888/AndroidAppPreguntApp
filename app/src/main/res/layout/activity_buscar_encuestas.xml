@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/EncuestasBotonVolver"
+        android:layout_width="73dp"
+        android:layout_height="29dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/round_orange"
+        android:drawableBottom="@drawable/ic_volver"
+        android:textAlignment="center" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="518dp"
+        android:layout_below="@id/EncuestasBotonVolver"
+        android:layout_marginTop="1dp">
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutEncuestas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/layoutEncuestas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.gridlayout.widget.GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
+

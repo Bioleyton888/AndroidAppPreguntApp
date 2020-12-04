@@ -20,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MenuPrincipalAdministrador extends AppCompatActivity {
-    funciones_varias xamp = new funciones_varias();
+    FuncionesVarias xamp = new FuncionesVarias();
     TextView tvBienvenida;
     Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas,botonCrearCuestionario;
     String nombre, apellido,correo;
@@ -88,6 +88,10 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
     private void irAAdministrarCuestionario(){
         Intent intent = new Intent(this, AdministrarCuestionario.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("encuesta","Seleccione una Encuesta");
+        intent.putExtra("enc_id","1");
+        intent.putExtra("fecha"," ");
+        intent.putExtra("cantidadPreguntas"," ");
         startActivity(intent);
         finish();
     }
