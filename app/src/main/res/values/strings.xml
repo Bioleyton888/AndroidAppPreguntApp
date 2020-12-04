@@ -61,6 +61,9 @@
     <string name="obtener_respuestas_de_preguntas">Obtener Respuestas de Preguntas</string>
     <string name="crear_preguntas_tipo_de_respuesta">Tipo de respuesta</string>
     <string name="terminar_encuesta_bajar_encuesta">Bajar Encuesta</string>
+    <string name="Terminar_encuesta_titulo">Titulo</string>
+    <string name="Terminar_encuesta_preguntas">Preguntas</string>
+    <string name="Terminar_encuesta_fecha_termino">Fecha Termino</string>
 
 
 </resources>

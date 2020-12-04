@@ -1,5 +1,6 @@
 package com.example.androidapppreguntapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,9 +40,9 @@ public class TerminarEncuesta extends AppCompatActivity implements View.OnClickL
         botonVolver.setOnClickListener(this);
         botonBajarEncuestas.setOnClickListener(this);
 
-        tvTitulo.setText(getIntent().getStringExtra("enc_titulo"));
-        tvCantidadPreguntas.setText(getIntent().getStringExtra("enc_cantidadpreguntas"));
-        tvFechaTermino.setText(getIntent().getStringExtra("enc_fechacreacion"));
+        tvTitulo.setText(getIntent().getStringExtra("encuesta"));
+        tvCantidadPreguntas.setText(getIntent().getStringExtra("cantidadPreguntas"));
+        tvFechaTermino.setText(getIntent().getStringExtra("fecha"));
 
 
 
@@ -50,16 +51,20 @@ public class TerminarEncuesta extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View view) {
+        Button b = (Button)view;
         switch (view.getId()){
 
             case R.id.buttonbajarEncuesta:
-                if (botonVolver.getText().equals("Bajar Encuesta")){
-                    botonVolver.setText("Subir Encuesta");
+                if (b.getText().equals("Bajar Encuesta")){
+                    b.setText("Subir Encuesta");
+                    Toast.makeText(getApplicationContext(), "Encuesta bajada", Toast.LENGTH_SHORT).show();
                     bajarEncuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/bajar_encuesta.php","0");
                 }else {
-                    botonVolver.setText("Bajar Encuesta");
+                    b.setText("Bajar Encuesta");
+                    Toast.makeText(getApplicationContext(), "Encuesta subida", Toast.LENGTH_SHORT).show();
                     bajarEncuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/bajar_encuesta.php", "1");
                 }
 
@@ -98,19 +103,18 @@ public class TerminarEncuesta extends AppCompatActivity implements View.OnClickL
         };
         requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
-        Toast.makeText(getApplicationContext(), "Encuestas bajadas", Toast.LENGTH_SHORT).show();
+
     }
 
     private void irAAdministrarCuestionario(){
         Intent intent = new Intent(this, AdministrarCuestionario.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("encuesta",getIntent().getStringExtra("enc_titulo"));
+        intent.putExtra("encuesta",getIntent().getStringExtra("encuesta"));
         intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
-        intent.putExtra("fecha",getIntent().getStringExtra("enc_fechacreacion"));
-        intent.putExtra("cantidadPreguntas",getIntent().getStringExtra("enc_cantidadpreguntas"));
+        intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+        intent.putExtra("cantidadPreguntas",getIntent().getStringExtra("cantidadPreguntas"));
         startActivity(intent);
         finish();
     }
-
 
 }

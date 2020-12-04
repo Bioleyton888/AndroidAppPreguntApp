@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 
 
+
         botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,10 +69,10 @@ import android.widget.Toast;
      private void IrABajarEncuesta() {
          Intent intent = new Intent(this, TerminarEncuesta.class); //Esto te manda a la otra ventana
          intent.putExtra("correo",getIntent().getStringExtra("correo"));
-         intent.putExtra("encuesta",getIntent().getStringExtra("enc_titulo"));
+         intent.putExtra("encuesta",getIntent().getStringExtra("encuesta"));
          intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
-         intent.putExtra("fecha",getIntent().getStringExtra("enc_fechacreacion"));
-         intent.putExtra("cantidadPreguntas",getIntent().getStringExtra("enc_cantidadpreguntas"));
+         intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+         intent.putExtra("cantidadPreguntas",getIntent().getStringExtra("cantidadPreguntas"));
          startActivity(intent);
          finish();
      }
