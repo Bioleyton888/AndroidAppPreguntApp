@@ -103,6 +103,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         intent.putExtra("fecha","000-00-00");
         intent.putExtra("fechaCreacion","000-00-00 00:00:00");
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("enc_fechatermino","enc_fechatermino");
         startActivity(intent);
         finish();
     }

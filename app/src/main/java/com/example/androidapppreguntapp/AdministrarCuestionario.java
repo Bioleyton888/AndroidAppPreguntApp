@@ -60,7 +60,7 @@ import android.widget.Toast;
             @Override
             public void onClick(View view) {
                 if (!EncuestaNoSeleccionada(getIntent().getStringExtra("encuesta"))){
-
+                    IrAEditarCuestionario(); 
                 }
             }
         });
@@ -96,6 +96,18 @@ import android.widget.Toast;
      private void IrAMenuPrincipalAdministrador(){
          Intent intent = new Intent(this, MenuPrincipalAdministrador.class); //Esto te manda a la otra ventana
          intent.putExtra("correo",getIntent().getStringExtra("correo"));
+         startActivity(intent);
+         finish();
+     }
+
+     private void IrAEditarCuestionario() {
+         Intent intent = new Intent(this, EditarCuestionarios.class); //Esto te manda a la otra ventana
+         intent.putExtra("correo",getIntent().getStringExtra("correo"));
+         intent.putExtra("enc_titulo",getIntent().getStringExtra("encuesta"));
+         intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
+         intent.putExtra("enc_fechacreacion",getIntent().getStringExtra("fecha"));
+         intent.putExtra("enc_fechatermino",getIntent().getStringExtra("enc_fechatermino"));
+         intent.putExtra("enc_cantidadpreguntas",getIntent().getStringExtra("cantidadPreguntas"));
          startActivity(intent);
          finish();
      }

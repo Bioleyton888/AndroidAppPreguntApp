@@ -73,7 +73,7 @@ public class BuscarEncuestas extends AppCompatActivity implements View.OnClickLi
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        mostrarEncuestas(1, jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"),jsonObject.getString("enc_fechacreacion"));
+                        mostrarEncuestas(1, jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"),jsonObject.getString("enc_fechacreacion"),jsonObject.getString("enc_fechatermino"));
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -92,7 +92,7 @@ public class BuscarEncuestas extends AppCompatActivity implements View.OnClickLi
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void mostrarEncuestas(int cantidad, final String enc_id, final String enc_titulo, final String enc_cantidadpreguntas, final String enc_fechacreacion) {
+    private void mostrarEncuestas(int cantidad, final String enc_id, final String enc_titulo, final String enc_cantidadpreguntas, final String enc_fechacreacion, final String enc_fechatermino) {
         for (int id = 1; id <= cantidad; id++) {
             final View preguntaPendiente = getLayoutInflater().inflate(R.layout.row_preguntas_pendientes, null, false);
 
@@ -109,18 +109,19 @@ public class BuscarEncuestas extends AppCompatActivity implements View.OnClickLi
             responderPreguntas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    irAAdministrarCuestionario2(enc_id, enc_cantidadpreguntas,enc_titulo,enc_fechacreacion);
+                    irAAdministrarCuestionario2(enc_id, enc_cantidadpreguntas,enc_titulo,enc_fechacreacion,enc_fechatermino);
                 }
             });
             layoutList.addView(preguntaPendiente);
         }
     }
 
-    private void irAAdministrarCuestionario2(String enc_id, String enc_cantidadpreguntas, String enc_titulo, String enc_fechacreacion) {
+    private void irAAdministrarCuestionario2(String enc_id, String enc_cantidadpreguntas, String enc_titulo, String enc_fechacreacion, String enc_fechatermino) {
         Intent intent = new Intent(this, AdministrarCuestionario .class); //Esto te manda a la otra ventana
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
         intent.putExtra("encuesta",enc_titulo);
         intent.putExtra("fecha",enc_fechacreacion);
+        intent.putExtra("enc_fechatermino",enc_fechatermino);
         intent.putExtra("cantidadPreguntas",enc_cantidadpreguntas);
         intent.putExtra("enc_id",enc_id);
         startActivity(intent);

@@ -70,6 +70,9 @@ public class CrearCuestionario extends AppCompatActivity {
         addFecha= (Button)findViewById(R.id.buttonAgregarFecha);
         etFechaTermino = (EditText)findViewById(R.id.editTextDate);
 
+
+
+
         if (getIntent().getBooleanExtra("esCuestionarioNuevo",false)){
             CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
         }else{
@@ -78,9 +81,7 @@ public class CrearCuestionario extends AppCompatActivity {
             etFechaTermino.setText(getIntent().getStringExtra("fecha"));
             etTituloEncuesta.setText(getIntent().getStringExtra("tituloEncuesta"));
             etCantidadDePreguntas.setText(getIntent().getStringExtra("cantidadDePreguntas"));
-            etCantidadDePreguntas.setText(getIntent().getStringExtra("cantidadDePreguntas"));
             c=getIntent().getStringExtra("fechaCreacion");
-            //getIntent().getStringExtra("cantidadDePreguntas")
         }
 
         addFecha.setOnClickListener(new View.OnClickListener() {
@@ -104,8 +105,6 @@ public class CrearCuestionario extends AppCompatActivity {
                 Intent intent = new Intent(CrearCuestionario.this,FiltroCuestionario.class);
                 Bundle bundle = new Bundle();
 
-
-
                 intent.putExtra("idEncuesta",(String) tvID.getText());
                 intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
                 intent.putExtra("correo",getIntent().getStringExtra("correo"));
@@ -114,9 +113,6 @@ public class CrearCuestionario extends AppCompatActivity {
                 intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
                 intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
                 intent.putExtra("esCuestionarioNuevo",false);
-
-
-
 
                 intent.putExtras(bundle);
                 startActivity(intent);

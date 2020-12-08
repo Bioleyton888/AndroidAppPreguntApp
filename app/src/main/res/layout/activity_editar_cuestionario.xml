@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+
+    tools:context=".CrearCuestionario">
+
+
+    <TableLayout
+        android:id="@+id/editar_cuestionario_tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="63dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/editar_cuestionario_editTextCantidadDePreguntas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cantidaddepreguntas"
+                android:inputType="number"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/editar_cuestionario_buttonAgregarPregunta"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonAgregarPregunta" />
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/editar_cuestionario_buttonSubirEncuesta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editar_cuestionario_ScrollView"
+        android:text="@string/buttonSubirEncuesta" />
+
+    <TextView
+        android:id="@+id/editar_cuestionario_textViewIDEncuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editar_cuestionario_editTextDate"
+        android:text="ID encuesta" />
+
+    <Button
+        android:id="@+id/editar_cuestionario_buttonAgregarFecha"
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editar_cuestionario_buttonSubirEncuesta"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/editar_cuestionario_editTextDate"
+        android:text="@string/crearCuestionario_buttonSubirFecha" />
+
+    <EditText
+        android:id="@+id/editar_cuestionario_editTextDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editar_cuestionario_buttonSubirEncuesta"
+        android:layout_marginTop="6dp"
+        android:ems="10"
+
+        android:hint="@string/crearCuestionario_editTextFechatermino" />
+
+    <EditText
+        android:id="@+id/editar_cuestionario_editTextTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editar_cuestionario_tableLayout"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/txtTituloEncuesta"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <ScrollView
+        android:id="@+id/editar_cuestionario_ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="378dp"
+        android:layout_below="@id/editar_cuestionario_editTextTitulo"
+        android:layout_marginTop="1dp">
+
+        <LinearLayout
+            android:id="@+id/editar_cuestionario_contenedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <GridLayout
+                android:id="@+id/editar_cuestionario_myLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:padding="10dp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
