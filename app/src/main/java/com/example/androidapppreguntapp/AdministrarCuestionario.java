@@ -25,13 +25,7 @@ import android.widget.Toast;
         botonEditarEncuestas=(Button)findViewById(R.id.buttonIrAModificarCuestionario);
         EncuestaSeleccionada=(TextView)findViewById(R.id.textViewNombreEncuestaSeleccionada);
 
-
-
         EncuestaSeleccionada.setText(getIntent().getStringExtra("encuesta"));
-
-
-
-
 
         botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +78,6 @@ import android.widget.Toast;
          startActivity(intent);
          finish();
      }
-
 
      private boolean EncuestaNoSeleccionada(String encuesta){
         if (encuesta.equals("Seleccione una Encuesta")){
