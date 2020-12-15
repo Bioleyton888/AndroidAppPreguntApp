@@ -9,10 +9,22 @@
     tools:context=".CrearCuestionario">
 
 
+    <EditText
+        android:id="@+id/editTextTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/txtTituloEncuesta"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
-        android:layout_height="63dp">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextTitulo"
+        android:layout_marginTop="0dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -22,10 +34,10 @@
                 android:id="@+id/editTextCantidadDePreguntas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/cantidaddepreguntas"
-                android:inputType="number"
-                android:autofillHints="" />
+                android:inputType="number" />
 
             <Button
                 android:id="@+id/buttonAgregarPregunta"
@@ -70,23 +82,12 @@
 
         android:hint="@string/crearCuestionario_editTextFechatermino" />
 
-    <EditText
-        android:id="@+id/editTextTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tableLayout"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/txtTituloEncuesta"
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
-
     <ScrollView
         android:id="@+id/ScrollView"
         android:layout_width="match_parent"
-        android:layout_height="378dp"
-        android:layout_below="@id/editTextTitulo"
-        android:layout_marginTop="1dp">
+        android:layout_height="370dp"
+        android:layout_below="@+id/tableLayout"
+        android:layout_marginTop="6dp">
 
         <LinearLayout
             android:id="@+id/contenedor"

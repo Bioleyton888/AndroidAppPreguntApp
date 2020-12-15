@@ -8,6 +8,18 @@
     tools:context=".CrearPreguntas">
 
 
+    <EditText
+        android:id="@+id/editTextTituloOpcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/crearPreguntas_txtTituloPregunta"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-2dp" />
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="408dp"
@@ -15,11 +27,12 @@
         android:layout_centerHorizontal="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/editTextTituloOpcion">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
             <EditText
                 android:id="@+id/editTextCantidadDeOpciones"
@@ -33,10 +46,10 @@
 
             <Button
                 android:id="@+id/button_add"
-                android:background="@drawable/round_grey"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/round_grey"
                 android:text="@string/crearPreguntas_buttonAgregarOpciones" />
 
         </TableRow>
@@ -48,9 +61,9 @@
             <Spinner
                 android:id="@+id/spinnerTipoDeOpcion"
                 android:layout_width="match_parent"
-                android:text="@string/crear_preguntas_tipo_de_respuesta"
                 android:layout_height="45dp"
-                android:layout_weight="2" />
+                android:layout_weight="2"
+                android:text="@string/crear_preguntas_tipo_de_respuesta" />
 
         </TableRow>
 
@@ -64,7 +77,7 @@
         android:background="@drawable/round_orange"
         app:layout_constraintTop_toBottomOf="@+id/ScrollView"
         tools:layout_editor_absoluteX="-1dp"
-        tools:text="Siguiente Pregunta" />
+        android:text="@string/crear_preguntas_siguiente_pregunta" />
 
     <TextView
         android:id="@+id/textViewIdpregunta"
@@ -74,33 +87,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_submit_list" />
 
-    <EditText
-        android:id="@+id/editTextTituloOpcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tableLayout"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/crearPreguntas_txtTituloPregunta"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        tools:layout_editor_absoluteX="-16dp" />
-
     <ScrollView
         android:id="@+id/ScrollView"
         android:layout_width="409dp"
         android:layout_height="385dp"
         android:layout_below="@id/editTextTituloOpcion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTituloOpcion">
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout">
 
         <LinearLayout
             android:id="@+id/contenedor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
 

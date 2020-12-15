@@ -1,5 +1,6 @@
 package com.example.androidapppreguntapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -71,6 +72,31 @@ public class EditarCuestionarios extends AppCompatActivity {
 
     }
 
+
+
+    private void mostrarEncuestas(int cantidad, final String enc_id, final String preg_titulo, final String preg_id) {
+
+            final View preguntaCreada = getLayoutInflater().inflate(R.layout.row_pregunta, null, false);
+
+            TextView tituloPregunta = (TextView) preguntaCreada.findViewById(R.id.row_pregunta_nombrePregunta);
+            Button EditarPregunta = (Button) preguntaCreada.findViewById(R.id.row_pregunta_buttonIraEditarPregunta);
+
+            tituloPregunta.setText(preg_titulo);
+            EditarPregunta.setText("Editar");
+
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+
+
+            EditarPregunta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    irAResponderEncuestas(enc_id, preg_id,preg_titulo);
+                }
+            });
+            layoutList.addView(preguntaCreada);
+
+    }
+
     private void funcionlamao() {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_pregunta.php?enc_id=" + getIntent().getStringExtra("enc_id")+ "", new Response.Listener<JSONArray>() {
@@ -81,8 +107,8 @@ public class EditarCuestionarios extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        System.out.println("----> id:"+jsonObject.getString("preg_id")+" "+jsonObject.getString("preg_titulo"));
-                        mostrarEncuestas(1,getIntent().getStringExtra("enc_id"),jsonObject.getString("preg_titulo"),"7");
+
+                        mostrarEncuestas(1,getIntent().getStringExtra("enc_id"),jsonObject.getString("preg_titulo"),jsonObject.getString("preg_id"));
 
 
                     } catch (JSONException e) {
@@ -103,32 +129,19 @@ public class EditarCuestionarios extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
+    private void irAResponderEncuestas(String enc_id, String preg_id, String preg_titulo) {
+
+        Intent intent = new Intent(this, EditarPreguntas.class);
+        intent.putExtra("enc_id", enc_id);
+        intent.putExtra("preg_id", preg_id);
+        intent.putExtra("preg_titulo",preg_titulo);
+        intent.putExtra("correo", getIntent().getStringExtra("correo"));
 
 
-    private void mostrarEncuestas(int cantidad, final String enc_id, String enc_titulo, final String enc_cantidadpreguntas) {
-        for (int id = 1; id <= cantidad; id++) {
-            final View preguntaCreada = getLayoutInflater().inflate(R.layout.row_pregunta, null, false);
 
-            TextView tituloPregunta = (TextView) preguntaCreada.findViewById(R.id.row_pregunta_nombrePregunta);
-            Button EditarPregunta = (Button) preguntaCreada.findViewById(R.id.row_pregunta_buttonIraEditarPregunta);
-
-            tituloPregunta.setText(enc_titulo);
-            EditarPregunta.setText("Editar");
-
-            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
-
-            EditarPregunta.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    irAResponderEncuestas(enc_id, enc_cantidadpreguntas);
-                }
-            });
-            layoutList.addView(preguntaCreada);
-        }
-    }
-
-    private void irAResponderEncuestas(String enc_id, String enc_cantidadpreguntas) {
-        System.out.println("---> lamao");
+        startActivity(intent);
+        finish();
+        System.out.println("---> enc_id: "+enc_id+" preg id: "+preg_id+" preg_titulo: "+preg_titulo);
     }
 
 
