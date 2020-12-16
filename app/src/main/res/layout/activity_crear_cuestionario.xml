@@ -48,12 +48,29 @@
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/buttonSubirEncuesta"
+    <LinearLayout
+        android:id="@+id/LinearlayoutBotones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ScrollView"
-        android:text="@string/buttonSubirEncuesta" />
+        android:layout_below="@+id/ScrollView"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/cancelar" />
+
+        <Button
+            android:id="@+id/buttonSubirEncuesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/buttonSubirEncuesta" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewIDEncuesta"
@@ -66,7 +83,7 @@
         android:id="@+id/buttonAgregarFecha"
         android:layout_width="182dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonSubirEncuesta"
+        android:layout_below="@id/LinearlayoutBotones"
         android:layout_marginStart="-1dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/editTextDate"
@@ -76,7 +93,7 @@
         android:id="@+id/editTextDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonSubirEncuesta"
+        android:layout_below="@id/LinearlayoutBotones"
         android:layout_marginTop="6dp"
         android:ems="10"
 

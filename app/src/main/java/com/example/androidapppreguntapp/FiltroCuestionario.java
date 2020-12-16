@@ -86,7 +86,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
             case R.id.button_Terminar_Filtros:
                 IngresarFiltro("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_filtros.php");
                 Toast.makeText(this,"Filtros Ingresados, Encuesta Subida",Toast.LENGTH_SHORT).show();
-                irACrearAdministrarCuestionario();
+                irAAdministrarCuestionario();
                 break;
         }
     }
@@ -110,7 +110,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
                 Editable anio=EtAnoIngreso.getText();
-                System.out.println("-->"+getIntent().getStringExtra("idEncuesta"));
+
                 parametros.put("car_nombre", (String) spinnerCarrera.getSelectedItem());
                 parametros.put("com_nombre",(String) spinnerComuna.getSelectedItem());
                 parametros.put("eciv_nombre",(String) spinnerEstadoCivil.getSelectedItem());
@@ -368,11 +368,12 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
 
     }
 
-    private void irACrearAdministrarCuestionario(){
+    private void irAAdministrarCuestionario(){
         Intent intent = new Intent(FiltroCuestionario.this,AdministrarCuestionario.class);
 
 
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        intent.putExtra("enc_titulo",getIntent().getStringExtra("tituloEncuesta"));
 
 
         startActivity(intent);

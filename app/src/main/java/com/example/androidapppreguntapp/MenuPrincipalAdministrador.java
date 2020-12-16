@@ -88,7 +88,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
     private void irAAdministrarCuestionario(){
         Intent intent = new Intent(this, AdministrarCuestionario.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("encuesta","Seleccione una Encuesta");
+        intent.putExtra("enc_titulo","Seleccione una Encuesta");
         intent.putExtra("enc_id","1");
         intent.putExtra("fecha"," ");
         intent.putExtra("cantidadPreguntas"," ");

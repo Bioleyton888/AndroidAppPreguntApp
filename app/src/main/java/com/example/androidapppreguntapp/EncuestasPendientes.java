@@ -396,13 +396,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
 
                         }
 
-                        //System.out.println("--<"+jsonObject.getString("fac_id"));
-                        //System.out.println("--<"+jsonObject.getString("car_id"));
-                        // System.out.println("--<"+jsonObject.getString("com_id"));
-                        //System.out.println("--<"+jsonObject.getString("eciv_id"));
-                        //System.out.println("--<"+jsonObject.getString("gen_id"));
-                        //System.out.println("--<"+jsonObject.getString("filt_anoingreso"));
-                        //System.out.println("--<"+jsonObject.getString("filt_semestre"));
+
                         //mostrarEncuestas(1,enc_id , enc_titulo,enc_cantidadpreguntas);
 
                         //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)

@@ -33,12 +33,12 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
-public class EditarPreguntas extends AppCompatActivity implements View.OnClickListener {
-    String idEncuesta, lastIDPregunta;
+public class EditarPregunta extends AppCompatActivity implements View.OnClickListener {
+    String enc_id, lastpreg_id;
     FuncionesVarias xamp = new FuncionesVarias();
     LinearLayout layoutList;
     TextView tvID;
-    Button buttonAdd;
+    Button buttonAdd,buttonback;
     Button buttonSubmitList;
     EditText etCantidadDeOpciones, etPeguntaEnCuestion;
     RequestQueue requestQueue;
@@ -50,20 +50,22 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_preguntas);
 
-        tvID =(TextView)findViewById(R.id.textViewIdpregunta);
-        idEncuesta = getIntent().getStringExtra("enc_id");
+
+        enc_id = getIntent().getStringExtra("enc_id");
         etPeguntaEnCuestion=findViewById(R.id.editTextTituloOpcion);
         layoutList = findViewById(R.id.contenedor);
         buttonAdd = findViewById(R.id.button_add);
+        buttonback = findViewById(R.id.cancelar);
         buttonSubmitList = findViewById(R.id.button_submit_list);
         etCantidadDeOpciones = (EditText)findViewById(R.id.editTextCantidadDeOpciones);
         buttonAdd.setOnClickListener(this);
         buttonSubmitList.setOnClickListener(this);
+        buttonback.setOnClickListener(this);
 
         etPeguntaEnCuestion.setText(getIntent().getStringExtra("preg_titulo"));
-        System.out.println("---->Lamao"+getIntent().getStringExtra("enc_id")+""+getIntent().getStringExtra("preg_id"));
 
-        funcionlamao();
+
+        AgregarOpciones();
 
 
 
@@ -83,25 +85,53 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.button_submit_list:
+                //deleteOpciones("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/eliminar_respuesta.php");
+                modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                 if(checkIfValidAndRead()){
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
 
+                    irAEditarCuestionario();
 
-                    if (getIntent().getStringExtra("idPregunta").equals(getIntent().getStringExtra("cantidadDePreguntas"))){
-                        irACrearCuestionario();
-
-                    }else{
-                        irACrearPregunta();
-
-                    }
 
                 }
+                break;
+
+            case R.id.cancelar:
+                irAEditarCuestionario();
                 break;
         }
     }
 
-    private void funcionlamao() {
+    private void deleteOpciones(String rutaWebServices) {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
+                parametros.put("preg_id",getIntent().getStringExtra("preg_id"));
+
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
+        requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
+    }
+
+    private void AgregarOpciones() {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_respuestas.php?enc_id=" + getIntent().getStringExtra("enc_id")+"&preg_id="+getIntent().getStringExtra("preg_id")+ "", new Response.Listener<JSONArray>() {
             @Override
@@ -138,7 +168,7 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
     private boolean checkIfValidAndRead() {
         cricketersList.clear();
         boolean result = true;
-
+        
 
         for(int i=0;i<layoutList.getChildCount();i++){
 
@@ -155,7 +185,7 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
                 break;
             }
 
-            crearRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName,i);
+            editarRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName,i);
 
             cricketersList.add(cricketer); //aqui ocurre la magia
 
@@ -215,12 +245,10 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
-                parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+                parametros.put("preg_id",getIntent().getStringExtra("preg_id"));
+                parametros.put("enc_id",getIntent().getStringExtra("enc_id"));
                 parametros.put("tipoPregunta","1");
                 parametros.put("tituloPregunta","creando pregunta");
-
-
                 return parametros;
             }
         };
@@ -246,11 +274,10 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
-                parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+                parametros.put("idPregunta",getIntent().getStringExtra("preg_id"));
+                parametros.put("idEncuesta",getIntent().getStringExtra("enc_id"));
                 parametros.put("tipoPregunta","1");
                 parametros.put("tituloPregunta",etPeguntaEnCuestion.getText().toString());
-
                 return parametros;
             }
         };
@@ -258,7 +285,7 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
-    private void crearRespuesta(final String rutaWebServices, final String contenidoRespuesta, final int i){
+    private void editarRespuesta(final String rutaWebServices, final String contenidoRespuesta, final int i){
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
@@ -278,12 +305,10 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
-                parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
+                parametros.put("preg_id",getIntent().getStringExtra("preg_id"));
+                parametros.put("enc_id",getIntent().getStringExtra("enc_id"));
                 parametros.put("contenidoRespuesta",contenidoRespuesta);
                 parametros.put("res_orden",Integer.toString(i));
-
-
                 return parametros;
             }
         };
@@ -292,40 +317,39 @@ public class EditarPreguntas extends AppCompatActivity implements View.OnClickLi
     }
 
     private void irACrearPregunta(){
-        int idPregunta= parseInt(getIntent().getStringExtra("idPregunta"));
+        int preg_id= parseInt(getIntent().getStringExtra("preg_id"));
 
-        idPregunta++;
-
-
-
-        Intent intent = new Intent(EditarPreguntas.this, EditarPreguntas.class);
+        preg_id++;
 
 
-        intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
-        intent.putExtra("idPregunta",Integer.toString(idPregunta));
+
+        Intent intent = new Intent(EditarPregunta.this, EditarPregunta.class);
+
+
+        intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
+        intent.putExtra("preg_id",Integer.toString(preg_id));
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
-        intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
-        intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
-        intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
+        intent.putExtra("enc_cantidadpreguntas",getIntent().getStringExtra("enc_cantidadpreguntas"));
+        intent.putExtra("enc_fechatermino",getIntent().getStringExtra("enc_fechatermino"));
+        intent.putExtra("enc_fechacreacion",getIntent().getStringExtra("enc_fechacreacion"));
+        intent.putExtra("enc_titulo",getIntent().getStringExtra("enc_titulo"));
         intent.putExtra("esCuestionarioNuevo",false);
-
-
         startActivity(intent);
 
     }
 
-    private void irACrearCuestionario(){
-        Intent intent = new Intent(EditarPreguntas.this,CrearCuestionario.class);
+    private void irAEditarCuestionario(){
+        Intent intent = new Intent(EditarPregunta.this, EditarCuestionario.class);
 
-
-        intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
-        intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
-        intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
-        intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
-        intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
+        intent.putExtra("enc_titulo",getIntent().getStringExtra("enc_titulo"));
+        intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
+        intent.putExtra("enc_fechacreacion",getIntent().getStringExtra("enc_fechacreacion"));
+        intent.putExtra("enc_fechatermino",getIntent().getStringExtra("enc_fechatermino"));
+        intent.putExtra("enc_cantidadpreguntas",getIntent().getStringExtra("enc_cantidadpreguntas"));
+
+
+        intent.putExtra("preg_id",getIntent().getStringExtra("preg_id"));
         intent.putExtra("esCuestionarioNuevo",false);
 
 

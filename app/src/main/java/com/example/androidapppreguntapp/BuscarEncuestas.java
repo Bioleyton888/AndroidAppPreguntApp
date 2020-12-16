@@ -119,8 +119,8 @@ public class BuscarEncuestas extends AppCompatActivity implements View.OnClickLi
     private void irAAdministrarCuestionario2(String enc_id, String enc_cantidadpreguntas, String enc_titulo, String enc_fechacreacion, String enc_fechatermino) {
         Intent intent = new Intent(this, AdministrarCuestionario .class); //Esto te manda a la otra ventana
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("encuesta",enc_titulo);
-        intent.putExtra("fecha",enc_fechacreacion);
+        intent.putExtra("enc_titulo",enc_titulo);
+        intent.putExtra("enc_fechacreacion",enc_fechacreacion);
         intent.putExtra("enc_fechatermino",enc_fechatermino);
         intent.putExtra("cantidadPreguntas",enc_cantidadpreguntas);
         intent.putExtra("enc_id",enc_id);
@@ -169,9 +169,9 @@ public class BuscarEncuestas extends AppCompatActivity implements View.OnClickLi
     private void irAAdministrarCuestionario(){
         Intent intent = new Intent(this, AdministrarCuestionario.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("encuesta","Seleccione una Encuesta");
+        intent.putExtra("enc_titulo","Seleccione una Encuesta");
         intent.putExtra("enc_id","1");
-        intent.putExtra("fecha"," ");
+        intent.putExtra("enc_fechacreacion"," ");
         intent.putExtra("cantidadPreguntas"," ");
         startActivity(intent);
         finish();

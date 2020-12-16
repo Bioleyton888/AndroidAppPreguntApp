@@ -36,12 +36,28 @@
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/editar_cuestionario_buttonSubirEncuesta"
+    <LinearLayout
+        android:id="@+id/linearlayoutbotones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editar_cuestionario_ScrollView"
-        android:text="@string/buttonSubirEncuesta" />
+        android:layout_below="@+id/editar_cuestionario_ScrollView"
+        android:layout_marginTop="0dp">
+
+        <Button
+            android:id="@+id/editar_cuestionario_buttonCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/cancelar" />
+
+        <Button
+            android:id="@+id/editar_cuestionario_buttonSubirEncuesta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/buttonSubirEncuesta" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/editar_cuestionario_textViewIDEncuesta"
@@ -54,7 +70,7 @@
         android:id="@+id/editar_cuestionario_buttonAgregarFecha"
         android:layout_width="183dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editar_cuestionario_buttonSubirEncuesta"
+        android:layout_below="@id/linearlayoutbotones"
         android:layout_marginStart="-1dp"
         android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/editar_cuestionario_editTextDate"
@@ -64,7 +80,7 @@
         android:id="@+id/editar_cuestionario_editTextDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editar_cuestionario_buttonSubirEncuesta"
+        android:layout_below="@id/linearlayoutbotones"
         android:layout_marginTop="6dp"
         android:ems="10"
 

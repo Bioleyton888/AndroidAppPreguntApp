@@ -66,6 +66,8 @@
     <string name="Terminar_encuesta_fecha_termino">Fecha Termino</string>
     <string name="row_pregunta_editar_pregunta">Editar Pregunta</string>
     <string name="crear_preguntas_siguiente_pregunta">Siguiente Pregunta</string>
+    <string name="crear_preguntas_terminar_edicion">Terminar Edicion</string>
+    <string name="cancelar">Cancelar</string>
 
 
 </resources>

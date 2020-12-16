@@ -45,7 +45,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_preguntas);
 
-        tvID =(TextView)findViewById(R.id.textViewIdpregunta);
+
         idEncuesta = getIntent().getStringExtra("idEncuesta");
         etPeguntaEnCuestion=findViewById(R.id.editTextTituloOpcion);
         layoutList = findViewById(R.id.contenedor);

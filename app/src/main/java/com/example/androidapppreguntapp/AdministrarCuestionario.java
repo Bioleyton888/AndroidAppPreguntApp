@@ -25,7 +25,7 @@ import android.widget.Toast;
         botonEditarEncuestas=(Button)findViewById(R.id.buttonIrAModificarCuestionario);
         EncuestaSeleccionada=(TextView)findViewById(R.id.textViewNombreEncuestaSeleccionada);
 
-        EncuestaSeleccionada.setText(getIntent().getStringExtra("encuesta"));
+        EncuestaSeleccionada.setText(getIntent().getStringExtra("enc_titulo"));
 
         botonVolver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +44,7 @@ import android.widget.Toast;
         botonBajarEncuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!EncuestaNoSeleccionada(getIntent().getStringExtra("encuesta"))){
+                if (!EncuestaNoSeleccionada(getIntent().getStringExtra("enc_titulo"))){
                     IrABajarEncuesta();
                 }
             }
@@ -53,7 +53,7 @@ import android.widget.Toast;
         botonEditarEncuestas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!EncuestaNoSeleccionada(getIntent().getStringExtra("encuesta"))){
+                if (!EncuestaNoSeleccionada(getIntent().getStringExtra("enc_titulo"))){
                     IrAEditarCuestionario(); 
                 }
             }
@@ -63,9 +63,9 @@ import android.widget.Toast;
      private void IrABajarEncuesta() {
          Intent intent = new Intent(this, TerminarEncuesta.class); //Esto te manda a la otra ventana
          intent.putExtra("correo",getIntent().getStringExtra("correo"));
-         intent.putExtra("encuesta",getIntent().getStringExtra("encuesta"));
+         intent.putExtra("enc_titulo",getIntent().getStringExtra("enc_titulo"));
          intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
-         intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+         intent.putExtra("enc_fechacreacion",getIntent().getStringExtra("enc_fechacreacion"));
          intent.putExtra("cantidadPreguntas",getIntent().getStringExtra("cantidadPreguntas"));
          startActivity(intent);
          finish();
@@ -80,7 +80,7 @@ import android.widget.Toast;
      }
 
      private boolean EncuestaNoSeleccionada(String encuesta){
-        if (encuesta.equals("Seleccione una Encuesta")){
+        if ((encuesta.equals("Seleccione una Encuesta"))){
             Toast.makeText(this,"Seleccione una Encuesta primero",Toast.LENGTH_SHORT).show();
             return true;
         }else {return false;}
@@ -94,11 +94,11 @@ import android.widget.Toast;
      }
 
      private void IrAEditarCuestionario() {
-         Intent intent = new Intent(this, EditarCuestionarios.class); //Esto te manda a la otra ventana
+         Intent intent = new Intent(this, EditarCuestionario.class); //Esto te manda a la otra ventana
          intent.putExtra("correo",getIntent().getStringExtra("correo"));
-         intent.putExtra("enc_titulo",getIntent().getStringExtra("encuesta"));
+         intent.putExtra("enc_titulo",getIntent().getStringExtra("enc_titulo"));
          intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
-         intent.putExtra("enc_fechacreacion",getIntent().getStringExtra("fecha"));
+         intent.putExtra("enc_fechacreacion",getIntent().getStringExtra("enc_fechacreacion"));
          intent.putExtra("enc_fechatermino",getIntent().getStringExtra("enc_fechatermino"));
          intent.putExtra("enc_cantidadpreguntas",getIntent().getStringExtra("cantidadPreguntas"));
          startActivity(intent);

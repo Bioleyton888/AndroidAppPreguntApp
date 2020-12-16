@@ -135,7 +135,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                     jsonObject = response.getJSONObject(getIntent().getIntExtra("preguntaNumero",1)-1);
                     tvCantidadPregunta.setText(getIntent().getIntExtra("preguntaNumero",1)+"/"+CantidadPreguntas);
                     tvTituloPregunta.setText("Pregunta"+getIntent().getIntExtra("preguntaNumero",1)+": "+jsonObject.getString("preg_titulo"));
-                    System.out.println();
+
                     mostrarRespuestaPosibles("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_respuestas.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"&preg_id="+getIntent().getIntExtra("preguntaNumero",1)+"");
 
                     } catch (JSONException e) {

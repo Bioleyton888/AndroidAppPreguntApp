@@ -69,23 +69,29 @@
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/button_submit_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ScrollView"
-        android:background="@drawable/round_orange"
-        app:layout_constraintTop_toBottomOf="@+id/ScrollView"
-        tools:layout_editor_absoluteX="-1dp"
-        android:text="@string/crear_preguntas_siguiente_pregunta" />
 
-    <TextView
-        android:id="@+id/textViewIdpregunta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button_submit_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_submit_list" />
+        app:layout_constraintTop_toBottomOf="@+id/ScrollView">
+
+        <Button
+            android:id="@+id/cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/round_orange"
+            android:text="@string/cancelar" />
+
+        <Button
+            android:id="@+id/button_submit_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/round_orange"
+            android:text="@string/crear_preguntas_siguiente_pregunta" />
+
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/ScrollView"

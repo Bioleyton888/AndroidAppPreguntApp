@@ -37,8 +37,8 @@
         <activity android:name=".ActivityCricketers" />
         <activity android:name=".BuscarEncuestas" />
         <activity android:name=".TerminarEncuesta" />
-        <activity android:name=".EditarCuestionarios" />
-        <activity android:name=".EditarPreguntas" />
+        <activity android:name=".EditarCuestionario" />
+        <activity android:name=".EditarPregunta" />
     </application>
 
 

@@ -40,9 +40,9 @@ public class TerminarEncuesta extends AppCompatActivity implements View.OnClickL
         botonVolver.setOnClickListener(this);
         botonBajarEncuestas.setOnClickListener(this);
 
-        tvTitulo.setText(getIntent().getStringExtra("encuesta"));
+        tvTitulo.setText(getIntent().getStringExtra("enc_titulo"));
         tvCantidadPreguntas.setText(getIntent().getStringExtra("cantidadPreguntas"));
-        tvFechaTermino.setText(getIntent().getStringExtra("fecha"));
+        tvFechaTermino.setText(getIntent().getStringExtra("enc_fechacreacion"));
 
 
 
@@ -109,9 +109,9 @@ public class TerminarEncuesta extends AppCompatActivity implements View.OnClickL
     private void irAAdministrarCuestionario(){
         Intent intent = new Intent(this, AdministrarCuestionario.class); //Esto te manda a la otra ventana
         intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("encuesta",getIntent().getStringExtra("encuesta"));
+        intent.putExtra("enc_titulo",getIntent().getStringExtra("enc_titulo"));
         intent.putExtra("enc_id",getIntent().getStringExtra("enc_id"));
-        intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+        intent.putExtra("enc_fechacreacion",getIntent().getStringExtra("enc_fechacreacion"));
         intent.putExtra("cantidadPreguntas",getIntent().getStringExtra("cantidadPreguntas"));
         startActivity(intent);
         finish();
