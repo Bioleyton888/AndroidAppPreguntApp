@@ -59,7 +59,7 @@
             android:layout_height="39dp">
 
             <Spinner
-                android:id="@+id/spinnerTipoDeOpcion"
+                android:id="@+id/spinnerTipoDeEscala"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_weight="2"

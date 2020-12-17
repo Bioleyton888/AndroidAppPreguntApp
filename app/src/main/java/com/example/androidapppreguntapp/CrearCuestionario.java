@@ -44,7 +44,7 @@ public class CrearCuestionario extends AppCompatActivity {
     FuncionesVarias xamp = new FuncionesVarias();
     private GridLayout mlayout;
     private int mYearIni, mMonthIni, mDayIni, sYearIni, sMonthIni, sDayIni;
-    Button addItem, addFecha,buttonsubirEncuesta;
+    Button addItem, addFecha,buttonsubirEncuesta,buttonCancelar;
     EditText etCantidadDePreguntas, etFechaTermino,etTituloEncuesta;
     TextView tvID;
     Calendar calendar= Calendar.getInstance();
@@ -68,6 +68,7 @@ public class CrearCuestionario extends AppCompatActivity {
         buttonsubirEncuesta = (Button)findViewById(R.id.buttonSubirEncuesta);
         addItem = (Button)findViewById(R.id.buttonAgregarPregunta);
         addFecha= (Button)findViewById(R.id.buttonAgregarFecha);
+        buttonCancelar= (Button)findViewById(R.id.buttonCancelar);
         etFechaTermino = (EditText)findViewById(R.id.editTextDate);
 
 
@@ -119,6 +120,18 @@ public class CrearCuestionario extends AppCompatActivity {
 
             }
         });
+
+        buttonCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CrearCuestionario.this, MenuPrincipalAdministrador.class); //Esto te manda a la otra ventana
+                intent.putExtra("correo",getIntent().getStringExtra("correo"));
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
     }
 
     private void buscarIdEncuestaCreada(String rutaWebServices){

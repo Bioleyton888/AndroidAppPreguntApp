@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,8 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     FuncionesVarias xamp = new FuncionesVarias();
     LinearLayout layoutList;
     TextView tvID;
-    Button buttonAdd;
+    Button buttonAdd,buttonCancelar;
+    private Spinner spinnerEscala;
     Button buttonSubmitList;
     EditText etCantidadDeOpciones, etPeguntaEnCuestion;
     RequestQueue requestQueue;
@@ -45,17 +48,37 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_preguntas);
 
-
+        spinnerEscala = (Spinner) findViewById(R.id.spinnerTipoDeEscala);
         idEncuesta = getIntent().getStringExtra("idEncuesta");
         etPeguntaEnCuestion=findViewById(R.id.editTextTituloOpcion);
         layoutList = findViewById(R.id.contenedor);
         buttonAdd = findViewById(R.id.button_add);
         buttonSubmitList = findViewById(R.id.button_submit_list);
+        buttonCancelar = findViewById(R.id.cancelar);
         etCantidadDeOpciones = (EditText)findViewById(R.id.editTextCantidadDeOpciones);
         buttonAdd.setOnClickListener(this);
+        buttonCancelar.setOnClickListener(this);
         buttonSubmitList.setOnClickListener(this);
 
         crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+        funcionMostrarEscala();
+
+
+        spinnerEscala.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (adapterView.getItemAtPosition(i).equals("Escala de likert")) {
+                    layoutList.removeAllViews();
+                    addView2(5);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 //Integer.parseInt(CantidadDeOpciones.getText().toString())
     }
@@ -66,16 +89,21 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()){
 
             case R.id.button_add:
+                layoutList.removeAllViews();
                 addView(parseInt(etCantidadDeOpciones.getText().toString()));
                 modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                break;
+
+            case R.id.cancelar:
+                irACrearCuestionario();
+
                 break;
 
             case R.id.button_submit_list:
                 if(checkIfValidAndRead()){
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
-
-
+                    modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
                     if (getIntent().getStringExtra("idPregunta").equals(getIntent().getStringExtra("cantidadDePreguntas"))){
                         irACrearCuestionario();
 
@@ -87,6 +115,58 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
         }
+    }
+
+    private void addView2(int cantidad) {
+
+
+
+        for (int id=1; id <= cantidad; id++) {
+            final View cricketerView = getLayoutInflater().inflate(R.layout.row_add_cricketer, null, false);
+
+            EditText editText = (EditText) cricketerView.findViewById(R.id.edit_cricketer_name);
+            ImageView imageClose = (ImageView) cricketerView.findViewById(R.id.image_remove);
+
+            switch (id){
+                case 1:
+                    editText.setText("Totalmente en desacuerdo");
+                    break;
+                case 2:
+                    editText.setText("En desacuerdo");
+                    break;
+                case 3:
+                    editText.setText("Ni acuerdo, ni en desacuerdo");
+                    break;
+                case 4:
+                    editText.setText("De acuerdo");
+                    break;
+                case 5:
+                    editText.setText("Totalmente De acuerdo");
+                    break;
+
+
+            }
+
+
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, teamList);
+
+            imageClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeView(cricketerView);
+                }
+            });
+            layoutList.addView(cricketerView);
+        }
+    }
+
+    private void funcionMostrarEscala() {
+        String [] escalas ={"Opcion Multiple","Casillas","Escala de likert" };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, escalas);
+        spinnerEscala.setAdapter(adapter);
+
+
+
     }
 
     private boolean checkIfValidAndRead() {
@@ -198,10 +278,18 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                String selection = spinnerEscala.getSelectedItem().toString();
                 Map<String,String> parametros = new HashMap<String,String>();
                 parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
                 parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
-                parametros.put("tipoPregunta","1");
+
+                if (selection.equals("Opcion Multiple")){
+                    parametros.put("tipoPregunta","1");
+                }else if (selection.equals("Casillas")){
+                    parametros.put("tipoPregunta","2");
+                }else if (selection.equals("Escala de likert")){
+                    parametros.put("tipoPregunta","3");
+                }
                 parametros.put("tituloPregunta",etPeguntaEnCuestion.getText().toString());
 
                 return parametros;
