@@ -147,41 +147,6 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void buscarEncuestasRespondidas(String rutaWebServices) {
-        final ArrayList<String> listaDeEncuestas = new ArrayList<String>();
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-
-                        listaDeEncuestas.add(jsonObject.getString("enc_id"));
-
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-
-            }
-
-        }, new ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
-
-
-    }
-
     private void buscarEncuestasPendientes(String rutaWebServices, final ArrayList<String> listaDeEncuestas, final ArrayList<String> listaDeDatosUsuario) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
@@ -215,6 +180,41 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         );
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
+    }
+
+    private void buscarEncuestasRespondidas(String rutaWebServices) {
+        final ArrayList<String> listaDeEncuestas = new ArrayList<String>();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+                        listaDeEncuestas.add(jsonObject.getString("enc_id"));
+
+
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+            }
+
+        }, new ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+
+
     }
 
     private boolean seRespondioEstaEncuesta(String enc_id, ArrayList<String> listaDeEncuestas) {

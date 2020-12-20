@@ -53,7 +53,7 @@
     <string name="Filtro_Cuestionario_TextView_semestre">Semestre</string>
     <string name="Filtro_Cuestionario_Titulo">Filtros</string>
 
-    <string name="generacion_graficos_generar_pdf">Generar PDF</string>
+    <string name="generacion_graficos_generar_pdf">Descargar PDF</string>
     <string name="generacion_graficos_agregar_graficos">Agregar Graficos</string>
     <string name="generacion_graficos_Total_respuestas">Gente que ha respondido la encuesta: 0</string>
     <string name="terminar_seleccion">Terminar seleccion</string>
@@ -68,6 +68,8 @@
     <string name="crear_preguntas_siguiente_pregunta">Siguiente Pregunta</string>
     <string name="crear_preguntas_terminar_edicion">Terminar Edicion</string>
     <string name="cancelar">Cancelar</string>
+    <string name="Administrar_graficos_agregar_preguntas">Agregar pregunta</string>
+    <string name="administrar_graficos_trabajar_datos">Trabajar datos</string>
 
 
 </resources>
