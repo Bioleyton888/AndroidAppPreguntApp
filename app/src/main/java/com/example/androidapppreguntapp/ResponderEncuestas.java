@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class ResponderEncuestas extends AppCompatActivity implements View.OnClickListener {
     ImageView trumo;
-    TextView tvTituloEncuesta, tvCantidadPregunta,tvTituloPregunta;
+    TextView tvTituloEncuesta, tvCantidadPregunta,tvTituloPregunta,tvInstrucciones;
     GridLayout lolcete;
     FuncionesVarias xamp = new FuncionesVarias();
     RequestQueue requestQueue;
@@ -48,7 +49,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
     RadioGroup RadioGroupPreguntas;
     String Lamo;
     final ArrayList<String> ListadeRespuestas = new ArrayList<String>();
-    //lolcete = (GridLayout)findViewById(R.id.gridlayoutpreguntas);
+
 
 
     @Override
@@ -59,6 +60,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
 
 
         tvTituloEncuesta =(TextView)findViewById(R.id.tituloEncuesta);
+        tvInstrucciones =(TextView)findViewById(R.id.tvInstrucciones);
         tvCantidadPregunta=(TextView)findViewById(R.id.tvCantidadPreguntas);
         tvTituloPregunta=(TextView)findViewById(R.id.tvpregunta);
         layoutListPregunta = findViewById(R.id.LinearLayoutPreguntas);
@@ -66,7 +68,8 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         RadioGroupPreguntas= (RadioGroup)findViewById(R.id.RadioGroupPreguntas);
         SiguientePregunta.setOnClickListener(this);
 
-        mostrarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_encuesta.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"");
+        mostrarEncuesta("https://preguntappusach.000webhostapp.com/buscar_encuesta.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"");
+
 
 
 
@@ -78,13 +81,14 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         switch (view.getId()){
 
             case R.id.buttonSiguientePregunta:
-                //getIntent().getIntExtra("preguntaNumero",1)
-                //getIntent.getString("cantidadPreguntas")
+
                 Toast.makeText(this,"3",Toast.LENGTH_SHORT);
 
                 if (getIntent().getIntExtra("preguntaNumero", 1) == (getIntent().getIntExtra("cantidadPreguntas", 1))) {
-                    Toast.makeText(this,"FELICIDADES",Toast.LENGTH_SHORT).show();
-                    constanciaDeRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/insertar_encuesta_respondida.php");
+                    Toast toast =Toast.makeText(this,"FELICIDADES",Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.START,275,0);
+                    toast.show();
+                    constanciaDeRespuesta("https://preguntappusach.000webhostapp.com/insertar_encuesta_respondida.php");
                     irAErncuestasPendientes();
 
                 }else{
@@ -110,7 +114,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                         jsonObject = response.getJSONObject(0);
                         tvTituloEncuesta.setText(jsonObject.getString("enc_titulo"));
 
-                        mostrarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_pregunta.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"",jsonObject.getString("enc_cantidadpreguntas"));
+                        mostrarPregunta("https://preguntappusach.000webhostapp.com/buscar_pregunta.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"",jsonObject.getString("enc_cantidadpreguntas"));
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -141,7 +145,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                     tvCantidadPregunta.setText(getIntent().getIntExtra("preguntaNumero",1)+"/"+CantidadPreguntas);
                     tvTituloPregunta.setText("Pregunta"+getIntent().getIntExtra("preguntaNumero",1)+": "+jsonObject.getString("preg_titulo"));
 
-                    mostrarRespuestaPosibles("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_respuestas.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"&preg_id="+getIntent().getIntExtra("preguntaNumero",1)+"",jsonObject.getString("tpreg_id"));
+                    mostrarRespuestaPosibles("https://preguntappusach.000webhostapp.com/buscar_respuestas.php?enc_id="+getIntent().getStringExtra("idEncuestaPendiente")+"&preg_id="+getIntent().getIntExtra("preguntaNumero",1)+"",jsonObject.getString("tpreg_id"));
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -171,8 +175,12 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                         jsonObject = response.getJSONObject(i);
 
                         if (!tpreg_id.equals("2")){
+
+                            tvInstrucciones.setText("Seleccione una de las siguientes");
+
                             mostrarRespuestasRadioButton(i,jsonObject.getString( "res_respuesta"),jsonObject.getString( "res_id"));
                         }else {
+                            tvInstrucciones.setText("Seleccione mas de una si lo cree necesario");
                             mostrarRespuestasCheckbox(i,jsonObject.getString( "res_respuesta"),jsonObject.getString( "res_id"));
                         }
 
@@ -207,7 +215,6 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
                 public void onClick(View v) {
                     if (radioButton.isChecked() == true){
 
-                        //subirLaRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/subir_respuesta.php",res_id);
                         ListadeRespuestas.clear();
                         ListadeRespuestas.add(res_id);
 
@@ -237,7 +244,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         public void onClick(View v) {
             if (checkBox.isChecked() == true){
 
-                //subirLaRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/subir_respuesta.php",res_id);
+                //subirLaRespuesta("https://preguntappusach.000webhostapp.com/subir_respuesta.php",res_id);
 
                 ListadeRespuestas.add(res_id);
                 Lamo = (String) res_id;
@@ -245,7 +252,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
             }
             if (checkBox.isChecked() == false){
 
-                //subirLaRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/subir_respuesta.php",res_id);
+                //subirLaRespuesta("https://preguntappusach.000webhostapp.com/subir_respuesta.php",res_id);
 
                 ListadeRespuestas.remove(ListadeRespuestas.get(ListadeRespuestas.size()-1));
                 Lamo = (String) res_id;
@@ -276,6 +283,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
+                System.out.println("---<"+getIntent().getStringExtra("correo")+res_id);
                 parametros.put("idCorreo",getIntent().getStringExtra("correo"));
                 parametros.put("idRespuesta",res_id);
 
@@ -290,10 +298,10 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         Intent intent = new Intent(this, ResponderEncuestas.class);
 
         for (int i=0; i<ListadeRespuestas.size(); i++) {
-            subirLaRespuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/subir_respuesta.php", ListadeRespuestas.get(i));
+            subirLaRespuesta("https://preguntappusach.000webhostapp.com/subir_respuesta.php", ListadeRespuestas.get(i));
         }
 
-        Toast.makeText(getApplicationContext(),"Lamao: "+Lamo,Toast.LENGTH_SHORT).show();
+
         intent.putExtra("idEncuestaPendiente",getIntent().getStringExtra("idEncuestaPendiente"));
         intent.putExtra("preguntaNumero",getIntent().getIntExtra("preguntaNumero",1)+1);
         intent.putExtra("cantidadPreguntas",getIntent().getIntExtra("cantidadPreguntas",1));
@@ -347,7 +355,7 @@ public class ResponderEncuestas extends AppCompatActivity implements View.OnClic
         Intent intent = new Intent(this, EncuestasPendientes.class); //Esto te manda a la otra ventana
 
         for (int i=0; i<ListadeRespuestas.size(); i++) {
-            subirLaRespuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/subir_respuesta.php", ListadeRespuestas.get(i));
+            subirLaRespuesta("https://preguntappusach.000webhostapp.com/subir_respuesta.php", ListadeRespuestas.get(i));
         }
 
         intent.putExtra("correo",getIntent().getStringExtra("correo"));

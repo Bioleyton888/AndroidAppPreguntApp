@@ -80,7 +80,7 @@ public class EditarCuestionario extends AppCompatActivity {
         buttonsubirEncuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
+                editarEncuesta("https://preguntappusach.000webhostapp.com/editar_encuesta.php");
                 Intent intent = new Intent(EditarCuestionario.this,FiltroCuestionario.class);
                 Bundle bundle = new Bundle();
 

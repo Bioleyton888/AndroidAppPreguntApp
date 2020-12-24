@@ -60,7 +60,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         buttonCancelar.setOnClickListener(this);
         buttonSubmitList.setOnClickListener(this);
 
-        crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+        crearPreguntaEnBlanco("https://preguntappusach.000webhostapp.com/crear_pregunta.php");
         funcionMostrarEscala();
 
 
@@ -91,7 +91,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
             case R.id.button_add:
                 layoutList.removeAllViews();
                 addView(parseInt(etCantidadDeOpciones.getText().toString()));
-                modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                modificarPregunta("https://preguntappusach.000webhostapp.com/editar_pregunta.php");
                 break;
 
             case R.id.cancelar:
@@ -103,7 +103,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 if(checkIfValidAndRead()){
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
-                    modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                    modificarPregunta("https://preguntappusach.000webhostapp.com/editar_pregunta.php");
                     if (getIntent().getStringExtra("idPregunta").equals(getIntent().getStringExtra("cantidadDePreguntas"))){
                         irACrearCuestionario();
 
@@ -189,7 +189,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 break;
             }
 
-            crearRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName,i);
+            crearRespuesta("https://preguntappusach.000webhostapp.com/crear_respuesta.php",cricketer.cricketerName,i);
 
             cricketersList.add(cricketer); //aqui ocurre la magia
 

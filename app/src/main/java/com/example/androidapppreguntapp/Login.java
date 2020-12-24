@@ -44,9 +44,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkBoxAdmin.isChecked()){
-                    loginAdmin("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
+
+
+                    loginAdmin("https://preguntappusach.000webhostapp.com/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
+
                 }else{
-                    loginUsuario("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/login_usuario.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
+                    loginUsuario("https://preguntappusach.000webhostapp.com/login_usuario.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
+
                 }
 
             }

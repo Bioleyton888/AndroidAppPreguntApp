@@ -59,12 +59,12 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
         EtAnoIngreso=(EditText)findViewById(R.id.editTextAnoingreso) ;
 
 
-        mostrarDatosSpinnerCarrera("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_Carreras.php");
-        mostrarDatosSpinnerComuna("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_Comunas.php");
-        mostrarDatosSpinnerEstadoCivil("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_Estados_civiles.php");
-        mostrarDatosSpinnerFacultad("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_Facultades.php");
-        mostrarDatosSpinnerGenero("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_Generos.php");
-        mostrarDatosSpinnerOrientacionSexual("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_Orientaciones_Sexuales.php");
+        mostrarDatosSpinnerCarrera("https://preguntappusach.000webhostapp.com/buscar_carreras.php");
+        mostrarDatosSpinnerComuna("https://preguntappusach.000webhostapp.com/buscar_comunas.php");
+        mostrarDatosSpinnerEstadoCivil("https://preguntappusach.000webhostapp.com/buscar_estados_civiles.php");
+        mostrarDatosSpinnerFacultad("https://preguntappusach.000webhostapp.com/buscar_facultades.php");
+        mostrarDatosSpinnerGenero("https://preguntappusach.000webhostapp.com/buscar_generos.php");
+        mostrarDatosSpinnerOrientacionSexual("https://preguntappusach.000webhostapp.com/buscar_orientaciones_sexuales.php");
         mostrarDatosSpinnerSemestre();
 
 
@@ -84,7 +84,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
             break;
 
             case R.id.button_Terminar_Filtros:
-                IngresarFiltro("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_filtros.php");
+                IngresarFiltro("https://preguntappusach.000webhostapp.com/crear_filtros.php");
                 Toast.makeText(this,"Filtros Ingresados, Encuesta Subida",Toast.LENGTH_SHORT).show();
                 irAAdministrarCuestionario();
                 break;

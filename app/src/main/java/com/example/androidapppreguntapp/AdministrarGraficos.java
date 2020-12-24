@@ -105,8 +105,8 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         tvCantidadDeRespuestaEncuestas = (TextView) findViewById(R.id.textViewCantidadDeRespuestas);
         AdministrarGraficosbotonVolver = (Button) findViewById(R.id.buttonSalir);
         botonAnadirGrafico = (Button) findViewById(R.id.buttonAnadirGrafico);
-        buttonGenerarTerminarSeleccion = (Button) findViewById(R.id.buttonGenerarTerminarSeleccion);
 
+        buttonGenerarTerminarSeleccion = (Button) findViewById(R.id.buttonGenerarTerminarSeleccion);
         botonGenerarPDF = (Button) findViewById(R.id.buttonGenerarPDF);
         tvIdEncuesta = (TextView) findViewById(R.id.textViewEncuestaId);
         tvIDPregunta = (TextView) findViewById(R.id.textViewPreguntaId);
@@ -132,7 +132,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         listaDeIDEncuestas = new ArrayList<String>();
 
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_titulo_encuesta.php", new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_titulo_encuesta.php", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
@@ -174,8 +174,8 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
                 if (!adapterView.getItemAtPosition(i).equals("Seleccione una Encuesta")) {
                     Toast.makeText(adapterView.getContext(), "Seleccionado: " + adapterView.getItemAtPosition(i).toString() + " id: " + listaDeIDEncuestas.get(i), Toast.LENGTH_SHORT).show();
                     tvIdEncuesta.setText(listaDeIDEncuestas.get(i));
-                    mostrarPreguntas("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_pregunta.php?enc_id=" + tvIdEncuesta.getText() + "");
-                    GentequerespondioLaEncuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_encuesta_veces_respondidas.php?enc_id=" + tvIdEncuesta.getText() + "");
+                    mostrarPreguntas("https://preguntappusach.000webhostapp.com/buscar_pregunta.php?enc_id=" + tvIdEncuesta.getText() + "");
+                    GentequerespondioLaEncuesta("https://preguntappusach.000webhostapp.com/buscar_encuesta_veces_respondidas.php?enc_id=" + tvIdEncuesta.getText() + "");
                 }
             }
 
@@ -229,13 +229,13 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
                 listaDeIDEncuestasParaElGrafico.add((String) tvIdEncuesta.getText());
                 listaDeIDPreguntasParaElGrafico.add((String) tvIDPregunta.getText());
                 listaDeGraficosParaElGrafico.add((String) spinnerTipoGrafico.getSelectedItem());
-
-
+                buttonGenerarTerminarSeleccion.setVisibility(View.INVISIBLE);
+                botonGenerarPDF.setVisibility(View.VISIBLE);
                 final int[] contador = {0};
                 for (int o = 0; o < listaDePreguntasParaElGrafico.size(); o++) {
 
                     final int finalO = o;
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_respuestas_respondidas.php?enc_id=" + listaDeIDEncuestasParaElGrafico.get(o) + "&preg_id=" + listaDeIDPreguntasParaElGrafico.get(o) + "", new Response.Listener<JSONArray>() {
+                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_respuestas_respondidas.php?enc_id=" + listaDeIDEncuestasParaElGrafico.get(o) + "&preg_id=" + listaDeIDPreguntasParaElGrafico.get(o) + "", new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
                             JSONObject jsonObject;

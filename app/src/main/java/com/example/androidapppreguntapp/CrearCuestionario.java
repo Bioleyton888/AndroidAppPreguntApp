@@ -75,7 +75,7 @@ public class CrearCuestionario extends AppCompatActivity {
 
 
         if (getIntent().getBooleanExtra("esCuestionarioNuevo",false)){
-            CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
+            CrearEncuestaEnBlanco("https://preguntappusach.000webhostapp.com/crear_encuesta.php");
         }else{
             agregarPreguntas(Integer.parseInt(getIntent().getStringExtra("cantidadDePreguntas")),true);
             tvID.setText(getIntent().getStringExtra("idEncuesta"));
@@ -102,7 +102,7 @@ public class CrearCuestionario extends AppCompatActivity {
         buttonsubirEncuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
+                editarEncuesta("https://preguntappusach.000webhostapp.com/editar_encuesta.php");
                 Intent intent = new Intent(CrearCuestionario.this,FiltroCuestionario.class);
                 Bundle bundle = new Bundle();
 
@@ -251,7 +251,7 @@ public class CrearCuestionario extends AppCompatActivity {
             mlayout.addView(tituloPregunta(getApplicationContext()),1);
             mlayout.addView(botonAgregarPreguntas(getApplicationContext(),"Agregar Opciones",(cantidad-id+1),b),2);
         }
-        buscarIdEncuestaCreada("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
+        buscarIdEncuestaCreada("https://preguntappusach.000webhostapp.com/buscar_idencuesta.php?correo="+getIntent().getStringExtra("correo")+"&titulo_encuesta="+"Encuesta en proceso"+"&fecha_creacion="+c+"");
     }
 
     public TextView descriptionTextView(Context context, String text) {

@@ -48,7 +48,7 @@ public class PerfilDeUsuario extends AppCompatActivity {
 
         correo = getIntent().getStringExtra("correo");
 
-        perfilDeUsuario("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_perfil_usuario.php?per_correo="+correo+"");
+        perfilDeUsuario("https://preguntappusach.000webhostapp.com/buscar_perfil_usuario.php?per_correo="+correo+"");
         tvAnoIngreso.setText(correo);
 
 

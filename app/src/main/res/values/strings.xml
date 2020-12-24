@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">PreguntApp</string>
-    <string name="descripcion">Descripcion</string>
+    <string name="app_name">PreguntApp: LCC</string>
+    <string name="descripcion">Cargando</string>
     <string name="txtPasword">*******</string>
     <string name="txtMail">nombre.apellido@usach.cl</string>
     <string name="checboxaministrador">Entrar como administrador</string>

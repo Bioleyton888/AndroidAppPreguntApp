@@ -74,7 +74,7 @@ import android.widget.Toast;
      private void IrABuscarEncuesta() {
          Intent intent = new Intent(this, BuscarEncuestas.class); //Esto te manda a la otra ventana
          intent.putExtra("correo",getIntent().getStringExtra("correo"));
-         intent.putExtra("URL","http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_encuestas_para_modificar.php" );
+         intent.putExtra("URL","https://preguntappusach.000webhostapp.com/buscar_encuestas_para_modificar.php" );
          startActivity(intent);
          finish();
      }

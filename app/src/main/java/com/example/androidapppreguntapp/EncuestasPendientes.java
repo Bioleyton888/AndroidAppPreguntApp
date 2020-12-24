@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -57,8 +58,10 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         layoutList = findViewById(R.id.LinearLayoutEncuestasPendientes);
 
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_encuestas_respondidas.php?per_correo=" + getIntent().getStringExtra("correo") + "", new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_encuestas_respondidas.php?per_correo=" + getIntent().getStringExtra("correo") + "", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
@@ -87,7 +90,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
         requestQueue.add(jsonArrayRequest);
 
 
-        JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_datos_usuario.php?per_correo=" + getIntent().getStringExtra("correo") + "", new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest2 = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_datos_usuario.php?per_correo=" + getIntent().getStringExtra("correo") + "", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject2 = null;
@@ -130,7 +133,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
             public void onClick(View view) {
 
                 layoutList.removeAllViewsInLayout();
-                buscarEncuestasPendientes("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_encuestas_Pendientes.php", listaDeEncuestas, listaDeDatosUsuario);
+                buscarEncuestasPendientes("https://preguntappusach.000webhostapp.com/buscar_encuestas_Pendientes.php", listaDeEncuestas, listaDeDatosUsuario);
             }
         });
 
@@ -160,7 +163,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                         if (!seRespondioEstaEncuesta(jsonObject.getString("enc_id"), listaDeEncuestas)) {
 
 
-                            ObtenerIdfiltro("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_filtro_id.php?enc_id=" + jsonObject.getString("enc_id") + "", jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"), listaDeDatosUsuario);
+                            ObtenerIdfiltro("https://preguntappusach.000webhostapp.com/buscar_filtro_id.php?enc_id=" + jsonObject.getString("enc_id") + "", jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"), listaDeDatosUsuario);
 
                             //filtros("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_filtros_encuesta.php?enc_id="+jsonObject.getString("enc_id")+"",jsonObject.getString("enc_id"),jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"));
                             //mostrarEncuestas(1, jsonObject.getString("enc_id"), jsonObject.getString("enc_titulo"), jsonObject.getString("enc_cantidadpreguntas"));
@@ -337,7 +340,7 @@ public class EncuestasPendientes extends AppCompatActivity implements View.OnCli
                         jsonObject = response.getJSONObject(i);
 
 
-                        filtros("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_filtros_encuesta.php?filt_id=" + jsonObject.getString("filt_id") + "", enc_id, enc_titulo, enc_cantidadpreguntas, listaDeDatosUsuario);
+                        filtros("https://preguntappusach.000webhostapp.com/buscar_filtros_encuesta.php?filt_id=" + jsonObject.getString("filt_id") + "", enc_id, enc_titulo, enc_cantidadpreguntas, listaDeDatosUsuario);
 
                         //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
                     } catch (JSONException e) {

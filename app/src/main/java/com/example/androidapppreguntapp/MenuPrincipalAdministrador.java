@@ -38,7 +38,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         BotonAdministrarEncuestas= (Button)findViewById(R.id.botonirAAdministrarEncuestas);
         correo=getIntent().getStringExtra("correo");
         tvBienvenida.setText(correo);
-        buscarNombreyApellido("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/buscar_nombre_y_apellidos.php?per_correo="+correo+"");
+        buscarNombreyApellido("https://preguntappusach.000webhostapp.com/buscar_nombre_y_apellidos.php?per_correo="+correo+"");
 
 
         botonCrearCuestionario.setOnClickListener(new View.OnClickListener() {

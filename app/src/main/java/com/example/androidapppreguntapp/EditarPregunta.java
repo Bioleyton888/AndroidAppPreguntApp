@@ -69,7 +69,7 @@ public class EditarPregunta extends AppCompatActivity implements View.OnClickLis
 
 
 
-        //crearPreguntaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_pregunta.php");
+        //crearPreguntaEnBlanco("https://preguntappusach.000webhostapp.com/crear_pregunta.php");
 
 //Integer.parseInt(CantidadDeOpciones.getText().toString())
     }
@@ -81,12 +81,12 @@ public class EditarPregunta extends AppCompatActivity implements View.OnClickLis
 
             case R.id.button_add:
                 addViewRespuesta(parseInt(etCantidadDeOpciones.getText().toString()), ("res_respuesta"));
-                modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                modificarPregunta("https://preguntappusach.000webhostapp.com/editar_pregunta.php");
                 break;
 
             case R.id.button_submit_list:
-                //deleteOpciones("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/eliminar_respuesta.php");
-                modificarPregunta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_pregunta.php");
+                //deleteOpciones("https://preguntappusach.000webhostapp.com/eliminar_respuesta.php");
+                modificarPregunta("https://preguntappusach.000webhostapp.com/editar_pregunta.php");
                 if(checkIfValidAndRead()){
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list",cricketersList);
@@ -185,7 +185,7 @@ public class EditarPregunta extends AppCompatActivity implements View.OnClickLis
                 break;
             }
 
-            editarRespuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_respuesta.php",cricketer.cricketerName,i);
+            editarRespuesta("https://preguntappusach.000webhostapp.com/crear_respuesta.php",cricketer.cricketerName,i);
 
             cricketersList.add(cricketer); //aqui ocurre la magia
 

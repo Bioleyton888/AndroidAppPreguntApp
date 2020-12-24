@@ -61,11 +61,11 @@ public class TerminarEncuesta extends AppCompatActivity implements View.OnClickL
                 if (b.getText().equals("Bajar Encuesta")){
                     b.setText("Subir Encuesta");
                     Toast.makeText(getApplicationContext(), "Encuesta bajada", Toast.LENGTH_SHORT).show();
-                    bajarEncuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/bajar_encuesta.php","0");
+                    bajarEncuesta("https://preguntappusach.000webhostapp.com/bajar_encuesta.php","0");
                 }else {
                     b.setText("Bajar Encuesta");
                     Toast.makeText(getApplicationContext(), "Encuesta subida", Toast.LENGTH_SHORT).show();
-                    bajarEncuesta("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/bajar_encuesta.php", "1");
+                    bajarEncuesta("https://preguntappusach.000webhostapp.com/bajar_encuesta.php", "1");
                 }
 
                 break;
