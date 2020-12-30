@@ -19,8 +19,8 @@ public class MenuPrincipalUsuario extends AppCompatActivity {
         setContentView(R.layout.activity_menu_principal_usuario);
 
         tvBienvenida =(TextView)findViewById(R.id.textoBienvenida);
-        botonPerfil = (Button)findViewById(R.id.buttonIrAPerfil);
         botonCerrarSesion= (Button)findViewById(R.id.botonVolver);
+        botonPerfil = (Button)findViewById(R.id.buttonIrAPerfil);
         BotonEncuestas=(Button)findViewById(R.id.botonirAEncuestasPendienes);
 
         nombre = getIntent().getStringExtra("Nombre").toLowerCase();

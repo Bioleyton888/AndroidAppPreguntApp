@@ -25,7 +25,7 @@ public class Login extends AppCompatActivity {
     FuncionesVarias xamp = new FuncionesVarias();
     EditText eTMail, eTPassword;
     Button botonIngresar;
-    CheckBox checkBoxAdmin;
+    
     RequestQueue requestQueue;
 
     @Override
@@ -36,22 +36,19 @@ public class Login extends AppCompatActivity {
         eTMail = (EditText)findViewById(R.id.editTextEmailAddress);
         eTPassword = (EditText)findViewById(R.id.editTextPassword);
         botonIngresar = (Button)findViewById(R.id.buttonLogin);
-        checkBoxAdmin =(CheckBox)findViewById(R.id.checkBoxAdministrador);
+
 
 
         botonIngresar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                if (checkBoxAdmin.isChecked()){
+                login("https://preguntappusach.000webhostapp.com/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
 
 
-                    loginAdmin("https://preguntappusach.000webhostapp.com/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
 
-                }else{
-                    loginUsuario("https://preguntappusach.000webhostapp.com/login_usuario.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
 
-                }
+
 
             }
         });
@@ -94,7 +91,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    private void loginAdmin(String rutaWebServices){
+    private void login(String rutaWebServices){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -102,13 +99,13 @@ public class Login extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         jsonObject = response.getJSONObject(i);
+                        Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
                         if (FuncionesVarias.convertToBoolean(jsonObject.getString("per_esadmin")) == true){
-                            Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
-                            //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
-                            irAMenuPrincipalAdministrador(jsonObject.getString("per_nombre"), jsonObject.getString("per_apellidos"), jsonObject.getString("per_correo"));
-                        }else {
-                            Toast.makeText(getApplicationContext(), "No posees permisos de administrador", Toast.LENGTH_SHORT).show();
 
+                            irAMenuPrincipalAdministrador(jsonObject.getString("per_nombre"), jsonObject.getString("per_apellidos"), jsonObject.getString("per_correo"));
+
+                        }else {
+                            irAMenuPrincipalUsuario(jsonObject.getString("per_nombre"), jsonObject.getString("per_apellidos"), jsonObject.getString("per_correo"));
                         }
 
 

@@ -20,9 +20,12 @@
         <activity android:name=".AdministrarCuestionario" />
         <activity android:name=".MenuPrincipalAdministrador" />
         <activity android:name=".EncuestasPendientes" />
+        <activity android:name=".EncuestasPendientesAdministrador" />
         <activity android:name=".PerfilDeUsuario" />
+        <activity android:name=".PerfilDeAdministrador" />
         <activity android:name=".MenuPrincipalUsuario" />
         <activity android:name=".ResponderEncuestas" />
+        <activity android:name=".ResponderEncuestasAdministrador" />
         <activity android:name=".FiltroCuestionario" />
 
         <activity

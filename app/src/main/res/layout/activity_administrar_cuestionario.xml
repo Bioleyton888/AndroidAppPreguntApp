@@ -28,19 +28,19 @@
 
     <Button
         android:id="@+id/botonirABuscarCuestionario"
-        android:layout_width="105dp"
+        android:layout_width="225dp"
         android:layout_height="35dp"
         android:layout_below="@id/textViewNombreEncuestaSeleccionada"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/round_orange"
         android:layout_marginTop="25dp"
+        android:background="@drawable/round_orange"
         android:text="@string/botonBuscarCuestionario"
         android:textAlignment="center"
         android:textSize="12sp" />
 
     <Button
         android:id="@+id/buttonIrAModificarCuestionario"
-        android:layout_width="105dp"
+        android:layout_width="225dp"
         android:layout_height="35dp"
         android:layout_below="@id/botonirABuscarCuestionario"
         android:layout_centerHorizontal="true"
@@ -48,12 +48,11 @@
         android:background="@drawable/round_orange"
         android:text="@string/botonModificarCuestionario"
         android:textAlignment="center"
-        android:textSize="12sp"
-             />
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/buttonTerminarCuestionario"
-        android:layout_width="105dp"
+        android:layout_width="225dp"
         android:layout_height="35dp"
         android:layout_below="@id/buttonIrAModificarCuestionario"
         android:layout_centerHorizontal="true"

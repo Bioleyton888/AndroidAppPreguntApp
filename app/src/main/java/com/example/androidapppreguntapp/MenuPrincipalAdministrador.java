@@ -22,7 +22,7 @@ import org.json.JSONObject;
 public class MenuPrincipalAdministrador extends AppCompatActivity {
     FuncionesVarias xamp = new FuncionesVarias();
     TextView tvBienvenida;
-    Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas,botonCrearCuestionario;
+    Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas,botonCrearCuestionario,BotonEncuestas,botonPerfil;
     String nombre, apellido,correo;
     RequestQueue requestQueue;
 
@@ -36,6 +36,8 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         botonCrearCuestionario =(Button)findViewById(R.id.buttonIrACrearCuestionario);
         botonCerrarSesion = (Button)findViewById(R.id.botonVolver);
         BotonAdministrarEncuestas= (Button)findViewById(R.id.botonirAAdministrarEncuestas);
+        botonPerfil = (Button)findViewById(R.id.buttonPerfilAdministrador);
+        BotonEncuestas=(Button)findViewById(R.id.buttonEncuestasAdministrador);
         correo=getIntent().getStringExtra("correo");
         tvBienvenida.setText(correo);
         buscarNombreyApellido("https://preguntappusach.000webhostapp.com/buscar_nombre_y_apellidos.php?per_correo="+correo+"");
@@ -67,6 +69,22 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 irAAdministrarCuestionario();
+
+            }
+        });
+
+        BotonEncuestas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irAErncuestasPendientes(correo);
+
+            }
+        });
+
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irAPerfilDeUsuario(correo);
 
             }
         });
@@ -139,6 +157,25 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
 
     }
+    private void irAPerfilDeUsuario(String correo){
+        Intent intent = new Intent(this, PerfilDeAdministrador.class); //Esto te manda a la otra ventana
+        intent.putExtra("Nombre",nombre);
+        intent.putExtra("Apellido",apellido);
+        intent.putExtra("correo",correo);
+        startActivity(intent);
+        finish();
+    }
+
+    private void irAErncuestasPendientes(String correo){
+        Intent intent = new Intent(this, EncuestasPendientesAdministrador.class); //Esto te manda a la otra ventana
+        intent.putExtra("correo",correo);
+        intent.putExtra("Nombre",nombre);
+        intent.putExtra("Apellido",apellido);
+        startActivity(intent);
+        finish();
+    }
+
+
 
 }
 

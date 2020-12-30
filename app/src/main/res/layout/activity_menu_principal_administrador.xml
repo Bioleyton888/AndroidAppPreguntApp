@@ -9,16 +9,16 @@
 
     <Button
         android:id="@+id/buttonIrACrearCuestionario"
-        android:layout_width="105dp"
-        android:layout_height="35dp"
+        android:layout_width="225dp"
+        android:layout_height="40dp"
         android:layout_below="@id/textoBienvenida"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:background="@drawable/round_primary"
         android:text="@string/botonCrearCuestionario"
         android:textAlignment="center"
-        android:textSize="12sp"
 
+        android:textSize="12sp"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="305dp" />
 
@@ -32,8 +32,8 @@
 
     <Button
         android:id="@+id/botonirAAdministrarEncuestas"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="225dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/buttonIrACrearCuestionario"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
@@ -44,18 +44,44 @@
 
     <Button
         android:id="@+id/buttonIrAGraficos"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="225dp"
+        android:layout_height="40dp"
         android:layout_below="@id/botonirAAdministrarEncuestas"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-
         android:background="@drawable/round_primary"
-
         android:text="@string/botonirAGraficos"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="305dp" />
+
+    <Button
+        android:id="@+id/buttonPerfilAdministrador"
+        android:layout_width="225dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/buttonIrAGraficos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_primary"
+        android:text="@string/botonPerfil" />
+
+    <Button
+        android:id="@+id/buttonEncuestasAdministrador"
+        android:layout_width="225dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/buttonPerfilAdministrador"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_primary"
+        android:text="@string/botonencuestasPendientes" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonEncuestasAdministrador"
+        android:layout_marginTop="93dp"
+        android:text="Button" />
 
     <TextView
         android:id="@+id/textoBienvenida"

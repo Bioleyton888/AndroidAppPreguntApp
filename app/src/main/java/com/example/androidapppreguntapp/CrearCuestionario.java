@@ -95,6 +95,7 @@ public class CrearCuestionario extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mlayout.removeAllViews();
                 agregarPreguntas(Integer.parseInt(etCantidadDePreguntas.getText().toString()), false);
             }
         });
