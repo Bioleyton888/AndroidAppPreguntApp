@@ -70,6 +70,8 @@
     <string name="cancelar">Cancelar</string>
     <string name="Administrar_graficos_agregar_preguntas">Agregar pregunta</string>
     <string name="administrar_graficos_trabajar_datos">Trabajar datos</string>
+    <string name="Menu_principal_administrador_administrar_administradores">Administrar Administradores</string>
+    <string name="registrarte">Registrarte</string>
 
 
 </resources>

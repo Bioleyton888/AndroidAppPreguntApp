@@ -20,7 +20,7 @@
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
@@ -36,8 +36,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonLogin"
-        android:layout_marginTop="47dp"
-        android:text="Button" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/registrarte" />
 
     <EditText
         android:id="@+id/editTextEmailAddress"

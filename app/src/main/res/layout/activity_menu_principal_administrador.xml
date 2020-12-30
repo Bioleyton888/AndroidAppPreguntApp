@@ -77,11 +77,13 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/buttonEncuestasAdministrador"
-        android:layout_marginTop="93dp"
-        android:text="Button" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_primary"
+        android:text="@string/Menu_principal_administrador_administrar_administradores" />
 
     <TextView
         android:id="@+id/textoBienvenida"
