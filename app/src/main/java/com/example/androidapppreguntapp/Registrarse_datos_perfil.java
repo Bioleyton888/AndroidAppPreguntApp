@@ -29,9 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.Integer.parseInt;
-
-public class FiltroCuestionario extends AppCompatActivity implements View.OnClickListener{
+public class Registrarse_datos_perfil extends AppCompatActivity implements View.OnClickListener {
 
     private Spinner spinnerOrientacionSexual, spinnerFacultad,spinnerCarrera,spinnerComuna,spinnerEstadoCivil,spinnerGenero,spinnerSemestre;
     Button botonTerminarEncuesta,botonVolver;
@@ -39,10 +37,14 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
     RequestQueue requestQueue;
     EditText EtAnoIngreso;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filtro_cuestionario);
+        setContentView(R.layout.activity_registrarse_datos_perfil);
+
 
         spinnerCarrera = (Spinner)findViewById(R.id.spinner_Carrera);
         spinnerComuna = (Spinner)findViewById(R.id.spinner_Comuna);
@@ -60,14 +62,15 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
         EtAnoIngreso=(EditText)findViewById(R.id.editTextAnoingreso) ;
 
 
-        mostrarDatosSpinnerCarrera("https://preguntappusach.000webhostapp.com/buscar_carreras.php");
+        crearPresona("https://preguntappusach.000webhostapp.com/crear_persona.php");
+
+        mostrarDatosSpinnerCarrera();
         mostrarDatosSpinnerComuna("https://preguntappusach.000webhostapp.com/buscar_comunas.php");
         mostrarDatosSpinnerEstadoCivil("https://preguntappusach.000webhostapp.com/buscar_estados_civiles.php");
-        mostrarDatosSpinnerFacultad("https://preguntappusach.000webhostapp.com/buscar_facultades.php");
+        mostrarDatosSpinnerFacultad();
         mostrarDatosSpinnerGenero("https://preguntappusach.000webhostapp.com/buscar_generos.php");
         mostrarDatosSpinnerOrientacionSexual("https://preguntappusach.000webhostapp.com/buscar_orientaciones_sexuales.php");
         mostrarDatosSpinnerSemestre();
-
 
 
 
@@ -80,18 +83,27 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
 
 
             case R.id.botonVolver:
-                irACrearCuestionario();
+                irAlLogin();
 
-            break;
+                break;
 
             case R.id.button_Terminar_Filtros:
 
-
-                IngresarFiltro("https://preguntappusach.000webhostapp.com/crear_filtros.php");
-                //IngresarFiltro("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_filtros.php");
-
+                //IngresarFiltro("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_usuario.php");
+                IngresarFiltro("https://preguntappusach.000webhostapp.com/crear_usuario.php");
+//                Toast.makeText(this,"Persona creada Ingresados, Encuesta Subida",Toast.LENGTH_SHORT).show();
+//                irAlLogin();
                 break;
         }
+    }
+
+    private void irAlLogin(){
+        Intent intent = new Intent(this, Login.class); //Esto te manda a la otra ventana
+        startActivity(intent);
+
+
+
+        finish();
     }
 
     private void IngresarFiltro(final String rutaWebServices){
@@ -99,9 +111,8 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(),"Filtros Ingresados, Encuesta Subida",Toast.LENGTH_SHORT).show();
-                irAAdministrarCuestionario();
-
+               Toast.makeText(getApplicationContext(),"BIENVENIDO A PREGUNTAPP",Toast.LENGTH_SHORT).show();
+               irAlLogin();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -116,18 +127,19 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
                 Editable anio=EtAnoIngreso.getText();
 
                 parametros.put("car_nombre", (String) spinnerCarrera.getSelectedItem());
+                parametros.put("per_correo", getIntent().getStringExtra("correo"));
                 parametros.put("com_nombre",(String) spinnerComuna.getSelectedItem());
                 parametros.put("eciv_nombre",(String) spinnerEstadoCivil.getSelectedItem());
                 parametros.put("fac_nombre",(String) spinnerFacultad.getSelectedItem());
                 parametros.put("gen_nombre",(String) spinnerGenero.getSelectedItem());
                 parametros.put("sex_nombre",(String) spinnerOrientacionSexual.getSelectedItem());
-                parametros.put("enc_id",(getIntent().getStringExtra("idEncuesta")));
                 parametros.put("ano_ingreso", String.valueOf(anio));
                 if (spinnerSemestre.getSelectedItem().equals("no aplica")){
                     parametros.put("semestre", "1");
                 }else {
                     parametros.put("semestre", (String) spinnerSemestre.getSelectedItem());
                 }
+
 
                 return parametros;
             }
@@ -136,11 +148,16 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
         requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
     }
 
+    private void irACrearCuestionario() {
+
+    }
+
+
     private void mostrarDatosSpinnerSemestre() {
         final ArrayList<String> listaDeCarreras;
         listaDeCarreras = new ArrayList<String>();
 
-        for (int i=0;i<20;i++){
+        for (int i=0;i<11;i++){
 
             if (i==0){
 
@@ -154,39 +171,15 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,listaDeCarreras);
         spinnerSemestre.setAdapter(adapter);
-}
+    }
 
-    private void mostrarDatosSpinnerCarrera(String rutaWebServices) {
+    private void mostrarDatosSpinnerCarrera( ) {
         final ArrayList<String> listaDeCarreras;
         listaDeCarreras = new ArrayList<String>();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
+        listaDeCarreras.add("Analista en Computacion Cientifica / Licenciatura en Ciencia de la Computacion");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,listaDeCarreras);
+        spinnerCarrera.setAdapter(adapter);
 
-                        listaDeCarreras.add(jsonObject.getString("car_nombre"));
-
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,listaDeCarreras);
-                spinnerCarrera.setAdapter(adapter);
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
-        requestQueue=Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
     }
 
     private void mostrarDatosSpinnerComuna(String rutaWebServices) {
@@ -255,37 +248,13 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void mostrarDatosSpinnerFacultad(String rutaWebServices) {
+    private void mostrarDatosSpinnerFacultad() {
         final ArrayList<String> listaDeCarreras;
         listaDeCarreras = new ArrayList<String>();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
+        listaDeCarreras.add("Facultad de ciencias");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,listaDeCarreras);
+        spinnerFacultad.setAdapter(adapter);
 
-                        listaDeCarreras.add(jsonObject.getString("fac_nombre"));
-
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,listaDeCarreras);
-                spinnerFacultad.setAdapter(adapter);
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
-            }
-        }
-        );
-        requestQueue=Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
     }
 
     private void mostrarDatosSpinnerGenero(String rutaWebServices) {
@@ -354,34 +323,42 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void irACrearCuestionario(){
-        Intent intent = new Intent(FiltroCuestionario.this,CrearCuestionario.class);
+    private void crearPresona(final String rutaWebServices) {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getApplicationContext(),"CREADO HERMANO",Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String,String>();
 
 
-        intent.putExtra("idEncuesta",getIntent().getStringExtra("idEncuesta"));
-        intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
-        intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
-        intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
-        intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
-        intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
-        intent.putExtra("esCuestionarioNuevo",false);
 
+                parametros.put("per_correo", getIntent().getStringExtra("correo"));
+                parametros.put("per_contrasena", getIntent().getStringExtra("contrasena"));
+                parametros.put("per_nombre", getIntent().getStringExtra("nombre"));
+                parametros.put("per_apellidos", getIntent().getStringExtra("apellido"));
+                parametros.put("per_esadmin","0");
 
-        startActivity(intent);
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);//procesar las peticiones hechas por la app para que la libreria se encague de ejecutarlas
+        requestQueue.add(stringRequest);//enviar las solicitud enviando el string request
+
 
     }
 
-    private void irAAdministrarCuestionario(){
-        Intent intent = new Intent(FiltroCuestionario.this,AdministrarCuestionario.class);
-
-
-        intent.putExtra("correo",getIntent().getStringExtra("correo"));
-        intent.putExtra("enc_titulo",getIntent().getStringExtra("tituloEncuesta"));
-
-
-        startActivity(intent);
-
-    }
 
 }

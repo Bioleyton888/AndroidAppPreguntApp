@@ -22,7 +22,7 @@ import org.json.JSONObject;
 public class MenuPrincipalAdministrador extends AppCompatActivity {
     FuncionesVarias xamp = new FuncionesVarias();
     TextView tvBienvenida;
-    Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas,botonCrearCuestionario,BotonEncuestas,botonPerfil;
+    Button botonAdministrarGraficos,botonCerrarSesion,BotonAdministrarEncuestas,botonCrearCuestionario,BotonEncuestas,botonPerfil,buttonAdministrarAdministradores;
     String nombre, apellido,correo;
     RequestQueue requestQueue;
 
@@ -38,6 +38,7 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
         BotonAdministrarEncuestas= (Button)findViewById(R.id.botonirAAdministrarEncuestas);
         botonPerfil = (Button)findViewById(R.id.buttonPerfilAdministrador);
         BotonEncuestas=(Button)findViewById(R.id.buttonEncuestasAdministrador);
+        buttonAdministrarAdministradores=(Button)findViewById(R.id.buttonAdministrarAdministradores);
         correo=getIntent().getStringExtra("correo");
         tvBienvenida.setText(correo);
         buscarNombreyApellido("https://preguntappusach.000webhostapp.com/buscar_nombre_y_apellidos.php?per_correo="+correo+"");
@@ -47,6 +48,12 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 IrACrearCuestionario();
+            }
+        });
+        buttonAdministrarAdministradores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IrAGestionarAdministradores();
             }
         });
 
@@ -88,6 +95,13 @@ public class MenuPrincipalAdministrador extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void IrAGestionarAdministradores() {
+        Intent intent = new Intent(this, GestionarAdministrador.class); //Esto te manda a la otra ventana
+        intent.putExtra("correo",getIntent().getStringExtra("correo"));
+        startActivity(intent);
+        finish();
     }
 
     private void irAAdministraGraficos() {

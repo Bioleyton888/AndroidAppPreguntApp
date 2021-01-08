@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/botonVolverAlmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/round_orange"
+        android:drawableBottom="@drawable/ic_volver"
+
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:id="@+id/lemaolemao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/botonVolverAlmenu"
+
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:ems="10"
+            android:hint="@string/txtMail"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/buttonBuscar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_primary"
+            android:drawableBottom="@drawable/ic_action_name" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonDecision"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lemaolemao"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/gestionar_administrador_primero_busque_a_una_persona" />
+</RelativeLayout>

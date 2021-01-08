@@ -43,6 +43,9 @@
         <activity android:name=".TerminarEncuesta" />
         <activity android:name=".EditarCuestionario" />
         <activity android:name=".EditarPregunta" />
+        <activity android:name=".Registrarse_correo_contrasena" />
+        <activity android:name=".GestionarAdministrador" />
+        <activity android:name=".Registrarse_datos_perfil" />
     </application>
 
 

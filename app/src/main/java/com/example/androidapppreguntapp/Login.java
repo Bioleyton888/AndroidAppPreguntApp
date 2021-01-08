@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import org.json.JSONObject;
 public class Login extends AppCompatActivity {
     FuncionesVarias xamp = new FuncionesVarias();
     EditText eTMail, eTPassword;
-    Button botonIngresar;
+    Button botonIngresar,botonRegistrarse;
     
     RequestQueue requestQueue;
 
@@ -36,20 +35,23 @@ public class Login extends AppCompatActivity {
         eTMail = (EditText)findViewById(R.id.editTextEmailAddress);
         eTPassword = (EditText)findViewById(R.id.editTextPassword);
         botonIngresar = (Button)findViewById(R.id.buttonLogin);
+        botonRegistrarse= (Button)findViewById(R.id.buttonRegistrarse) ;
 
 
+
+        botonRegistrarse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irARegistrarse();
+            }
+        });
 
         botonIngresar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 login("https://preguntappusach.000webhostapp.com/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
-
-
-
-
-
-
+                //login("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
             }
         });
 
@@ -143,6 +145,14 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent(this, MenuPrincipalAdministrador.class); //Esto te manda a la otra ventana
 
         intent.putExtra("correo",correo);
+        startActivity(intent);
+        finish();
+    }
+
+    private void irARegistrarse(){
+        Intent intent = new Intent(this, Registrarse_correo_contrasena.class); //Esto te manda a la otra ventana
+
+
         startActivity(intent);
         finish();
     }

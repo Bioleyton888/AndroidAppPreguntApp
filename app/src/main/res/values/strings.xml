@@ -70,8 +70,15 @@
     <string name="cancelar">Cancelar</string>
     <string name="Administrar_graficos_agregar_preguntas">Agregar pregunta</string>
     <string name="administrar_graficos_trabajar_datos">Trabajar datos</string>
-    <string name="Menu_principal_administrador_administrar_administradores">Administrar Administradores</string>
+    <string name="Menu_principal_administrador_administrar_administradores">Gestionar Encuestadores</string>
     <string name="registrarte">Registrarte</string>
+    <string name="gestionar_administrador_primero_busque_a_una_persona">Primero busque a una persona</string>
+    <string name="Aqutivity_registrarse_por_favor_llene_sus_datos">Por favor, llene sus datos</string>
+    <string name="activity_registrarse_cancelar">Cancelar</string>
+    <string name="activity_registrarse_registrarse">Registrarse</string>
+    <string name="_0">0</string>
+    <string name="ingrese_contrase_a">Ingrese la contraseña</string>
+    <string name="vuelva_a_ingresar_contra_a">Vuelva a ingresar la contraseña</string>
 
 
 </resources>

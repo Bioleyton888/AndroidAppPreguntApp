@@ -169,7 +169,7 @@ public class EditarCuestionario extends AppCompatActivity {
 
     private void buscarCuestionario() {
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://" + xamp.ipv4() + ":" + xamp.port() + "/webservicesPreguntAPP/buscar_pregunta.php?enc_id=" + getIntent().getStringExtra("enc_id")+ "", new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_pregunta.php?enc_id=" + getIntent().getStringExtra("enc_id")+ "", new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;

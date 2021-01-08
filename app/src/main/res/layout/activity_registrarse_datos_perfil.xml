@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/Instrucciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/Aqutivity_registrarse_por_favor_llene_sus_datos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:layout_width="408dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:animateLayoutChanges="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Instrucciones">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#b1b1b1">
+
+            <TextView
+                android:id="@+id/textViewOrientacion_Sexual"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:text="@string/Filtro_Cuestionario_TextView_Orientacion_sexual" />
+
+            <Spinner
+                android:id="@+id/spinner_Orientacion_Sexual"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:background="#b1b1b1" />
+
+            <TextView
+                android:id="@+id/textView_Genero"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Genero" />
+
+            <Spinner
+                android:id="@+id/spinner_Genero"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#b1b1b1">
+
+            <TextView
+                android:id="@+id/textView_Facultad"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Facultad" />
+
+            <Spinner
+                android:id="@+id/spinner_Facultad"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_span="0"
+                android:layout_weight="1"
+                android:background="#b1b1b1" />
+
+            <TextView
+                android:id="@+id/textView_Carrera"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Carrera" />
+
+            <Spinner
+                android:id="@+id/spinner_Carrera"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:background="#b1b1b1" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#b1b1b1">
+
+            <TextView
+                android:id="@+id/textView_Comuna"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_Comuna" />
+
+            <Spinner
+                android:id="@+id/spinner_Comuna"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:background="#b1b1b1" />
+
+            <TextView
+                android:id="@+id/textView_Estado_civil"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_estado_civil" />
+
+            <Spinner
+                android:id="@+id/spinner_Estado_Civil"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:background="#b1b1b1"
+                android:text="@string/Flitro_Cuestionario_subir_encuesta" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#b1b1b1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_ano_ingreso"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_ano_ingreso" />
+
+            <EditText
+                android:id="@+id/editTextAnoingreso"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number"
+                android:text="@string/_0"
+                android:autofillHints="" />
+
+            <TextView
+                android:id="@+id/textView_semestre"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/Filtro_Cuestionario_TextView_semestre" />
+
+            <Spinner
+                android:id="@+id/spinner_semestre"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_volver"
+                android:layout_width="0dp"
+                android:layout_height="40sp"
+                android:layout_weight="1"
+                android:text="@string/activity_registrarse_cancelar" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_Terminar_Filtros"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/activity_registrarse_registrarse" />
+        </TableRow>
+
+    </TableLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
