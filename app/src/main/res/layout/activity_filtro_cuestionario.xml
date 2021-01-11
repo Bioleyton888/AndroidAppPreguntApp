@@ -28,36 +28,42 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:background="#b1b1b1">
 
             <TextView
                 android:id="@+id/textViewOrientacion_Sexual"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
-                android:text="@string/Filtro_Cuestionario_TextView_Orientacion_sexual" />
+                android:text="@string/Filtro_Cuestionario_TextView_Orientacion_sexual"
+                android:textAlignment="center"
+                android:textDirection="firstStrongRtl"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/spinner_Orientacion_Sexual"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:background="#b1b1b1" />
+                android:background="#b1b1b1"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/textView_Genero"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Genero" />
+                android:text="@string/Filtro_Cuestionario_TextView_Genero"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Genero"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textAlignment="center" />
 
         </TableRow>
 
@@ -69,9 +75,10 @@
             <TextView
                 android:id="@+id/textView_Facultad"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Facultad" />
+                android:text="@string/Filtro_Cuestionario_TextView_Facultad"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Facultad"
@@ -79,21 +86,24 @@
                 android:layout_height="40sp"
                 android:layout_span="0"
                 android:layout_weight="1"
-                android:background="#b1b1b1" />
+                android:background="#b1b1b1"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/textView_Carrera"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Carrera" />
+                android:text="@string/Filtro_Cuestionario_TextView_Carrera"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Carrera"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:background="#b1b1b1" />
+                android:background="#b1b1b1"
+                android:textAlignment="center" />
 
         </TableRow>
 
@@ -105,23 +115,26 @@
             <TextView
                 android:id="@+id/textView_Comuna"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Comuna" />
+                android:text="@string/Filtro_Cuestionario_TextView_Comuna"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Comuna"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:background="#b1b1b1" />
+                android:background="#b1b1b1"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/textView_Estado_civil"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_estado_civil" />
+                android:text="@string/Filtro_Cuestionario_TextView_estado_civil"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Estado_Civil"
@@ -129,7 +142,8 @@
                 android:layout_height="40sp"
                 android:layout_weight="1"
                 android:background="#b1b1b1"
-                android:text="@string/Flitro_Cuestionario_subir_encuesta" />
+                android:text="@string/Flitro_Cuestionario_subir_encuesta"
+                android:textAlignment="center" />
 
         </TableRow>
 
@@ -142,31 +156,36 @@
             <TextView
                 android:id="@+id/textView_ano_ingreso"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_ano_ingreso" />
+                android:text="@string/Filtro_Cuestionario_TextView_ano_ingreso"
+                android:textAlignment="center" />
 
             <EditText
                 android:id="@+id/editTextAnoingreso"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:ems="10"
                 android:inputType="number"
-                android:text="0" />
+                android:text="@string/_0"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/textView_semestre"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_semestre" />
+                android:text="@string/Filtro_Cuestionario_TextView_semestre"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_semestre"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow

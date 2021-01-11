@@ -101,10 +101,9 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         String[] Diagramas = {"Diagrama de barras", "Diagrama de pie"};
         spinnerEncuesta = (Spinner) findViewById(R.id.spinnerEncuesta);
         spinnerPregunta = (Spinner) findViewById(R.id.spinnerPregunta);
-        spinnerTipoGrafico = (Spinner) findViewById(R.id.spinnerDiagrama);
         tvCantidadDeRespuestaEncuestas = (TextView) findViewById(R.id.textViewCantidadDeRespuestas);
         AdministrarGraficosbotonVolver = (Button) findViewById(R.id.buttonSalir);
-        botonAnadirGrafico = (Button) findViewById(R.id.buttonAnadirGrafico);
+
 
         buttonGenerarTerminarSeleccion = (Button) findViewById(R.id.buttonGenerarTerminarSeleccion);
         botonGenerarPDF = (Button) findViewById(R.id.buttonGenerarPDF);
@@ -112,11 +111,11 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         tvIDPregunta = (TextView) findViewById(R.id.textViewPreguntaId);
         AdministrarGraficosbotonVolver.setOnClickListener(this);
         botonGenerarPDF.setOnClickListener(this);
-        botonAnadirGrafico.setOnClickListener(this);
+
         ArrayAdapter<String> adapterPregunta = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Pregunta);
         ArrayAdapter<String> adapterDiagramas = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Diagramas);
         spinnerPregunta.setAdapter(adapterPregunta);
-        spinnerTipoGrafico.setAdapter(adapterDiagramas);
+//        spinnerTipoGrafico.setAdapter(adapterDiagramas);
         mQueue = Volley.newRequestQueue(this);
 
         //Variables para implementacion de Graficos & PDF
@@ -172,8 +171,46 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (!adapterView.getItemAtPosition(i).equals("Seleccione una Encuesta")) {
-                    Toast.makeText(adapterView.getContext(), "Seleccionado: " + adapterView.getItemAtPosition(i).toString() + " id: " + listaDeIDEncuestas.get(i), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(adapterView.getContext(), "Cargando", Toast.LENGTH_SHORT).show();
                     tvIdEncuesta.setText(listaDeIDEncuestas.get(i));
+
+                    ////////////////////////////////////////////////////////////////
+                    final ArrayList<String> listaDePreguntas;
+                    listaDePreguntas = new ArrayList<String>();
+                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_pregunta.php?enc_id=" + tvIdEncuesta.getText() + "", new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            JSONObject jsonObject = null;
+                            listaDePreguntas.add("Seleccione una Pregunta");
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
+                                    jsonObject = response.getJSONObject(i);
+
+
+                                    listaDePreguntasParaElGrafico.add((jsonObject.getString("preg_titulo")));
+                                    listaDeIDPreguntasParaElGrafico.add((jsonObject.getString("preg_id")));
+
+
+
+                                } catch (JSONException e) {
+                                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, listaDePreguntas);
+                            spinnerPregunta.setAdapter(adapter);
+                        }
+
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    );
+                    requestQueue = Volley.newRequestQueue(getApplicationContext());
+                    requestQueue.add(jsonArrayRequest);
+
+                    ////////////////////////////////////////////////////////////////
                     mostrarPreguntas("https://preguntappusach.000webhostapp.com/buscar_pregunta.php?enc_id=" + tvIdEncuesta.getText() + "");
                     GentequerespondioLaEncuesta("https://preguntappusach.000webhostapp.com/buscar_encuesta_veces_respondidas.php?enc_id=" + tvIdEncuesta.getText() + "");
                 }
@@ -204,38 +241,23 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         });
 
 
-        botonAnadirGrafico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                listaDeEncuestasParaElGrafico.add((String) spinnerEncuesta.getSelectedItem());
-                listaDePreguntasParaElGrafico.add((String) spinnerPregunta.getSelectedItem());
-
-                listaDeIDEncuestasParaElGrafico.add((String) tvIdEncuesta.getText());
-                listaDeIDPreguntasParaElGrafico.add((String) tvIDPregunta.getText());
-                listaDeGraficosParaElGrafico.add((String) spinnerTipoGrafico.getSelectedItem());
-
-
-
-            }
-        });
-
         buttonGenerarTerminarSeleccion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                Toast.makeText(getApplicationContext(),"Cargando",Toast.LENGTH_SHORT);
                 listaDeEncuestasParaElGrafico.add((String) spinnerEncuesta.getSelectedItem());
-                listaDePreguntasParaElGrafico.add((String) spinnerPregunta.getSelectedItem());
+                //listaDePreguntasParaElGrafico.add((String) spinnerPregunta.getSelectedItem());
                 listaDeIDEncuestasParaElGrafico.add((String) tvIdEncuesta.getText());
-                listaDeIDPreguntasParaElGrafico.add((String) tvIDPregunta.getText());
-                listaDeGraficosParaElGrafico.add((String) spinnerTipoGrafico.getSelectedItem());
+                //listaDeIDPreguntasParaElGrafico.add((String) tvIDPregunta.getText());
+
                 buttonGenerarTerminarSeleccion.setVisibility(View.INVISIBLE);
-                botonGenerarPDF.setVisibility(View.VISIBLE);
+
                 final int[] contador = {0};
                 for (int o = 0; o < listaDePreguntasParaElGrafico.size(); o++) {
 
                     final int finalO = o;
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_respuestas_respondidas.php?enc_id=" + listaDeIDEncuestasParaElGrafico.get(o) + "&preg_id=" + listaDeIDPreguntasParaElGrafico.get(o) + "", new Response.Listener<JSONArray>() {
+                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://preguntappusach.000webhostapp.com/buscar_respuestas_respondidas.php?enc_id=" + listaDeIDEncuestasParaElGrafico.get(0) + "&preg_id=" + listaDeIDPreguntasParaElGrafico.get(o) + "", new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
                             JSONObject jsonObject;
@@ -250,10 +272,6 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
                                     contador[0]++;
 
-
-
-
-
                                 } catch (JSONException e) {
                                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -261,6 +279,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
                             listaDePreguntasParaElGrafico2.add(listaDePreguntasParaElGrafico.get(finalO));
                             listaDeCantidadDeRespuestasPorPreguntaParaLosGraficos.add(contador[0]);
                             contador[0]=0;
+                            botonGenerarPDF.setVisibility(View.VISIBLE);
 
                         }
 
@@ -468,6 +487,10 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
                     try {
                         jsonObject = response.getJSONObject(i);
 
+
+
+
+
                         listaDePreguntas.add(jsonObject.getString("preg_titulo"));
 
 
@@ -504,7 +527,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
                         tvCantidadDeRespuestaEncuestas.setText("Gente que ha respondido la encuesta: " + jsonObject.getString("VecesRespondidas"));
                         listaDePreguntas.add(jsonObject.getString("preg_titulo"));
-
+                        buttonGenerarTerminarSeleccion.setVisibility(View.VISIBLE);
 
                     } catch (JSONException e) {
                         //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

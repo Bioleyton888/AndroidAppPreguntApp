@@ -59,6 +59,7 @@
         android:layout_height="25dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/textViewPreguntaId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCantidadDeRespuestas" />
@@ -71,26 +72,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSalir" />
 
-    <Spinner
-        android:id="@+id/spinnerDiagrama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPregunta" />
-
     <Button
         android:id="@+id/buttonAnadirGrafico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="60dp"
         android:text="@string/Administrar_graficos_agregar_preguntas"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDiagrama" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPregunta" />
 
     <Button
         android:id="@+id/buttonGenerarTerminarSeleccion"
@@ -99,6 +91,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="@string/administrar_graficos_trabajar_datos"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonAnadirGrafico" />

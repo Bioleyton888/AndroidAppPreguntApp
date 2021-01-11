@@ -71,9 +71,6 @@ public class CrearCuestionario extends AppCompatActivity {
         buttonCancelar= (Button)findViewById(R.id.buttonCancelar);
         etFechaTermino = (EditText)findViewById(R.id.editTextDate);
 
-
-
-
         if (getIntent().getBooleanExtra("esCuestionarioNuevo",false)){
             CrearEncuestaEnBlanco("https://preguntappusach.000webhostapp.com/crear_encuesta.php");
            // CrearEncuestaEnBlanco("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_encuesta.php");
@@ -96,7 +93,7 @@ public class CrearCuestionario extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etCantidadDePreguntas.getText().toString().equals("N° Preguntas")){
+                if (String.valueOf(etCantidadDePreguntas.getText()).equals("")){
                 Toast.makeText(getApplicationContext(),"primero seleccione una cantidad de preguntas",Toast.LENGTH_SHORT).show();
                 }else
                 {
@@ -108,23 +105,27 @@ public class CrearCuestionario extends AppCompatActivity {
         buttonsubirEncuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editarEncuesta("https://preguntappusach.000webhostapp.com/editar_encuesta.php");
-                //editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
-                Intent intent = new Intent(CrearCuestionario.this,FiltroCuestionario.class);
-                Bundle bundle = new Bundle();
 
-                intent.putExtra("idEncuesta",(String) tvID.getText());
-                intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
-                intent.putExtra("correo",getIntent().getStringExtra("correo"));
-                intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
-                intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
-                intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
-                intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
-                intent.putExtra("esCuestionarioNuevo",false);
+                if (String.valueOf(etTituloEncuesta.getText()).equals("")||String.valueOf(etCantidadDePreguntas.getText()).equals("")||String.valueOf(addFecha.getText()).equals("")){
+                    Toast.makeText(getApplicationContext(),"primero seleccione una cantidad de preguntas",Toast.LENGTH_SHORT).show();
+                }else{
+                    editarEncuesta("https://preguntappusach.000webhostapp.com/editar_encuesta.php");
+                    //editarEncuesta("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/editar_encuesta.php");
+                    Intent intent = new Intent(CrearCuestionario.this,FiltroCuestionario.class);
+                    Bundle bundle = new Bundle();
 
-                intent.putExtras(bundle);
-                startActivity(intent);
+                    intent.putExtra("idEncuesta",(String) tvID.getText());
+                    intent.putExtra("idPregunta",getIntent().getStringExtra("idPregunta"));
+                    intent.putExtra("correo",getIntent().getStringExtra("correo"));
+                    intent.putExtra("cantidadDePreguntas",getIntent().getStringExtra("cantidadDePreguntas"));
+                    intent.putExtra("fecha",getIntent().getStringExtra("fecha"));
+                    intent.putExtra("fechaCreacion",getIntent().getStringExtra("fechaCreacion"));
+                    intent.putExtra("tituloEncuesta",getIntent().getStringExtra("tituloEncuesta"));
+                    intent.putExtra("esCuestionarioNuevo",false);
 
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -232,9 +233,10 @@ public class CrearCuestionario extends AppCompatActivity {
             }
         })
         {
-            @Override
+                        @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String,String>();
+
                 parametros.put("correo",getIntent().getStringExtra("correo"));
                 parametros.put("tituloEncuesta","Encuesta en proceso");
                 c =formatter.format(currentDate);

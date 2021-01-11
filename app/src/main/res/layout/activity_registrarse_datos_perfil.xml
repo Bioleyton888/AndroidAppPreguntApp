@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
+        android:id="@+id/tableLayout3"
         android:layout_width="408dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -32,10 +33,11 @@
             <TextView
                 android:id="@+id/textViewOrientacion_Sexual"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
-                android:text="@string/Filtro_Cuestionario_TextView_Orientacion_sexual" />
+                android:text="@string/Filtro_Cuestionario_TextView_Orientacion_sexual"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Orientacion_Sexual"
@@ -49,7 +51,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Genero" />
+                android:text="@string/Filtro_Cuestionario_TextView_Genero"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Genero"
@@ -69,7 +72,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Facultad" />
+                android:text="@string/Filtro_Cuestionario_TextView_Facultad"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Facultad"
@@ -84,7 +88,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Carrera" />
+                android:text="@string/Filtro_Cuestionario_TextView_Carrera"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Carrera"
@@ -105,7 +110,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_Comuna" />
+                android:text="@string/Filtro_Cuestionario_TextView_Comuna"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Comuna"
@@ -119,7 +125,8 @@
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_estado_civil" />
+                android:text="@string/Filtro_Cuestionario_TextView_estado_civil"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_Estado_Civil"
@@ -140,26 +147,29 @@
             <TextView
                 android:id="@+id/textView_ano_ingreso"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_ano_ingreso" />
+                android:text="@string/Filtro_Cuestionario_TextView_ano_ingreso"
+                android:textAlignment="center" />
 
             <EditText
                 android:id="@+id/editTextAnoingreso"
                 android:layout_width="0dp"
                 android:layout_height="40sp"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:ems="10"
                 android:inputType="number"
                 android:text="@string/_0"
-                android:autofillHints="" />
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/textView_semestre"
                 android:layout_width="0dp"
-                android:layout_height="40sp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/Filtro_Cuestionario_TextView_semestre" />
+                android:text="@string/Filtro_Cuestionario_TextView_semestre"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/spinner_semestre"
@@ -193,6 +203,18 @@
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/ButtonirAlLoginRegistrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="Button"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,11 +53,15 @@ public class Registrarse_correo_contrasena extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+                if (String.valueOf(eTMail.getText()).equals("")||String.valueOf(etNombre.getText()).equals("")||String.valueOf(etApellido.getText()).equals("")||String.valueOf(eTPassword.getText()).equals("")){
+                    Toast.makeText(getApplicationContext(), "Por favor, llene todas las casillas", Toast.LENGTH_SHORT).show();
+                }else{
                 if (String.valueOf(eTPassword.getText()).equals(String.valueOf(eTPassword2.getText()))){
                     verificarCorreo("https://preguntappusach.000webhostapp.com/buscar_correo.php?per_correo="+eTMail.getText()+"");
                 }else {
                     Toast.makeText(getApplicationContext(),"Las contraseñas no son iguales",Toast.LENGTH_SHORT).show();
-                }
+                }}
 
 
             }
@@ -76,7 +80,8 @@ public class Registrarse_correo_contrasena extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
 
 
-                        iralaparte2(jsonObject.getString("correo"),String.valueOf(etNombre.getText()),String.valueOf(etApellido.getText()),String.valueOf(eTPassword.getText()));
+                        verificarCorreoExistente("https://preguntappusach.000webhostapp.com/buscar_correo_usuario.php?per_correo="+eTMail.getText()+"",jsonObject.getString("correo"));
+                        //iralaparte2(jsonObject.getString("correo"),String.valueOf(etNombre.getText()),String.valueOf(etApellido.getText()),String.valueOf(eTPassword.getText()));
                         //Toast.makeText(getApplicationContext(), jsonObject.getString("correo"), Toast.LENGTH_SHORT).show();
 
 
@@ -93,6 +98,41 @@ public class Registrarse_correo_contrasena extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), "EL CORREO NO EXISTE HERMANO", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+
+    }
+
+    private void verificarCorreoExistente(String rutaWebServices, final String correo){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(rutaWebServices, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+
+
+
+                        Toast.makeText(getApplicationContext(), "El correo ya se encuentra en el sistema", Toast.LENGTH_SHORT).show();
+
+
+                        //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
+                    } catch (JSONException e) {
+                        Toast.makeText(getApplicationContext(), "EL CORREO NO EXISTE HERMANO", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                iralaparte2(correo,String.valueOf(etNombre.getText()),String.valueOf(etApellido.getText()),String.valueOf(eTPassword.getText()));
             }
         }
         );

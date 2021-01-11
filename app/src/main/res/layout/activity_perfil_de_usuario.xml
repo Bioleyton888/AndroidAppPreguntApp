@@ -26,13 +26,6 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textViewHijos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/descripcion"
-                android:textSize="24sp" />
-
-            <TextView
                 android:id="@+id/textViewSemestre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -32,7 +32,7 @@ import java.util.Map;
 public class Registrarse_datos_perfil extends AppCompatActivity implements View.OnClickListener {
 
     private Spinner spinnerOrientacionSexual, spinnerFacultad,spinnerCarrera,spinnerComuna,spinnerEstadoCivil,spinnerGenero,spinnerSemestre;
-    Button botonTerminarEncuesta,botonVolver;
+    Button botonTerminarEncuesta,botonVolver,buttonIrse;
     FuncionesVarias xamp = new FuncionesVarias();
     RequestQueue requestQueue;
     EditText EtAnoIngreso;
@@ -56,8 +56,10 @@ public class Registrarse_datos_perfil extends AppCompatActivity implements View.
 
         botonTerminarEncuesta= (Button)findViewById(R.id.button_Terminar_Filtros);
         botonVolver= (Button)findViewById(R.id.button_volver);
+        buttonIrse= (Button)findViewById(R.id.ButtonirAlLoginRegistrado);
 
         botonVolver.setOnClickListener(this);
+        buttonIrse.setOnClickListener(this);
         botonTerminarEncuesta.setOnClickListener(this);
         EtAnoIngreso=(EditText)findViewById(R.id.editTextAnoingreso) ;
 
@@ -87,11 +89,14 @@ public class Registrarse_datos_perfil extends AppCompatActivity implements View.
 
                 break;
 
+
             case R.id.button_Terminar_Filtros:
 
+
                 //IngresarFiltro("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_usuario.php");
-                IngresarFiltro("https://preguntappusach.000webhostapp.com/crear_usuario.php");
+                IngresarUsuario("https://preguntappusach.000webhostapp.com/crear_usuario.php");
 //                Toast.makeText(this,"Persona creada Ingresados, Encuesta Subida",Toast.LENGTH_SHORT).show();
+
 //                irAlLogin();
                 break;
         }
@@ -106,12 +111,13 @@ public class Registrarse_datos_perfil extends AppCompatActivity implements View.
         finish();
     }
 
-    private void IngresarFiltro(final String rutaWebServices){
+    private void IngresarUsuario(final String rutaWebServices){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, rutaWebServices, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                Toast.makeText(getApplicationContext(),"BIENVENIDO A PREGUNTAPP",Toast.LENGTH_SHORT).show();
+
                irAlLogin();
             }
         }, new Response.ErrorListener() {
@@ -126,6 +132,7 @@ public class Registrarse_datos_perfil extends AppCompatActivity implements View.
                 Map<String,String> parametros = new HashMap<String,String>();
                 Editable anio=EtAnoIngreso.getText();
 
+                
                 parametros.put("car_nombre", (String) spinnerCarrera.getSelectedItem());
                 parametros.put("per_correo", getIntent().getStringExtra("correo"));
                 parametros.put("com_nombre",(String) spinnerComuna.getSelectedItem());
@@ -251,7 +258,7 @@ public class Registrarse_datos_perfil extends AppCompatActivity implements View.
     private void mostrarDatosSpinnerFacultad() {
         final ArrayList<String> listaDeCarreras;
         listaDeCarreras = new ArrayList<String>();
-        listaDeCarreras.add("Facultad de ciencias");
+        listaDeCarreras.add("Facultad de ciencia");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,listaDeCarreras);
         spinnerFacultad.setAdapter(adapter);
 
@@ -329,7 +336,7 @@ public class Registrarse_datos_perfil extends AppCompatActivity implements View.
 
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(),"CREADO HERMANO",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Una ultima cosa antes de entrar",Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {

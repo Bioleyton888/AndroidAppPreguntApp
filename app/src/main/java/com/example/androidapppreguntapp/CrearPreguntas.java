@@ -89,9 +89,14 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()){
 
             case R.id.button_add:
-                layoutList.removeAllViews();
-                addView(parseInt(etCantidadDeOpciones.getText().toString()));
-                modificarPregunta("https://preguntappusach.000webhostapp.com/editar_pregunta.php");
+
+                if (String.valueOf(etCantidadDeOpciones.getText()).equals("")){
+                    Toast.makeText(getApplicationContext(),"primero seleccione una cantidad de opciones que quiere agregar",Toast.LENGTH_SHORT).show();
+                }else {
+                    layoutList.removeAllViews();
+                    addView(parseInt(etCantidadDeOpciones.getText().toString()));
+                    modificarPregunta("https://preguntappusach.000webhostapp.com/editar_pregunta.php");
+                }
                 break;
 
             case R.id.cancelar:
@@ -119,7 +124,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
     private void addView2(int cantidad) {
 
-
+        etCantidadDeOpciones.setText("5");
 
         for (int id=1; id <= cantidad; id++) {
             final View cricketerView = getLayoutInflater().inflate(R.layout.row_add_cricketer, null, false);
@@ -353,6 +358,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
 
         startActivity(intent);
+        finish();
 
     }
 
@@ -371,6 +377,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
 
 
         startActivity(intent);
+        finish();
 
     }
 

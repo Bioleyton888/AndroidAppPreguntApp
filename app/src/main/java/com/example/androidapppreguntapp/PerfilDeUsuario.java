@@ -37,7 +37,7 @@ public class PerfilDeUsuario extends AppCompatActivity {
 
         botonVolver = (Button) findViewById(R.id.botonVolverAlmenu);
         tvAnoIngreso = (TextView)findViewById(R.id.textViewAnongreso);
-        tvHijos = (TextView)findViewById(R.id.textViewHijos);
+
         tvSemestre = (TextView)findViewById(R.id.textViewSemestre);
         tvSexo = (TextView)findViewById(R.id.textViewSexo);
         tvCarrera = (TextView)findViewById(R.id.textViewCarrera);
@@ -72,7 +72,6 @@ public class PerfilDeUsuario extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         tvAnoIngreso.setText("Año de ingreso: "+jsonObject.getString("usu_anoingreso"));
-                        tvHijos.setText("Hijos: "+jsonObject.getString("usu_hijos"));
                         tvSemestre.setText("Semestre: "+jsonObject.getString("usu_semestre"));
                         tvSexo.setText("Orientacion Sexual: "+jsonObject.getString("sex_nombre"));
                         tvCarrera.setText("Carrera: "+jsonObject.getString("car_nombre"));

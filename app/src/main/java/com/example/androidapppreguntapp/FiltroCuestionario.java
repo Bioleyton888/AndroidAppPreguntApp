@@ -369,6 +369,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
 
 
         startActivity(intent);
+        finish();
 
     }
 
@@ -381,7 +382,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
 
 
         startActivity(intent);
-
+        finish();
     }
 
 }

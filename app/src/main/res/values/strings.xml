@@ -50,7 +50,7 @@
     <string name="Filtro_Cuestionario_TextView_Comuna">Comuna</string>
     <string name="Filtro_Cuestionario_TextView_estado_civil">Estado Civil</string>
     <string name="Filtro_Cuestionario_TextView_ano_ingreso">Año Ingreso</string>
-    <string name="Filtro_Cuestionario_TextView_semestre">Semestre</string>
+    <string name="Filtro_Cuestionario_TextView_semestre">Nivel</string>
     <string name="Filtro_Cuestionario_Titulo">Filtros</string>
 
     <string name="generacion_graficos_generar_pdf">Descargar PDF</string>
@@ -79,6 +79,7 @@
     <string name="_0">0</string>
     <string name="ingrese_contrase_a">Ingrese la contraseña</string>
     <string name="vuelva_a_ingresar_contra_a">Vuelva a ingresar la contraseña</string>
+
 
 
 </resources>
