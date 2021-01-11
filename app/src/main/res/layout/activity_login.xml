@@ -38,6 +38,7 @@
         android:layout_below="@+id/buttonLogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:background="#EA7600"
         android:text="@string/registrarte" />
 
     <EditText
