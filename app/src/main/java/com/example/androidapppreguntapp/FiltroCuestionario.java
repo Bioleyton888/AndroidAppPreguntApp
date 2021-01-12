@@ -87,7 +87,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
             case R.id.button_Terminar_Filtros:
 
 
-                IngresarFiltro("https://preguntappusach.000webhostapp.com/crear_filtros.php");
+                IngresarFiltro("https://preguntappusach.000webhostapp.com/insertar_filtro.php");
                 //IngresarFiltro("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/crear_filtros.php");
 
                 break;
@@ -140,7 +140,7 @@ public class FiltroCuestionario extends AppCompatActivity implements View.OnClic
         final ArrayList<String> listaDeCarreras;
         listaDeCarreras = new ArrayList<String>();
 
-        for (int i=0;i<20;i++){
+        for (int i=0;i<11;i++){
 
             if (i==0){
 
