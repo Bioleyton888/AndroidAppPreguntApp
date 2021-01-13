@@ -9,9 +9,9 @@
 
     <Button
         android:id="@+id/botonVolver"
-        android:layout_width="93dp"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
-        android:background="#EA7600"
+        android:background="@drawable/round_orange"
         android:text="@string/botonCerrarSesion"
         android:textAlignment="center" />
 
