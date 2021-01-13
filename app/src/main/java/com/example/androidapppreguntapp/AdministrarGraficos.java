@@ -168,8 +168,11 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
 
         spinnerEncuesta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                listaDePreguntasParaElGrafico.clear();
+                listaDeIDPreguntasParaElGrafico.clear();
+
+
                 if (!adapterView.getItemAtPosition(i).equals("Seleccione una Encuesta")) {
                     Toast.makeText(adapterView.getContext(), "Cargando", Toast.LENGTH_SHORT).show();
                     tvIdEncuesta.setText(listaDeIDEncuestas.get(i));

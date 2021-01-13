@@ -19,13 +19,13 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
 
-        android:background="#EA7600"
+        android:background="@drawable/round_orange"
         android:text="@string/boton"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="161dp"
@@ -33,12 +33,12 @@
 
     <Button
         android:id="@+id/buttonRegistrarse"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonLogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="#EA7600"
+        android:background="@drawable/round_orange"
         android:text="@string/registrarte" />
 
     <EditText
@@ -49,7 +49,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="144dp"
         android:autofillHints=""
-        android:background="#B1B1B1"
+        android:background="@drawable/round_grey"
         android:ems="10"
         android:hint="@string/txtMail"
         android:inputType="textEmailAddress"
@@ -67,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:autofillHints=""
-        android:background="#B1B1B1"
+        android:background="@drawable/round_grey"
         android:ems="10"
         android:hint="@string/txtPasword"
         android:inputType="textPassword"

@@ -125,6 +125,7 @@ public class CrearCuestionario extends AppCompatActivity {
 
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
