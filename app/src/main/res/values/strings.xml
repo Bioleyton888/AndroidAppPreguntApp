@@ -48,7 +48,7 @@
     <string name="Filtro_Cuestionario_TextView_Facultad">Facultad</string>
     <string name="Filtro_Cuestionario_TextView_Carrera">Carrera</string>
     <string name="Filtro_Cuestionario_TextView_Comuna">Comuna</string>
-    <string name="Filtro_Cuestionario_TextView_estado_civil">Estado Civil</string>
+    <string name="Filtro_Cuestionario_TextView_estado_civil">Situacion Sentimental</string>
     <string name="Filtro_Cuestionario_TextView_ano_ingreso">Año Ingreso</string>
     <string name="Filtro_Cuestionario_TextView_semestre">Nivel</string>
     <string name="Filtro_Cuestionario_Titulo">Filtros</string>

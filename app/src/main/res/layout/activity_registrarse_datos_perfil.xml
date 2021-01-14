@@ -126,7 +126,8 @@
                 android:layout_height="40sp"
                 android:layout_weight="1"
                 android:text="@string/Filtro_Cuestionario_TextView_estado_civil"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="12sp" />
 
             <Spinner
                 android:id="@+id/spinner_Estado_Civil"

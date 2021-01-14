@@ -20,7 +20,7 @@
 
     <TableLayout
         android:layout_width="408dp"
-        android:layout_height="523dp"
+        android:layout_height="520dp"
         android:layout_marginTop="36dp"
         android:animateLayoutChanges="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:background="#b1b1b1">
 
             <TextView
@@ -134,7 +134,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/Filtro_Cuestionario_TextView_estado_civil"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textDirection="locale"
+                android:textSize="12sp" />
 
             <Spinner
                 android:id="@+id/spinner_Estado_Civil"

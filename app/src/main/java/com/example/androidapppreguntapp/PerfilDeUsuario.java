@@ -77,7 +77,7 @@ public class PerfilDeUsuario extends AppCompatActivity {
                         tvCarrera.setText("Carrera: "+jsonObject.getString("car_nombre"));
                         tvFacultad.setText("Facultad: "+jsonObject.getString("fac_nombre"));
                         tvComuna.setText("Comuna: "+jsonObject.getString("com_nombre"));
-                        tvEstadoCivil.setText("Estado civil: "+jsonObject.getString("eciv_nombre"));
+                        tvEstadoCivil.setText("Situacion sentimental: "+jsonObject.getString("eciv_nombre"));
                         tvGenero.setText("Genero: "+jsonObject.getString("gen_nombre"));
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
