@@ -7,16 +7,15 @@
 
     <EditText
         android:id="@+id/edit_cricketer_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/round_grey"
         android:layout_weight="1"
-        android:hint="Cricketer Name"
-        android:textSize="14sp"
+        android:background="@drawable/round_grey"
         android:paddingLeft="10dp"
         android:textColor="@color/mr_cast_meta_black_scrim"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"></EditText>
+        android:textSize="14sp"></EditText>
 
 
 

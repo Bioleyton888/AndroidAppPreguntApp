@@ -81,6 +81,7 @@ public class CrearCuestionario extends AppCompatActivity {
             etTituloEncuesta.setText(getIntent().getStringExtra("tituloEncuesta"));
             etCantidadDePreguntas.setText(getIntent().getStringExtra("cantidadDePreguntas"));
             c=getIntent().getStringExtra("fechaCreacion");
+            buttonsubirEncuesta.setVisibility(View.VISIBLE);
         }
 
         addFecha.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +154,7 @@ public class CrearCuestionario extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
                         lastID = jsonObject.getString("enc_id");
                         tvID.setText(lastID);
+                        buttonsubirEncuesta.setVisibility(View.VISIBLE);
 
                         //la funcion siguiente mete el nombre, el rut y el apellido osease siguiente(nombre,apellido,rut)
                     } catch (JSONException e) {

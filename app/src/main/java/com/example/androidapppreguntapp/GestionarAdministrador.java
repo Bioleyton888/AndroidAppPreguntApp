@@ -54,15 +54,15 @@ public class GestionarAdministrador extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if (buttondecicion.getText().equals("Primero busque a una persona")){
+                if (buttondecicion.getText().equals("Primero Ingrese un correo")){
                     Toast.makeText(getApplicationContext(),"Primero busque una persona",Toast.LENGTH_SHORT).show();
                 }else if (buttondecicion.getText().equals("Quitar Rol de administrador")){
                     modificarRol("https://preguntappusach.000webhostapp.com/editar_esadmin.php","0", String.valueOf(etCorreo.getText()));
-                    buttondecicion.setText("Primero busque a una persona");
+                    buttondecicion.setText("Primero Ingrese un correo");
                     buttondecicion.setBackgroundResource(R.color.grey);
                 }else {
                     modificarRol("https://preguntappusach.000webhostapp.com/editar_esadmin.php","1", String.valueOf(etCorreo.getText()));
-                    buttondecicion.setText("Primero busque a una persona");
+                    buttondecicion.setText("Primero Ingrese un correo");
                     buttondecicion.setBackgroundResource(R.color.grey);
                 }
             }

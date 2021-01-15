@@ -166,7 +166,7 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
     }
 
     private void funcionMostrarEscala() {
-        String [] escalas ={"Opcion Multiple","Casillas","Escala de likert" };
+        String [] escalas ={"Opcion Unica","Opcion Multiple","Escala de likert" };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, escalas);
         spinnerEscala.setAdapter(adapter);
 
@@ -288,9 +288,9 @@ public class CrearPreguntas extends AppCompatActivity implements View.OnClickLis
                 parametros.put("idPregunta",getIntent().getStringExtra("idPregunta"));
                 parametros.put("idEncuesta",getIntent().getStringExtra("idEncuesta"));
 
-                if (selection.equals("Opcion Multiple")){
+                if (selection.equals("Opcion Unica")){
                     parametros.put("tipoPregunta","1");
-                }else if (selection.equals("Casillas")){
+                }else if (selection.equals("Opcion Multiple")){
                     parametros.put("tipoPregunta","2");
                 }else if (selection.equals("Escala de likert")){
                     parametros.put("tipoPregunta","3");

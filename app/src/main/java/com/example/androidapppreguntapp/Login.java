@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,6 @@ public class Login extends AppCompatActivity {
         botonRegistrarse= (Button)findViewById(R.id.buttonRegistrarse) ;
 
 
-
         botonRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                 login("https://preguntappusach.000webhostapp.com/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
                 //login("http://"+ xamp.ipv4()+":"+ xamp.port()+"/webservicesPreguntAPP/login_administrador.php?per_correo="+eTMail.getText()+"&per_contrasena="+eTPassword.getText()+"");
             }

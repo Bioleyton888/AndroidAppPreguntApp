@@ -73,7 +73,7 @@ public class PerfilDeAdministrador extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
                         tvAnoIngreso.setText("Año de ingreso: "+jsonObject.getString("usu_anoingreso"));
 
-                        tvSemestre.setText("Semestre: "+jsonObject.getString("usu_semestre"));
+                        tvSemestre.setText("Nivel academico: "+jsonObject.getString("usu_semestre"));
                         tvSexo.setText("Orientacion Sexual: "+jsonObject.getString("sex_nombre"));
                         tvCarrera.setText("Carrera: "+jsonObject.getString("car_nombre"));
                         tvFacultad.setText("Facultad: "+jsonObject.getString("fac_nombre"));

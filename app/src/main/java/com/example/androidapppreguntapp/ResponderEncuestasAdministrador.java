@@ -82,11 +82,11 @@ public class ResponderEncuestasAdministrador extends AppCompatActivity implement
 
             case R.id.buttonSiguientePregunta:
 
-                Toast.makeText(this,"3",Toast.LENGTH_SHORT);
+                //Toast.makeText(this,"3",Toast.LENGTH_SHORT);
 
                 if (getIntent().getIntExtra("preguntaNumero", 1) == (getIntent().getIntExtra("cantidadPreguntas", 1))) {
-                    Toast toast =Toast.makeText(this,"FELICIDADES",Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.START,275,0);
+                    Toast toast =Toast.makeText(this,"Muchas gracias por responder la encuesta",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.START,100,0);
                     toast.show();
                     constanciaDeRespuesta("https://preguntappusach.000webhostapp.com/insertar_encuesta_respondida.php");
                     irAErncuestasPendientes();
