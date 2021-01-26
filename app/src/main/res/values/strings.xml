@@ -50,7 +50,7 @@
     <string name="Filtro_Cuestionario_TextView_Comuna">Comuna</string>
     <string name="Filtro_Cuestionario_TextView_estado_civil">Situacion Sentimental</string>
     <string name="Filtro_Cuestionario_TextView_ano_ingreso">Año Ingreso</string>
-    <string name="Filtro_Cuestionario_TextView_semestre">Nivel</string>
+    <string name="Filtro_Cuestionario_TextView_semestre">Nivel Academico</string>
     <string name="Filtro_Cuestionario_Titulo">Filtros</string>
 
     <string name="generacion_graficos_generar_pdf">Descargar PDF</string>
