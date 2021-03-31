@@ -53,7 +53,7 @@
     <string name="Filtro_Cuestionario_TextView_semestre">Nivel Academico</string>
     <string name="Filtro_Cuestionario_Titulo">Filtros</string>
 
-    <string name="generacion_graficos_generar_pdf">Descargar PDF</string>
+    <string name="generacion_graficos_generar_pdf">Descargar Archivos</string>
     <string name="generacion_graficos_agregar_graficos">Agregar Graficos</string>
     <string name="generacion_graficos_Total_respuestas">Gente que ha respondido la encuesta: 0</string>
     <string name="terminar_seleccion">Terminar seleccion</string>
@@ -79,7 +79,7 @@
     <string name="_0">0</string>
     <string name="ingrese_contrase_a">Ingrese la contraseña</string>
     <string name="vuelva_a_ingresar_contra_a">Vuelva a ingresar la contraseña</string>
-
+    <string name="descargar_excel">Descargar Excel</string>
 
 
 </resources>

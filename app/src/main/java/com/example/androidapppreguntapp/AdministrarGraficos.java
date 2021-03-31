@@ -25,6 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.graphics.BitmapFactory;
@@ -34,6 +37,8 @@ import android.os.Environment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -44,6 +49,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -56,11 +62,14 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.opencsv.CSVWriter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Locale;
 
 public class AdministrarGraficos extends AppCompatActivity implements View.OnClickListener {
     FuncionesVarias xamp = new FuncionesVarias();
@@ -103,6 +112,8 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         spinnerPregunta = (Spinner) findViewById(R.id.spinnerPregunta);
         tvCantidadDeRespuestaEncuestas = (TextView) findViewById(R.id.textViewCantidadDeRespuestas);
         AdministrarGraficosbotonVolver = (Button) findViewById(R.id.buttonSalir);
+
+
 
 
         buttonGenerarTerminarSeleccion = (Button) findViewById(R.id.buttonGenerarTerminarSeleccion);
@@ -284,6 +295,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
                             contador[0]=0;
                             botonGenerarPDF.setVisibility(View.VISIBLE);
 
+
                         }
 
 
@@ -302,6 +314,7 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
             }
         });
+
 
 
 
@@ -340,20 +353,49 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
 
     }
 
+    private void funcionCrearExcel(ArrayList<String> listaDeEncuestasParaElGrafico, ArrayList<String> listaDePreguntasParaElGrafico2, ArrayList<String> listaDeRespuestasParaLosGraficos, ArrayList<String> listaDeCuantosRespondieronTalRespuestaParaLosGraficos, ArrayList<Integer> listaDeCantidadDeRespuestasPorPreguntaParaLosGraficos) {
+
+
+
+    }
+
     public void funcionGraficar(ArrayList<String> Encuesta,
-                                 ArrayList<String> preguntas,
-                                 ArrayList<String> respuesta,
-                                 ArrayList<String> resultadospregunt,
-                                 ArrayList<Integer> cantopcionespregunt) {
+                                ArrayList<String> preguntas,
+                                ArrayList<String> respuesta,
+                                ArrayList<String> resultadospregunt,
+                                ArrayList<Integer> cantopcionespregunt) {
 
         String CantidadDePersonas = (String) tvCantidadDeRespuestaEncuestas.getText();
         String[] totalopciones[] = new String[20][20];
         int[] totalresultado[] = new int[20][20];
 
+        ///Se direccionan los archivos PDF y CSV a la carpeta PreguntApp dentro del sistema
+        File carpeta = new File(Environment.getExternalStorageDirectory() + "/PreguntApp");
+        boolean isCreate = false;
+        ///De no estar creada, se crea
+        if(!carpeta.exists()){
+            isCreate = carpeta.mkdir();
+        }
+
+        //Luego se asignan nombre y direccion donde se guardara el archivo PDF en el almacenamiento del celular
+        String mFileName = Encuesta.get(0);
+        String mFilePath = carpeta.toString() + "/" +mFileName + ".pdf";
+        String csv = carpeta.toString() + "/" +mFileName + ".csv";
+
+        //Se crea el tipo de dato writer que ayuda a escribir el .csv
+        CSVWriter writer = null;
+        try {
+            writer = new CSVWriter(new FileWriter(csv));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Se inicia el archivo .csv con la cantidad de gente que ha respondido la encuesta
+        writer.writeNext(new String[]{CantidadDePersonas});
+
+        /* Debugger en terminal de salida
         System.out.println("--< string tituloencuesta"+Encuesta.get(0));
         System.out.println("--< string Preguntas"+preguntas);
         System.out.println("--< int opciones"+cantopcionespregunt);
-
         int posicion = 0;
         String hola;
         for (int i=0; i < cantopcionespregunt.size();i++){
@@ -365,97 +407,142 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
             }
             System.out.println(" ");
         }
-
-        posicion = 0;
+        */
+        int posicion = 0;
         for (int i=0; i < cantopcionespregunt.size();i++) {
-            System.out.println("<<<-<<<" + i);
-            hola = "---< Respuestas [" + (i) + "] ";
-            System.out.print(hola);
+            //System.out.println("<<<-<<<" + i);
+            //hola = "---< Respuestas [" + (i) + "] ";
+            //System.out.print(hola);
+            writer.writeNext(new String[]{preguntas.get(i)});
             for (int o = 0; o < cantopcionespregunt.get(i); o++) {
-                System.out.print(resultadospregunt.get(posicion) + ", ");
+                //System.out.print(resultadospregunt.get(posicion) + ", ");
                 totalopciones[i][o] = respuesta.get(posicion);
                 totalresultado[i][o] = Integer.parseInt(resultadospregunt.get(posicion));
+                writer.writeNext(new String[]{totalopciones[i][o],String.valueOf(totalresultado[i][o])});
                 posicion = posicion + 1;
             }
-            System.out.println(" ");
+            //System.out.println(" ");
         }
-            try {
-                //Inicializando Documento PDF
-                Document mDoc = new Document(PageSize.LETTER);
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            //Inicializando Documento PDF
+            Document mDoc = new Document(PageSize.LETTER);
 
-                //Nombre y direccion donde se guardara el archivo PDF en el almacenamiento del celular
-                String mFileName = Encuesta.get(0);
-                String mFilePath = Environment.getExternalStorageDirectory() + "/" +mFileName + ".pdf";
-                PdfWriter.getInstance(mDoc, new FileOutputStream(mFilePath));
-                //Font dir = new Font(Font.FontFamily.HELVETICA, 11);
+            //Se crea el tipo de dato para maniobrar archivos PDF
+            PdfWriter.getInstance(mDoc, new FileOutputStream(mFilePath));
+            //Font dir = new Font(Font.FontFamily.HELVETICA, 11);
 
-                //SE ABRE EL DOCUMENTO PDF
-                mDoc.open();
-
-
-                //SE CREAN LAS TABLAS PARA AYUDARNOS A ORGANIZAR EL PDF
-                PdfPTable logos = new PdfPTable(3);
-                PdfPTable GraPie = new PdfPTable(5);
-                PdfPTable GraBarr = new PdfPTable(1);
-                PdfPTable datos = new PdfPTable(2);
+            //SE ABRE EL DOCUMENTO PDF
+            mDoc.open();
 
 
-                //SE ENVIA LA TABLA PARA QUE LOS LOGOS PUEDAN SER AÑADIDOS EN LA FUNCION insertarlogos()
-                insertarlogos(logos);
-                //Finalmente se añade la tabla logos al PDF
-                mDoc.add(logos);
+            //SE CREAN LAS TABLAS PARA AYUDARNOS A ORGANIZAR EL PDF
+            PdfPTable logos = new PdfPTable(3);
+            PdfPTable GraPie = new PdfPTable(5);
+            PdfPTable GraBarr = new PdfPTable(1);
+            PdfPTable datos = new PdfPTable(2);
 
-                //SE INDICA EL NOMBRE DE LA ENCUESTA
-                Paragraph titulopdf = new Paragraph(mFileName);
+
+            //SE ENVIA LA TABLA PARA QUE LOS LOGOS PUEDAN SER AÑADIDOS EN LA FUNCION insertarlogos()
+            insertarlogos(logos);
+            //Finalmente se añade la tabla logos al PDF
+            mDoc.add(logos);
+
+            //Se llena los datos de la Universidad
+            Font uni = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD, BaseColor.BLACK);
+            Font lodemas = new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD, BaseColor.BLACK);
+            Font encue = new Font(Font.FontFamily.HELVETICA, 14, Font.NORMAL);
+            Paragraph intro = new Paragraph(new Phrase("UNIVERSIDAD DE SANTIAGO DE CHILE", uni));
+            intro.setAlignment(Element.ALIGN_CENTER);
+            mDoc.add(intro);
+            intro = new Paragraph(new Phrase("FACULTAD DE CIENCIAS", lodemas));
+            intro.setAlignment(Element.ALIGN_CENTER);
+            mDoc.add(intro);
+            intro = new Paragraph(new Phrase("DEPARTAMENTO DE MATEMÁTICA Y CIENCIA DE LA COMPUTACIÓN", lodemas));
+            intro.setAlignment(Element.ALIGN_CENTER);
+            mDoc.add(intro);
+            intro = new Paragraph(new Phrase("CENTRO DE ESTUDIANTES DE LICENCIATURA EN CIENCIA DE LA COMPUTACIÓN ", lodemas));
+            intro.setAlignment(Element.ALIGN_CENTER);
+            mDoc.add(intro);
+            mDoc.add(new Phrase(" "));
+            //SE INDICA EL NOMBRE DE LA ENCUESTA
+            intro = new Paragraph(new Phrase(mFileName, encue));
+            intro.setAlignment(Element.ALIGN_CENTER);
+            mDoc.add(intro);
+            //Y la gente que ha respondido la encuesta
+            intro = new Paragraph(new Phrase(CantidadDePersonas, encue));
+            intro.setAlignment(Element.ALIGN_CENTER);
+            mDoc.add(intro);
+
+            //Posteriormente, se pone la fecha como pie de pagina
+            String date = new SimpleDateFormat("yyyy", Locale.getDefault()).format(System.currentTimeMillis());
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase("\n"));
+            mDoc.add(new Phrase("\n"));
+            mDoc.add(new Phrase("\n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            mDoc.add(new Phrase(" \n"));
+            intro = new Paragraph(new Phrase("Santiago, "+date));
+            intro.setAlignment(Element.ALIGN_CENTER);
+            mDoc.add(intro);
+            mDoc.newPage();
+
+            //SE PROCEDE A AÑADIR LOS GRAFICOS DEPENDIENDO DE LAS PREGUNTAS, PARA ESTO ES NECESARIO UN BUCLE QUE LEA EL TIPO DE PREGUNTA Y
+            //LO DERIVE A LA FUNCION CORRESPONDIENTE, PARA ESTO ES NECESARIA LA TABLA GRAPIE, EL NOMBRE DE LAS OPCIONES
+            //LOS RESULTADOS POR CADA UNA DE LAS OPCIONES Y LA CANTIDAD DE OPCIONES DE LA PREGUNTA
+            for (int i=0; i<cantopcionespregunt.size();i++){
+                //PRIMERO SE AÑADE EL TITULO DE LA PREGUNTA
+                Paragraph titulopdf = new Paragraph(preguntas.get(i));
                 titulopdf.setAlignment(Element.ALIGN_CENTER);
                 mDoc.add(titulopdf);
                 mDoc.add(new Phrase(" "));
 
-                Paragraph genteapdf = new Paragraph(CantidadDePersonas);
-                titulopdf.setAlignment(Element.ALIGN_CENTER);
-                mDoc.add(genteapdf);
-                mDoc.add(new Phrase(" "));
 
-                //SE PROCEDE A AÑADIR LOS GRAFICOS DEPENDIENDO DE LAS PREGUNTAS, PARA ESTO ES NECESARIO UN BUCLE QUE LEA EL TIPO DE PREGUNTA Y
-                //LO DERIVE A LA FUNCION CORRESPONDIENTE, PARA ESTO ES NECESARIA LA TABLA GRAPIE, EL NOMBRE DE LAS OPCIONES
-                //LOS RESULTADOS POR CADA UNA DE LAS OPCIONES Y LA CANTIDAD DE OPCIONES DE LA PREGUNTA
-                for (int i=0; i<cantopcionespregunt.size();i++){
-                    //PRIMERO SE AÑADE EL TITULO DE LA PREGUNTA
-                    titulopdf = new Paragraph(preguntas.get(i));
-                    titulopdf.setAlignment(Element.ALIGN_CENTER);
-                    mDoc.add(titulopdf);
+                //Se calcuna el numero de respuestas a enviar al grafico
+                //LUEGO SE INSERTA EL GRAFICO
+                if(cantopcionespregunt.get(i)<4){
+                    graficoPie(GraPie, totalopciones[i], totalresultado[i], cantopcionespregunt.get(i));
+                    mDoc.add(GraPie);
                     mDoc.add(new Phrase(" "));
-
-
-                    //Se calcuna el numero de respuestas a enviar al grafico
-                    //LUEGO SE INSERTA EL GRAFICO
-                    if(cantopcionespregunt.get(i)<4){
-                        graficoPie(GraPie, totalopciones[i], totalresultado[i], cantopcionespregunt.get(i));
-                        mDoc.add(GraPie);
-                    }else{
-                        graficoBarras(GraBarr, totalopciones[i], totalresultado[i], cantopcionespregunt.get(i));
-                        mDoc.add(GraBarr);
-                    }
-                    //Se añade la tabla al documento PDF
-                    //Y ahora agregamos la tabla de datos
-                    añadirtabla(datos, totalopciones[i], totalresultado[i], cantopcionespregunt.get(i));
-                    mDoc.add(datos);
-                    mDoc.newPage();
-
-                    //Y se reinicia el proceso
-                    GraPie = new PdfPTable(5);
-                    GraBarr = new PdfPTable(1);
-                    datos = new PdfPTable(2);
+                    mDoc.add(new Phrase(" "));
+                }else{
+                    graficoBarras(GraBarr, totalopciones[i], totalresultado[i], cantopcionespregunt.get(i));
+                    mDoc.add(GraBarr);
                 }
+                //Se añade la tabla al documento PDF
+                //Y ahora agregamos la tabla de datos
+                añadirtabla(datos, totalopciones[i], totalresultado[i], cantopcionespregunt.get(i));
+                mDoc.add(datos);
+                mDoc.newPage();
 
-                mDoc.close();
-                Toast.makeText(this,mFileName + ".pdf\nesta guardado en\n"+ mFilePath, Toast.LENGTH_SHORT ).show();
-            }catch (Exception e){
-
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                //Y se reinicia el proceso
+                GraPie = new PdfPTable(5);
+                GraBarr = new PdfPTable(1);
+                datos = new PdfPTable(2);
             }
 
+            mDoc.close();
+            Toast.makeText(this,mFileName + ".pdf\nesta guardado en\n"+ mFilePath, Toast.LENGTH_SHORT ).show();
+        }catch (Exception e){
+
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+
+    }
 
 
     @Override
@@ -644,15 +731,27 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         pieData.setValueTextSize(15f);
 
         //PARA GRAFICO CIRCULAR - PARTE 5: EDITANDO CARACTERISTICAS DE SALIDA DEL GRAFICO
-        pieChart.setTransparentCircleRadius(75f);
-        pieChart.getLegend().setEnabled(false);
+        pieChart.getLegend().setEnabled(true);
+        pieChart.getLegend().setWordWrapEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setDrawHoleEnabled(false);
         pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setDrawEntryLabels(false);
         pieChart.getDescription().setEnabled(false);
         pieChart.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         pieChart.setUsePercentValues(true);
         pieChart.setData(pieData);
+
+        pieChart.getLegend().isDrawInsideEnabled();
+
+        Legend l = pieChart.getLegend();
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setWordWrapEnabled(true);
+        l.setXEntrySpace(15f);
+        l.setYEntrySpace(10f);
+        l.setTextSize(12f);
+        //l.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
+        l.setWordWrapEnabled(true);
 
 
 
@@ -714,43 +813,70 @@ public class AdministrarGraficos extends AppCompatActivity implements View.OnCli
         //PARA GRAFICO DE BARRAS - PARTE 2: RELLENANDO LA INFO EN LOS ARREGLOS
         ArrayList<BarEntry> databarr = new ArrayList<>();
         ArrayList<String> nombarr = new ArrayList<>();
+        LegendEntry[] mEntries = new LegendEntry[]{};
 
         for (int i = 0; i < cantopciones; i++){
             databarr.add(new BarEntry(i, resuporcent[i]));
             nombarr.add(respuesta[i]);
         }
-        //PARA GRAFICO DE BARRAS - PARTE 3: GENERANDO EL GRAFICO
-        //EDITANDO CARACTERISTICAS DEL GRAFICO
-        BarDataSet barDataSet = new BarDataSet(databarr, "");
-        barDataSet.setColors(new int[]{Color.parseColor("#F74949"),
+
+        List<LegendEntry> entries = new ArrayList<>();
+        int[] colors = {Color.parseColor("#F74949"),
                 Color.parseColor("#49A0F7"),
                 Color.parseColor("#F7B849"),
                 Color.parseColor("#49F7C8"),
                 Color.parseColor("#F749DA"),
                 Color.parseColor("#51F749"),
-                Color.parseColor("#F2ED59")});
+                Color.parseColor("#F2ED59")};
+
+        for (int i = 0; i < cantopciones ; i++) {
+            final LegendEntry entry = new LegendEntry();
+            entry.formColor = colors[i];
+            entry.label = respuesta[i];
+
+            if (entry.formColor == ColorTemplate.COLOR_SKIP)
+                entry.form = Legend.LegendForm.NONE;
+            else if (entry.formColor == ColorTemplate.COLOR_NONE ||
+                    entry.formColor == 0)
+                entry.form = Legend.LegendForm.EMPTY;
+
+            entries.add(entry);
+        }
+        mEntries = entries.toArray(new LegendEntry[entries.size()]);
+
+        //PARA GRAFICO DE BARRAS - PARTE 3: GENERANDO EL GRAFICO
+        //EDITANDO CARACTERISTICAS DEL GRAFICO
+        BarDataSet barDataSet = new BarDataSet(databarr, "");
+        barDataSet.setColors(colors);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setDrawValues(true);
         barDataSet.setValueFormatter(new com.github.mikephil.charting.formatter.PercentFormatter());
+        barDataSet.setValueTextSize(10f);
 
         //GENERANDO EL GRAFICO
         BarData data = new BarData(barDataSet);
         //EDITANDO CARACTERISTICAS DEL GRAFICO DE SALIDA
 
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(nombarr));
-        xAxis.setTextSize(1.5f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(-45);
-        xAxis.setLabelCount(cantopciones, false);
-        xAxis.setDrawGridLines(true);
-
-        //barChart.setXAxisRenderer(new CustomXAxisRenderer(barChart.getViewPortHandler(), barChart.getXAxis(), barChart.getTransformer(YAxis.AxisDependency.LEFT)));
         barChart.getDescription().setEnabled(false);
+        barChart.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         barChart.getAxisRight().setEnabled(false);
-        barChart.getLegend().setEnabled(false);
-        barChart.setFitBars(true);
-        barChart.setDrawValueAboveBar(false);
+        barChart.getXAxis().setEnabled(false);
+
+        Legend l = barChart.getLegend();
+        l.setCustom(mEntries);
+        //l.setWordWrapEnabled(true);
+        l.setXEntrySpace(5f);
+        l.setYEntrySpace(5f);
+        l.setTextSize(8f);
+        //l.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
+        l.setFormSize(5f);
+        l.setFormToTextSpace(2f);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setWordWrapEnabled(true);
+        l.setDrawInside(false);
+        l.setEnabled(true);
         barChart.setData(data);
 
 
